@@ -1,8 +1,8 @@
 using System;
 using System.Threading.Tasks;
-using Contracts.Repository;
+using SportsBetsServer.Contracts.Repository;
 using LoggerService;
-using Entities.Models;
+using SportsBetsServer.Entities.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

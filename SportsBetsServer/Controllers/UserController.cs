@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Contracts.Repository;
-using Contracts.Services;
+using SportsBetsServer.Contracts.Repository;
+using SportsBetsServer.Contracts.Services;
 using LoggerService;
-using Entities.Models;
-using Entities.Extensions;
+using SportsBetsServer.Entities.Models;
+using SportsBetsServer.Entities.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace SportsBetsServer.Controllers

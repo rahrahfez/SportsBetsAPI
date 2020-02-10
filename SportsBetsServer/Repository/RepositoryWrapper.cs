@@ -1,7 +1,7 @@
-using Contracts.Repository;
-using Entities;
+using SportsBetsServer.Contracts.Repository;
+using SportsBetsServer.Entities;
 
-namespace Repository
+namespace SportsBetsServer.Repository
 {
     public class RepositoryWrapper : IRepositoryWrapper
     {

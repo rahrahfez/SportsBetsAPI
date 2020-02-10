@@ -2,11 +2,11 @@
 using System.Linq;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
-using Contracts.Repository;
-using Entities;
+using SportsBetsServer.Contracts.Repository;
+using SportsBetsServer.Entities;
 using System.Threading.Tasks;
 
-namespace Repository
+namespace SportsBetsServer.Repository
 
 {
     public class RepositoryBase<T> : IRepositoryBase<T> where T : class

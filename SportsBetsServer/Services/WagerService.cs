@@ -1,8 +1,8 @@
 using System;
-using Entities.Models;
-using Contracts.Services;
+using SportsBetsServer.Entities.Models;
+using SportsBetsServer.Contracts.Services;
 
-namespace Services
+namespace SportsBetsServer.Services
 {
     public class WagerService : IWagerService
     {

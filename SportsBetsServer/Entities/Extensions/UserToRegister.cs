@@ -1,10 +1,32 @@
-﻿namespace Entities.Extensions
+﻿namespace SportsBetsServer.Entities.Extensions
 {
     public class UserToRegister
     {
-        private readonly string _username;
-        private readonly string _password;
-        public string Username { get; set; }
-        public string Password { get; set; }
+        private string _username;
+        private string _password;
+        public UserToRegister()
+        {
+
+        }
+        public string Username { 
+            get
+            {
+                return _username ?? "";
+            } 
+            set
+            {
+                _username = value;
+            }
+        }
+        public string Password { 
+            get
+            {
+                return _password ?? "";
+            } 
+            set
+            {
+                _password = value;
+            }
+        }
     }
 }

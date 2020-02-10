@@ -1,11 +1,11 @@
-using Contracts.Services;
-using Contracts.Repository;
-using Entities.Models;
+using SportsBetsServer.Contracts.Services;
+using SportsBetsServer.Contracts.Repository;
+using SportsBetsServer.Entities.Models;
 using System.Linq;
 using System.Threading.Tasks;
 using System;
 
-namespace Services
+namespace SportsBetsServer.Services
 {
     public class AuthService : IAuthService
     {
@@ -46,7 +46,6 @@ namespace Services
             {
                 user = null;
             }
-
             return user;
         }
     }

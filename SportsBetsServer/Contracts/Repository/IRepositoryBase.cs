@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Linq.Expressions;
 
-namespace Contracts.Repository
+namespace SportsBetsServer.Contracts.Repository
 {
     public interface IRepositoryBase<T>
     {

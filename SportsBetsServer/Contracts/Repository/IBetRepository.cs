@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
-using Entities.Models;
+using SportsBetsServer.Entities.Models;
 
-namespace Contracts.Repository
+namespace SportsBetsServer.Contracts.Repository
 {
     public interface IBetRepository
     {

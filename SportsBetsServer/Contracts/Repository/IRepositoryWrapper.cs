@@ -1,4 +1,4 @@
-namespace Contracts.Repository
+namespace SportsBetsServer.Contracts.Repository
 {
     public interface IRepositoryWrapper
     {

@@ -1,7 +1,7 @@
 using System;
-using Contracts.Services;
+using SportsBetsServer.Contracts.Services;
 
-namespace Services
+namespace SportsBetsServer.Services
 {
     public class SystemDateTime : IDateTime
     {

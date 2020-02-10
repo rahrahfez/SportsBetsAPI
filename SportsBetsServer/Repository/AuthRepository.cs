@@ -1,13 +1,13 @@
 using System;
 using System.Threading.Tasks;
-using Entities.Models;
-using Contracts.Services;
-using Contracts.Repository;
-using Entities;
+using SportsBetsServer.Entities.Models;
+using SportsBetsServer.Contracts.Services;
+using SportsBetsServer.Contracts.Repository;
+using SportsBetsServer.Entities;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
-namespace Repository
+namespace SportsBetsServer.Repository
 {
     public class AuthRepository : RepositoryBase<Credential>, IAuthRepository
     {

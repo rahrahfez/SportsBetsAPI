@@ -1,7 +1,7 @@
 using System;
-using Entities.Models;
+using SportsBetsServer.Entities.Models;
 
-namespace Contracts.Services
+namespace SportsBetsServer.Contracts.Services
 {
     public interface IWagerService
     {

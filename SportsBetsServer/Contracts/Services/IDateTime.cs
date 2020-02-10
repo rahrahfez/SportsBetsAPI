@@ -1,6 +1,6 @@
 using System;
 
-namespace Contracts.Services 
+namespace SportsBetsServer.Contracts.Services 
 {
   public interface IDateTime
   {

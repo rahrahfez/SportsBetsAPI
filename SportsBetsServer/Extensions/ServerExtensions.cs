@@ -1,11 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using Contracts.Repository;
-using Contracts.Services;
+using SportsBetsServer.Contracts.Repository;
+using SportsBetsServer.Contracts.Services;
 using LoggerService;
-using Entities;
-using Repository;
-using Services;
+using SportsBetsServer.Entities;
+using SportsBetsServer.Repository;
+using SportsBetsServer.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;

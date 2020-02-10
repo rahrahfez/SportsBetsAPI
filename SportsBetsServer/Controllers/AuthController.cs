@@ -1,9 +1,9 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Contracts.Repository;
-using Contracts.Services;
-using Entities.Extensions;
+using SportsBetsServer.Contracts.Repository;
+using SportsBetsServer.Contracts.Services;
+using SportsBetsServer.Entities.Extensions;
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;

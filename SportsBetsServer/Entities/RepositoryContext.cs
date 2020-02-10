@@ -1,8 +1,8 @@
 ﻿using System;
-using Entities.Models;
+using SportsBetsServer.Entities.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Entities
+namespace SportsBetsServer.Entities
 { 
     public class RepositoryContext : DbContext
     {
