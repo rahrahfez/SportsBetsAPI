@@ -1,17 +1,16 @@
 using System;
 using Xunit;
 using SportsBetsServer.Services;
-using SportsBetsServer.Repository;
-using SportsBetsServer.Entities;
+using SportsBetsServer.Contracts.Services;
 
 namespace SportsBetsAPI.UnitTests.Services
 {
     public class AuthServiceTest
     {
-        private readonly AuthService _authService;
+        private readonly IAuthService _authService;
         public AuthServiceTest()
         {
-            _authService = new AuthService();
+           // _authService = new AuthService();
         }
         [Fact]
         public void CreatePasswordHashTest()
