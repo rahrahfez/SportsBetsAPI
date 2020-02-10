@@ -4366,20 +4366,6 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XPath.XDocument.dll": {}
         }
-      },
-      "LoggerService/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v2.2",
-        "dependencies": {
-          "NLog": "4.6.5",
-          "NLog.Web.AspNetCore": "4.8.4"
-        },
-        "compile": {
-          "bin/placeholder/LoggerService.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/LoggerService.dll": {}
-        }
       }
     }
   },
@@ -11772,16 +11758,11 @@
         "system.xml.xpath.xdocument.4.3.0.nupkg.sha512",
         "system.xml.xpath.xdocument.nuspec"
       ]
-    },
-    "LoggerService/1.0.0": {
-      "type": "project",
-      "path": "../LoggerService/LoggerService.csproj",
-      "msbuildProject": "../LoggerService/LoggerService.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.2": [
-      "LoggerService >= 1.0.0",
+      "C:\\Users\\david\\Documents\\Projects\\SportsBetsAPI\\LoggerService\\LoggerService.csproj",
       "Microsoft.AspNetCore.App >= 2.2.0",
       "Microsoft.EntityFrameworkCore >= 2.2.4",
       "Microsoft.NETCore.App >= 2.2.0",
@@ -11798,11 +11779,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\david\\Documents\\Projects\\SportsBets\\SportsBetsAPI\\SportsBetsServer\\SportsBetsServer.csproj",
+      "projectUniqueName": "C:\\Users\\david\\Documents\\Projects\\SportsBetsAPI\\SportsBetsServer\\SportsBetsServer.csproj",
       "projectName": "SportsBetsServer",
-      "projectPath": "C:\\Users\\david\\Documents\\Projects\\SportsBets\\SportsBetsAPI\\SportsBetsServer\\SportsBetsServer.csproj",
+      "projectPath": "C:\\Users\\david\\Documents\\Projects\\SportsBetsAPI\\SportsBetsServer\\SportsBetsServer.csproj",
       "packagesPath": "C:\\Users\\david\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\david\\Documents\\Projects\\SportsBets\\SportsBetsAPI\\SportsBetsServer\\obj\\",
+      "outputPath": "C:\\Users\\david\\Documents\\Projects\\SportsBetsAPI\\SportsBetsServer\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -11821,8 +11802,8 @@
       "frameworks": {
         "netcoreapp2.2": {
           "projectReferences": {
-            "C:\\Users\\david\\Documents\\Projects\\SportsBets\\SportsBetsAPI\\LoggerService\\LoggerService.csproj": {
-              "projectPath": "C:\\Users\\david\\Documents\\Projects\\SportsBets\\SportsBetsAPI\\LoggerService\\LoggerService.csproj"
+            "C:\\Users\\david\\Documents\\Projects\\SportsBetsAPI\\LoggerService\\LoggerService.csproj": {
+              "projectPath": "C:\\Users\\david\\Documents\\Projects\\SportsBetsAPI\\LoggerService\\LoggerService.csproj"
             }
           }
         }
@@ -11882,5 +11863,16 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1105",
+      "level": "Error",
+      "message": "Unable to find project information for 'C:\\Users\\david\\Documents\\Projects\\SportsBetsAPI\\LoggerService\\LoggerService.csproj'. If you are using Visual Studio, this may be because the project is unloaded or not part of the current solution so please run a restore from the command-line. Otherwise, the project file may be invalid or missing targets required for restore.",
+      "libraryId": "C:\\Users\\david\\Documents\\Projects\\SportsBetsAPI\\LoggerService\\LoggerService.csproj",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v2.2"
+      ]
+    }
+  ]
 }
