@@ -1,0 +1,8 @@
+C:\Users\david\Documents\Projects\SportsBets\SportsBetsAPI\LoggerService\bin\Debug\netcoreapp2.2\LoggerService.deps.json
+C:\Users\david\Documents\Projects\SportsBets\SportsBetsAPI\LoggerService\bin\Debug\netcoreapp2.2\LoggerService.dll
+C:\Users\david\Documents\Projects\SportsBets\SportsBetsAPI\LoggerService\bin\Debug\netcoreapp2.2\LoggerService.pdb
+C:\Users\david\Documents\Projects\SportsBets\SportsBetsAPI\LoggerService\obj\Debug\netcoreapp2.2\LoggerService.csprojAssemblyReference.cache
+C:\Users\david\Documents\Projects\SportsBets\SportsBetsAPI\LoggerService\obj\Debug\netcoreapp2.2\LoggerService.AssemblyInfoInputs.cache
+C:\Users\david\Documents\Projects\SportsBets\SportsBetsAPI\LoggerService\obj\Debug\netcoreapp2.2\LoggerService.AssemblyInfo.cs
+C:\Users\david\Documents\Projects\SportsBets\SportsBetsAPI\LoggerService\obj\Debug\netcoreapp2.2\LoggerService.dll
+C:\Users\david\Documents\Projects\SportsBets\SportsBetsAPI\LoggerService\obj\Debug\netcoreapp2.2\LoggerService.pdb

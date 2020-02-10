@@ -1,0 +1,12 @@
+2019-08-01 09:30:06.1839 INFO Successfully deleted wager with id 229ce12e-a87d-4562-ad95-d9591e7a9b9c
+2019-08-01 09:32:15.6024 INFO Successfully deleted wager with id 4ba92b9d-d8b6-4705-8869-54ea8a00611f
+2019-08-01 09:33:32.9000 INFO Successfully deleted wager with id 9b312109-4146-4275-b351-a83956405272
+2019-08-01 12:13:34.8521 ERROR Error occurred in UpdateWager(): The instance of entity type 'Wager' cannot be tracked because another instance with the same key value for {'Id'} is already being tracked. When attaching existing entities, ensure that only one entity instance with a given key value is attached. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see the conflicting key values.
+2019-08-01 13:43:52.6476 ERROR Error occurred in UpdateWager(): The instance of entity type 'Wager' cannot be tracked because another instance with the same key value for {'Id'} is already being tracked. When attaching existing entities, ensure that only one entity instance with a given key value is attached. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see the conflicting key values.
+2019-08-01 14:11:36.2858 ERROR Error occurred in UpdateWager(): The instance of entity type 'Wager' cannot be tracked because another instance with the same key value for {'Id'} is already being tracked. When attaching existing entities, ensure that only one entity instance with a given key value is attached. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see the conflicting key values.
+2019-08-01 14:12:27.2953 INFO Successfully created wager with id 1f3e59dc-4a05-498e-a442-4535fbf712a3
+2019-08-01 14:13:08.3181 INFO Successfully created wager with id 7e543867-a741-44bd-837f-5fb07ffdf625
+2019-08-01 14:14:51.4776 INFO Successfully created wager with id 7f88d139-eef7-4ee6-af5b-d49f160ce560
+2019-08-01 14:26:17.9889 INFO cohh1234 successfully created a token.
+2019-08-01 14:29:33.5719 INFO Successfully created wager with id 2b2c83af-102f-4d96-9d9e-d60f7a0d7a32
+2019-08-01 15:13:27.4343 ERROR Error occurred in UpdateWager(): The instance of entity type 'Wager' cannot be tracked because another instance with the same key value for {'Id'} is already being tracked. When attaching existing entities, ensure that only one entity instance with a given key value is attached. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see the conflicting key values.

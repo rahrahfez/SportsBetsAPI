@@ -1,0 +1,9 @@
+2019-07-18 00:15:11.8897 INFO teste successfully created a token.
+2019-07-18 00:22:48.6687 INFO teste successfully created a token.
+2019-07-18 00:30:44.7272 INFO david successfully created a token.
+2019-07-18 00:33:49.7657 ERROR Username already exists.
+2019-07-18 00:37:28.7253 ERROR Username already exists.
+2019-07-18 00:38:33.7687 ERROR Username already exists.
+2019-07-18 00:38:38.8991 ERROR Email already exists.
+2019-07-18 00:46:35.9336 INFO david successfully created a token.
+2019-07-18 07:37:26.5039 INFO david successfully created a token.

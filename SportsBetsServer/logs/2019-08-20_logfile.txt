@@ -1,0 +1,5 @@
+2019-08-20 11:38:36.7917 INFO {"alg":"HS512","typ":"JWT"}.{"nameid":"701c676a-7580-4a23-8b9f-1cd5fdfa8c0b","unique_name":"david","nbf":1566315516,"exp":1566316116,"iat":1566315516} successfully created. Encoded as eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI3MDFjNjc2YS03NTgwLTRhMjMtOGI5Zi0xY2Q1ZmRmYThjMGIiLCJ1bmlxdWVfbmFtZSI6ImRhdmlkIiwibmJmIjoxNTY2MzE1NTE2LCJleHAiOjE1NjYzMTYxMTYsImlhdCI6MTU2NjMxNTUxNn0.oWtrYqfzwlaZav941J3cM14-xd1R-cZNpAcu1kcYalnMOmWEM7fH48VVkU2o6iUK-4fgKTtJ2Uo3rl4euJhVTQ
+2019-08-20 14:07:43.6441 ERROR Username already exists.
+2019-08-20 14:10:31.1840 ERROR Username already exists.
+2019-08-20 14:10:31.1840 ERROR Username already exists.
+2019-08-20 14:11:07.6816 INFO {"alg":"HS512","typ":"JWT"}.{"nameid":"701c676a-7580-4a23-8b9f-1cd5fdfa8c0b","unique_name":"david","nbf":1566324667,"exp":1566325267,"iat":1566324667} successfully created. Encoded as eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI3MDFjNjc2YS03NTgwLTRhMjMtOGI5Zi0xY2Q1ZmRmYThjMGIiLCJ1bmlxdWVfbmFtZSI6ImRhdmlkIiwibmJmIjoxNTY2MzI0NjY3LCJleHAiOjE1NjYzMjUyNjcsImlhdCI6MTU2NjMyNDY2N30._h6RJFKTx7I4v6Hpc_LQ3kJrl3riC9Pt_HLIC8NYCpLAl8TKFHY8lMhlpeHdTBF9lcQqTqC4oZvw8vP8WsnADg

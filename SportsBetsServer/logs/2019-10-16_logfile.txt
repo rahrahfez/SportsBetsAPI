@@ -1,0 +1,10 @@
+2019-10-16 09:51:31.3967 INFO Successfully returned wagers of user id dbb865d7-b7be-44cb-a044-3ed195af6261
+2019-10-16 09:53:47.1980 INFO Successfully returned wagers of user id dbb865d7-b7be-44cb-a044-3ed195af6261
+2019-10-16 09:54:55.3467 INFO Successfully returned wagers of user id dbb865d7-b7be-44cb-a044-3ed195af6261
+2019-10-16 10:30:19.3357 INFO Successfully returned wagers of user id dbb865d7-b7be-44cb-a044-3ed195af6261
+2019-10-16 10:31:05.4568 INFO Successfully returned wagers of user id dbb865d7-b7be-44cb-a044-3ed195af6261
+2019-10-16 10:31:49.8906 INFO Successfully returned wagers of user id dbb865d7-b7be-44cb-a044-3ed195af6261
+2019-10-16 10:32:25.4274 INFO Successfully returned wagers of user id dbb865d7-b7be-44cb-a044-3ed195af6261
+2019-10-16 10:37:50.7719 INFO Successfully returned wagers of user id dbb865d7-b7be-44cb-a044-3ed195af6261
+2019-10-16 10:40:46.4932 INFO Successfully returned wagers of user id dbb865d7-b7be-44cb-a044-3ed195af6261
+2019-10-16 10:41:11.5870 INFO Successfully returned wagers of user id dbb865d7-b7be-44cb-a044-3ed195af6261

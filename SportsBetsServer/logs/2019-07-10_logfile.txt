@@ -1,0 +1,15 @@
+2019-07-10 09:20:15.1318 INFO mysql has successfully registered.
+2019-07-10 09:22:30.1331 INFO mysql has successfully registered.
+2019-07-10 09:26:27.3207 INFO mysql has successfully registered.
+2019-07-10 09:29:41.5298 INFO mysql has successfully registered.
+2019-07-10 09:29:49.2995 INFO mysql1 has successfully registered.
+2019-07-10 11:35:17.7766 INFO Returned all users from database.
+2019-07-10 11:36:16.7008 INFO Returned all users from database.
+2019-07-10 11:38:03.5957 ERROR test1 unsuccessfully tried to register. String reference not set to an instance of a String.
+Parameter name: s
+2019-07-10 11:38:23.0580 ERROR teste unsuccessfully tried to register. String reference not set to an instance of a String.
+Parameter name: s
+2019-07-10 11:40:37.9158 INFO teste has successfully registered.
+2019-07-10 11:40:59.8576 INFO Returned all users from database.
+2019-07-10 11:44:18.2594 INFO test2 has successfully registered.
+2019-07-10 11:45:33.9929 INFO test2 has successfully registered.

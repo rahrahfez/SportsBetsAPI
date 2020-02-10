@@ -1,0 +1,3 @@
+2019-07-12 14:35:20.1975 INFO Returned all users from database.
+2019-07-12 14:36:05.8499 INFO Returned all users from database.
+2019-07-12 14:36:17.4898 INFO Returned all users from database.

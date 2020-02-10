@@ -1,0 +1,21 @@
+2019-07-17 11:39:18.4564 ERROR Login error IDX12401: Expires: '[PII is hidden]' must be after NotBefore: '[PII is hidden]'.
+2019-07-17 11:41:33.2622 ERROR Login error IDX12401: Expires: '[PII is hidden]' must be after NotBefore: '[PII is hidden]'.
+2019-07-17 11:42:11.4005 ERROR Login error IDX12401: Expires: '[PII is hidden]' must be after NotBefore: '[PII is hidden]'.
+2019-07-17 11:43:00.4996 ERROR Login error IDX12401: Expires: '[PII is hidden]' must be after NotBefore: '[PII is hidden]'.
+2019-07-17 11:47:29.8423 ERROR Login error IDX12401: Expires: '[PII is hidden. For more details, see https://aka.ms/IdentityModel/PII.]' must be after NotBefore: '[PII is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'.
+2019-07-17 11:58:02.0267 ERROR Login error IDX12401: Expires: '[PII is hidden. For more details, see https://aka.ms/IdentityModel/PII.]' must be after NotBefore: '[PII is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'.
+2019-07-17 12:03:40.3828 ERROR Login error IDX12401: Expires: '[PII is hidden. For more details, see https://aka.ms/IdentityModel/PII.]' must be after NotBefore: '[PII is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'.
+2019-07-17 12:03:53.4277 ERROR Login error IDX12401: Expires: '[PII is hidden. For more details, see https://aka.ms/IdentityModel/PII.]' must be after NotBefore: '[PII is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'.
+2019-07-17 12:04:29.5799 INFO teste successfully created a token.
+2019-07-17 12:04:33.0513 INFO teste successfully created a token.
+2019-07-17 12:05:51.8011 INFO teste successfully created a token.
+2019-07-17 13:16:27.5416 INFO teste successfully created a token.
+2019-07-17 13:16:37.8686 INFO teste successfully created a token.
+2019-07-17 22:22:54.1350 INFO teste successfully created a token.
+2019-07-17 23:18:14.4869 INFO teste successfully created a token.
+2019-07-17 23:18:27.8593 INFO teste successfully created a token.
+2019-07-17 23:19:14.3779 INFO teste successfully created a token.
+2019-07-17 23:20:02.8909 INFO teste successfully created a token.
+2019-07-17 23:25:37.4390 INFO teste successfully created a token.
+2019-07-17 23:25:43.5302 INFO teste successfully created a token.
+2019-07-17 23:30:21.3293 INFO teste successfully created a token.

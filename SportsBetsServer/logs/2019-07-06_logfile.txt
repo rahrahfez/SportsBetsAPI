@@ -1,0 +1,10 @@
+2019-07-06 09:39:37.3963 ERROR System.FormatException: One of the identified items was in an invalid format.
+   at MySqlConnector.Core.TextRow.GetValueCore(ReadOnlySpan`1 data, ColumnDefinitionPayload columnDefinition) in C:\projects\mysqlconnector\src\MySqlConnector\Core\TextRow.cs:line 63
+   at MySqlConnector.Core.Row.GetValue(Int32 ordinal) in C:\projects\mysqlconnector\src\MySqlConnector\Core\Row.cs:line 43
+   at MySqlConnector.Core.Row.GetGuid(Int32 ordinal) in C:\projects\mysqlconnector\src\MySqlConnector\Core\Row.cs:line 117
+   at lambda_method(Closure , DbDataReader , DbContext )
+   at Microsoft.EntityFrameworkCore.Query.QueryMethodProvider._FastQuery[TEntity](RelationalQueryContext relationalQueryContext, ShaperCommandContext shaperCommandContext, Func`3 materializer, Type contextType, IDiagnosticsLogger`1 logger)+MoveNext()
+   at System.Collections.Generic.List`1.AddEnumerable(IEnumerable`1 enumerable)
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at Repository.UserRepository.GetAllUsers() in C:\Users\david\Documents\Projects\SportsBets\SportsBetsAPI\Repository\UserRepository.cs:line 18
+   at SportsBetsServer.Controllers.UsersController.GetAllUsers() in C:\Users\david\Documents\Projects\SportsBets\SportsBetsAPI\SportsBetsServer\Controllers\UsersController.cs:line 28

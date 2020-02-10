@@ -1,0 +1,14 @@
+C:\Users\david\Documents\Projects\SportsBets\SportsBetsAPI\LoggerService\bin\Release\netcoreapp2.2\LoggerService.deps.json
+C:\Users\david\Documents\Projects\SportsBets\SportsBetsAPI\LoggerService\bin\Release\netcoreapp2.2\LoggerService.dll
+C:\Users\david\Documents\Projects\SportsBets\SportsBetsAPI\LoggerService\bin\Release\netcoreapp2.2\LoggerService.pdb
+C:\Users\david\Documents\Projects\SportsBets\SportsBetsAPI\LoggerService\bin\Release\netcoreapp2.2\Contracts.dll
+C:\Users\david\Documents\Projects\SportsBets\SportsBetsAPI\LoggerService\bin\Release\netcoreapp2.2\Entities.dll
+C:\Users\david\Documents\Projects\SportsBets\SportsBetsAPI\LoggerService\bin\Release\netcoreapp2.2\Contracts.pdb
+C:\Users\david\Documents\Projects\SportsBets\SportsBetsAPI\LoggerService\bin\Release\netcoreapp2.2\Entities.pdb
+C:\Users\david\Documents\Projects\SportsBets\SportsBetsAPI\LoggerService\obj\Release\netcoreapp2.2\LoggerService.csprojAssemblyReference.cache
+C:\Users\david\Documents\Projects\SportsBets\SportsBetsAPI\LoggerService\obj\Release\netcoreapp2.2\LoggerService.csproj.CoreCompileInputs.cache
+C:\Users\david\Documents\Projects\SportsBets\SportsBetsAPI\LoggerService\obj\Release\netcoreapp2.2\LoggerService.AssemblyInfoInputs.cache
+C:\Users\david\Documents\Projects\SportsBets\SportsBetsAPI\LoggerService\obj\Release\netcoreapp2.2\LoggerService.AssemblyInfo.cs
+C:\Users\david\Documents\Projects\SportsBets\SportsBetsAPI\LoggerService\obj\Release\netcoreapp2.2\LoggerService.csproj.CopyComplete
+C:\Users\david\Documents\Projects\SportsBets\SportsBetsAPI\LoggerService\obj\Release\netcoreapp2.2\LoggerService.dll
+C:\Users\david\Documents\Projects\SportsBets\SportsBetsAPI\LoggerService\obj\Release\netcoreapp2.2\LoggerService.pdb

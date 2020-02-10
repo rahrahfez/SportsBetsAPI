@@ -1,0 +1,19 @@
+2019-10-15 09:11:51.2603 INFO {"alg":"HS512","typ":"JWT"}.{"nameid":"45a7bdeb-f307-4371-9d12-6db987509a47","unique_name":"david2","nbf":1571145111,"exp":1571145171,"iat":1571145111} successfully created. Encoded as eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI0NWE3YmRlYi1mMzA3LTQzNzEtOWQxMi02ZGI5ODc1MDlhNDciLCJ1bmlxdWVfbmFtZSI6ImRhdmlkMiIsIm5iZiI6MTU3MTE0NTExMSwiZXhwIjoxNTcxMTQ1MTcxLCJpYXQiOjE1NzExNDUxMTF9.8gsbh3_rSjhEXsyl4hg5uw6DuH-5rkLiqgtoNSCK-AyqP2vAEX_NLkuajjyYK10f5ZAr7-5rI1GuFmQEMy2e-g
+2019-10-15 10:26:46.3384 ERROR Something went wrong in CreateNumberGeneratorWager(): An error occurred while updating the entries. See the inner exception for details.
+2019-10-15 10:36:54.1364 ERROR Something went wrong in CreateNumberGeneratorWager(): An error occurred while updating the entries. See the inner exception for details.
+2019-10-15 10:46:18.9769 ERROR Something went wrong in CreateNumberGeneratorWager(): An error occurred while updating the entries. See the inner exception for details.
+2019-10-15 10:48:01.9065 ERROR Error occurred in CreateWager(): An error occurred while updating the entries. See the inner exception for details.
+2019-10-15 10:52:46.8122 INFO Successfully created wager with id e9cad934-362b-4a36-92e5-00e7ea55d351
+2019-10-15 10:54:23.1093 INFO Successfully created wager with id b5f8d7e3-44ba-4754-bfff-30ddc9150d08
+2019-10-15 11:26:50.5394 ERROR Something went wrong in CreateNumberGeneratorWager(): An error occurred while updating the entries. See the inner exception for details.
+2019-10-15 11:30:33.6758 ERROR Something went wrong in CreateNumberGeneratorWager(): An error occurred while updating the entries. See the inner exception for details.
+2019-10-15 11:32:27.6400 ERROR Something went wrong in CreateNumberGeneratorWager(): An error occurred while updating the entries. See the inner exception for details.
+2019-10-15 11:36:41.6301 ERROR Something went wrong in CreateNumberGeneratorWager(): An error occurred while updating the entries. See the inner exception for details.
+2019-10-15 11:39:40.0909 INFO Successfully created NumberGeneratorWager with id be3ac221-943f-4625-ac6d-83667be56cd3
+2019-10-15 11:51:39.8098 INFO Successfully created NumberGeneratorWager with id 470415da-cd22-411b-b05c-b4de9a5d3410
+2019-10-15 11:52:47.5010 INFO Successfully created NumberGeneratorWager with id 734378ad-b0d8-4cd1-a436-73bbed2e60e6
+2019-10-15 13:05:40.8843 INFO Successfully created NumberGeneratorWager with id 8fb70383-00ab-4f8c-a834-aa8fb5f407db
+2019-10-15 13:07:24.6489 INFO Successfully created NumberGeneratorWager with id a3b8df39-803f-4780-b00e-f83b37ba2c4e
+2019-10-15 13:10:24.4934 INFO Successfully created NumberGeneratorWager with id e5ad100a-d4ad-48ec-9b8c-554ab500d0dc
+2019-10-15 23:48:44.6600 INFO Successfully returned wagers of user id dbb865d7-b7be-44cb-a044-3ed195af6261
+2019-10-15 23:59:07.5910 INFO Successfully retrieved all wagers

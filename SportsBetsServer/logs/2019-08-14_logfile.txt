@@ -1,0 +1,1 @@
+2019-08-14 12:44:21.5884 INFO User with id: 251c5a43-7b72-42fb-bc73-998542d57e96 successfully deleted.

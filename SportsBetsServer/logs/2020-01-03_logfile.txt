@@ -1,0 +1,2 @@
+2020-01-03 09:10:05.3698 INFO Returned all users from database.
+2020-01-03 09:15:48.7601 INFO {"alg":"HS512","typ":"JWT"}.{"nameid":"45a7bdeb-f307-4371-9d12-6db987509a47","unique_name":"david2","nbf":1578060948,"exp":1578061008,"iat":1578060948} successfully created. Encoded as eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI0NWE3YmRlYi1mMzA3LTQzNzEtOWQxMi02ZGI5ODc1MDlhNDciLCJ1bmlxdWVfbmFtZSI6ImRhdmlkMiIsIm5iZiI6MTU3ODA2MDk0OCwiZXhwIjoxNTc4MDYxMDA4LCJpYXQiOjE1NzgwNjA5NDh9.2_EKvdVLa1-nToacmzF69OZFOSntHODl6rJBKPlt5C-yFt2NO7Cuvu4KZc7aDsvQYDKXPlNXD6cwOz7YYZW6FQ

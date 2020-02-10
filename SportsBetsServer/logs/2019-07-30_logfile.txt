@@ -1,0 +1,5 @@
+2019-07-30 07:10:14.8036 INFO Successfully created wager with id 3e8811c8-8219-4d84-bc2a-5f3c9ed8300a
+2019-07-30 10:06:41.2360 INFO david successfully created a token.
+2019-07-30 14:53:25.5539 INFO david successfully created a token.
+2019-07-30 14:54:03.5396 INFO david successfully created a token.
+2019-07-30 14:55:30.9921 INFO david successfully created a token.

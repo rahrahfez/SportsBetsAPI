@@ -1,0 +1,12 @@
+2019-07-29 18:51:16.3857 INFO Successfully created wager with id 229ce12e-a87d-4562-ad95-d9591e7a9b9c
+2019-07-29 18:53:42.8424 ERROR Error occurred in CreateWager(): An error occurred while updating the entries. See the inner exception for details.
+2019-07-29 18:54:23.3334 ERROR Error occurred in CreateWager(): An error occurred while updating the entries. See the inner exception for details.
+2019-07-29 18:56:01.0201 ERROR Error occurred in CreateWager(): An error occurred while updating the entries. See the inner exception for details.
+2019-07-29 18:57:23.2662 ERROR Error occurred in CreateWager(): An error occurred while updating the entries. See the inner exception for details.
+2019-07-29 18:57:53.6008 ERROR Error occurred in CreateWager(): An error occurred while updating the entries. See the inner exception for details.
+2019-07-29 18:58:22.6347 ERROR Error occurred in CreateWager(): An error occurred while updating the entries. See the inner exception for details.
+2019-07-29 19:00:23.1775 ERROR Error occurred in CreateWager(): An error occurred while updating the entries. See the inner exception for details.
+2019-07-29 19:00:38.8611 INFO Successfully created wager with id 9b312109-4146-4275-b351-a83956405272
+2019-07-29 19:01:07.1228 INFO Successfully created wager with id 4ba92b9d-d8b6-4705-8869-54ea8a00611f
+2019-07-29 19:06:09.7522 ERROR Error occurred in CreateWager(): An error occurred while updating the entries. See the inner exception for details.
+2019-07-29 19:06:55.5100 ERROR Error occurred in CreateWager(): An error occurred while updating the entries. See the inner exception for details.
