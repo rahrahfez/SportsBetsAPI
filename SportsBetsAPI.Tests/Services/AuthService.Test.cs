@@ -15,10 +15,10 @@ namespace SportsBetsAPI.UnitTests.Services
         [Fact]
         public void CreatePasswordHashTest()
         {
-            byte[] passHash;
-            byte[] passSalt;
+            // byte[] passHash;
+            // byte[] passSalt;
 
-            _authService.CreatePasswordHash("password", out passHash, out passSalt);
+            // _authService.CreatePasswordHash("password", out passHash, out passSalt);
 
             // Assert.NotNull(passHash);
             // Assert.NotNull(passSalt);
