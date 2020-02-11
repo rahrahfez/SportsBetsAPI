@@ -7,7 +7,6 @@ using SportsBetsServer.Entities;
 using System.Threading.Tasks;
 
 namespace SportsBetsServer.Repository
-
 {
     public class RepositoryBase<T> : IRepositoryBase<T> where T : class
     {

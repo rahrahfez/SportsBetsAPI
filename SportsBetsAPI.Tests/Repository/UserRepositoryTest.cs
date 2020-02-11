@@ -5,7 +5,7 @@ using SportsBetsServer.Repository;
 using SportsBetsServer.Entities;
 using SportsBetsServer.Entities.Models;
 
-namespace SportsBetsAPI.UnitTests.Repository
+namespace SportsBetsAPI.Tests.Repository
 {
     public class UserRepositoryTest
     {
@@ -13,11 +13,14 @@ namespace SportsBetsAPI.UnitTests.Repository
         public async void GetAllUsers()
         {
             var options = new DbContextOptionsBuilder<RepositoryContext>()
-                .UseInMemoryDatabase(databaseName: "UserDatabase")
+                .UseInMemoryDatabase(databaseName: "_")
                 .Options;
             
             using (var context = new RepositoryContext(options))
             {
+                context.Database.EnsureDeleted();
+                context.Database.EnsureCreated();
+
                 var repo = new RepositoryWrapper(context);
                 
                 await repo.User.CreateUserAsync(new User() 
@@ -52,12 +55,23 @@ namespace SportsBetsAPI.UnitTests.Repository
         public async void GetUserByUsername()
         {
             var options = new DbContextOptionsBuilder<RepositoryContext>()
-                .UseInMemoryDatabase(databaseName: "UserDatabase")
+                .UseInMemoryDatabase(databaseName: "_")
                 .Options;
 
             using (var context = new RepositoryContext(options))
             {
+                context.Database.EnsureDeleted();
+                context.Database.EnsureCreated();
+
                 var repo = new RepositoryWrapper(context);
+
+                await repo.User.CreateUserAsync(new User() 
+                { 
+                    Id = Guid.NewGuid(),
+                    Username = "Tester1",
+                    AvailableBalance = 100,
+                    DateCreated = DateTime.Now       
+                });
 
                 var user = await repo.User.GetUserByUsernameAsync("Tester1");
 
@@ -68,12 +82,24 @@ namespace SportsBetsAPI.UnitTests.Repository
         public async void GetUserAvailableBalance()
         {
             var options = new DbContextOptionsBuilder<RepositoryContext>()
-                .UseInMemoryDatabase(databaseName: "UserDatabase")
+                .UseInMemoryDatabase(databaseName: "_")
                 .Options;
             
             using (var context = new RepositoryContext(options))
             {
+                context.Database.EnsureDeleted();
+                context.Database.EnsureCreated();
+
                 var repo = new RepositoryWrapper(context);
+
+                await repo.User.CreateUserAsync(new User() 
+                { 
+                    Id = Guid.NewGuid(),
+                    Username = "Tester1",
+                    AvailableBalance = 100,
+                    DateCreated = DateTime.Now       
+                });
+
 
                 var user = await repo.User.GetUserByUsernameAsync("Tester1");
 
