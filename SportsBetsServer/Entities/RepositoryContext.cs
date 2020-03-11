@@ -1,5 +1,4 @@
-﻿using System;
-using SportsBetsServer.Entities.Models;
+﻿using SportsBetsServer.Entities.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace SportsBetsServer.Entities

@@ -13,9 +13,7 @@ namespace SportsBetsServer.Repository
     {
         public UserRepository(RepositoryContext repositoryContext)
             : base(repositoryContext)
-            {
-                
-            }
+            { }
         public async Task<IEnumerable<User>> GetAllUsersAsync()
         {
             return await FindAll().ToListAsync();
