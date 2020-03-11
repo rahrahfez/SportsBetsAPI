@@ -9,35 +9,38 @@ namespace SportsBetsAPI.Tests.Repository
 {
     public class UserRepositoryTest
     {
-        [Fact]
-        public async void GetAllUsers()
+        private DbContextOptions _options;
+        public UserRepositoryTest()
         {
-            var options = new DbContextOptionsBuilder<RepositoryContext>()
+            _options = new DbContextOptionsBuilder<RepositoryContext>()
                 .UseInMemoryDatabase(databaseName: "_")
                 .Options;
-            
-            using (var context = new RepositoryContext(options))
+        }
+        [Fact]
+        public async void GetAllUsers()
+        {            
+            using (var context = new RepositoryContext(_options))
             {
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
 
                 var repo = new RepositoryWrapper(context);
                 
-                await repo.User.CreateUserAsync(new User() 
+                await repo.User.CreateUserAsync(new User
                 { 
                     Id = Guid.NewGuid(),
                     Username = "Tester1",
                     AvailableBalance = 100,
                     DateCreated = DateTime.Now       
                 });
-                await repo.User.CreateUserAsync(new User() 
+                await repo.User.CreateUserAsync(new User
                 { 
                     Id = Guid.NewGuid(),
                     Username = "Tester2",
                     AvailableBalance = 100,
                     DateCreated = DateTime.Now       
                 });
-                await repo.User.CreateUserAsync(new User() 
+                await repo.User.CreateUserAsync(new User
                 { 
                     Id = Guid.NewGuid(),
                     Username = "Tester3",
@@ -46,7 +49,7 @@ namespace SportsBetsAPI.Tests.Repository
                 });                
             }
 
-            using (var context = new RepositoryContext(options))
+            using (var context = new RepositoryContext(_options))
             {
                 Assert.Equal(3, await context.User.CountAsync());
             }
@@ -54,18 +57,14 @@ namespace SportsBetsAPI.Tests.Repository
         [Fact]
         public async void GetUserByUsername()
         {
-            var options = new DbContextOptionsBuilder<RepositoryContext>()
-                .UseInMemoryDatabase(databaseName: "_")
-                .Options;
-
-            using (var context = new RepositoryContext(options))
+            using (var context = new RepositoryContext(_options))
             {
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
 
                 var repo = new RepositoryWrapper(context);
 
-                await repo.User.CreateUserAsync(new User() 
+                await repo.User.CreateUserAsync(new User
                 { 
                     Id = Guid.NewGuid(),
                     Username = "Tester1",
@@ -80,26 +79,21 @@ namespace SportsBetsAPI.Tests.Repository
         }
         [Fact]
         public async void GetUserAvailableBalance()
-        {
-            var options = new DbContextOptionsBuilder<RepositoryContext>()
-                .UseInMemoryDatabase(databaseName: "_")
-                .Options;
-            
-            using (var context = new RepositoryContext(options))
+        {            
+            using (var context = new RepositoryContext(_options))
             {
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
 
                 var repo = new RepositoryWrapper(context);
 
-                await repo.User.CreateUserAsync(new User() 
+                await repo.User.CreateUserAsync(new User
                 { 
                     Id = Guid.NewGuid(),
                     Username = "Tester1",
                     AvailableBalance = 100,
                     DateCreated = DateTime.Now       
                 });
-
 
                 var user = await repo.User.GetUserByUsernameAsync("Tester1");
 
