@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using SportsBetsServer.Contracts.Repository;
 using SportsBetsServer.Entities;
@@ -15,9 +16,18 @@ namespace SportsBetsServer.Repository
         {
             RepositoryContext = repositoryContext;
         }
-        public IQueryable<T> FindAll()
+        public async Task<T> FindByGuid(Guid id)
         {
-            return this.RepositoryContext.Set<T>();
+            return await this.RepositoryContext.Set<T>().FindAsync(id);
+        }
+        public async Task<T> FindById(int id)
+        {
+            return await this.RepositoryContext.Set<T>().FindAsync(id);
+        }
+        public async Task<IEnumerable<T>> FindAll()
+        {
+            return await this.RepositoryContext.Set<T>()
+                .ToListAsync();
         }
         public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression)
         {

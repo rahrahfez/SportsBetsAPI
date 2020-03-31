@@ -11,11 +11,11 @@ namespace SportsBetsServer.Repository
 {
     public class AuthRepository : RepositoryBase<Credential>, IAuthRepository
     {
-        private readonly RepositoryContext _repoContext;
+        private readonly RepositoryContext _repositoryContext;
         public AuthRepository(RepositoryContext repositoryContext)
             : base (repositoryContext)
         {
-            _repoContext = repositoryContext;
+            _repositoryContext = repositoryContext;
         }
         public async Task<Credential> GetCredentialByUserId(Guid id)
         {
@@ -23,20 +23,13 @@ namespace SportsBetsServer.Repository
                 .AsNoTracking()
                 .SingleOrDefaultAsync();
         }
-        public async Task CreateCredentialAsync(Credential cred)
+        public void CreateCredential(Credential credential)
         {
-            Create(cred);
-            await SaveAsync();
+            Create(credential);
         }
-        public async Task UpdateCredentialAsync(Credential credToUpdate, Credential updatedCred)
+        public void DeleteCredential(Credential credential)
         {
-            Update(updatedCred);
-            await SaveAsync();
-        }
-        public async Task DeleteCredentialAsync(Credential cred)
-        {
-            Delete(cred);
-            await SaveAsync();
+            Delete(credential);
         }
     }
 }

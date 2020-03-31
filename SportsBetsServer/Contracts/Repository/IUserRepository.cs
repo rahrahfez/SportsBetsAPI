@@ -5,7 +5,7 @@ using SportsBetsServer.Entities.Models;
 
 namespace SportsBetsServer.Contracts.Repository
 {
-    public interface IUserRepository
+    public interface IUserRepository : IRepositoryBase<User>
     {
         Task<IEnumerable<User>> GetAllUsersAsync();
         Task<User> GetUserByIdAsync(Guid id);

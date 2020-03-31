@@ -26,10 +26,10 @@ namespace SportsBetsServer.Controllers
         {   
             try
             {   
-                var wagers = await _repo.Wager.GetAllWagersAsync();
-
+                var wagers = await _repo.Wager.FindAll();
+                
                 _logger.LogInfo("Successfully retrieved all wagers");
-
+                
                 return Ok(wagers);
             }
             catch (Exception ex)
@@ -43,8 +43,12 @@ namespace SportsBetsServer.Controllers
         {
             try
             {
-                var wager = await _repo.Wager.GetWagerByIdAsync(id);
+                var wager = _repo.Wager.Find(id);
+                
+                await _repo.Complete();
+
                 _logger.LogInfo($"Successfully retrieved wager with id {id}");
+
                 return Ok(wager);
             }
             catch (Exception ex)
@@ -64,7 +68,9 @@ namespace SportsBetsServer.Controllers
                     DateCreated = DateTime.Now,
                 };
 
-                await _repo.Wager.CreateWagerAsync(wager);
+                _repo.Wager.Create(wager);
+                await _repo.Complete();
+
                 _logger.LogInfo($"Successfully created wager with id {wager.Id}");
                 return CreatedAtRoute("WagerById", wager);
             }
@@ -74,29 +80,8 @@ namespace SportsBetsServer.Controllers
                 return StatusCode(500, "Internal Server Error");
             }
         }
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateWager(Guid id, [FromBody]Wager wager)
-        {
-            try
-            {
-                if (id == Guid.Empty)
-                {
-                    return NotFound();
-                }
-                var wagerToBeUpdated = await _repo.Wager.GetWagerByIdAsync(id);
-
-                await _repo.Wager.UpdateWagerAsync(wagerToBeUpdated, wager);
-
-                return Ok(wager);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Error occurred in UpdateWager(): {ex.Message}");
-                return StatusCode(500, "Internal Server Error");
-            }
-        }
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteWager([FromBody]Wager wager)
+        public IActionResult DeleteWager([FromBody]Wager wager)
         {
             if (wager.Id == Guid.Empty)
             {
@@ -104,8 +89,11 @@ namespace SportsBetsServer.Controllers
             }
             try
             {
-                var wagerToBeDeleted = await _repo.Wager.GetWagerByIdAsync(wager.Id);
-                await _repo.Wager.DeleteWagerAsync(wagerToBeDeleted);
+                var wagerToBeDeleted = _repo.Wager.Find(wager.Id);
+
+                _repo.Wager.Delete(wagerToBeDeleted);
+                _repo.Complete();
+
                 _logger.LogInfo($"Successfully deleted wager with id {wager.Id}");
                 return NoContent();
             }

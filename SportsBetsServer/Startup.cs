@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using SportsBetsServer.Extensions;
 using NLog;
+using Microsoft.OpenApi.Models;
 
 namespace SportsBetsServer
 {
@@ -30,6 +31,7 @@ namespace SportsBetsServer
         {
             app.UseDeveloperExceptionPage();
             // app.UseHttpsRedirection();
+            app.UseSwagger();
             app.UseCors("CorsPolicy");
             app.UseForwardedHeaders(new ForwardedHeadersOptions
             {
@@ -53,6 +55,10 @@ namespace SportsBetsServer
             services.ConfigureJwtAuthentication(Configuration);
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "SportsBets", Version = "v1" });
+            });
         }
     }
     public class Startup
