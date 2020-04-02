@@ -8,6 +8,7 @@ namespace SportsBetsServer.Contracts.Repository
          IUserRepository User { get; }
          IWagerRepository Wager { get; }
          IAuthRepository Auth { get; }
+         IBetRepository Bet { get; }
          
          Task Complete();
     }

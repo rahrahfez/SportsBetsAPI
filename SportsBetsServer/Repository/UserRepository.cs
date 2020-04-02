@@ -14,41 +14,17 @@ namespace SportsBetsServer.Repository
         public UserRepository(RepositoryContext repositoryContext)
             : base(repositoryContext)
             { }
-        public async Task<IEnumerable<User>> GetAllUsersAsync()
-        {
-            return await FindAll().ToListAsync();
-        }
-        public async Task<User> GetUserByIdAsync(Guid id)
-        {
-            return await FindByCondition(user => user.Id.Equals(id))
-                .DefaultIfEmpty(new User())
-                .SingleOrDefaultAsync();
-        }
         public async Task<User> GetUserByUsernameAsync(string username)
         {
-            return await FindByCondition(user => user.Username.Equals(username))
-                .SingleOrDefaultAsync();
+            return await this.RepositoryContext.Set<User>().FindAsync(username);
         }
         public async Task<int> GetUserAvailableBalanceAsync(Guid id)
         {
-            return await FindByCondition(u => u.Id.Equals(id))
-                .Select(user => user.AvailableBalance)
-                .FirstOrDefaultAsync();
-        }
-        public async Task CreateUserAsync(User user)
-        {
-            Create(user);
-            await SaveAsync();
-        }
-        public async Task UpdateUserAsync(User dbUser, User user)
-        {
-            Update(user);
-            await SaveAsync();
-        }
-        public async Task DeleteUserAsync(User user)
-        {
-            Delete(user);
-            await SaveAsync();
+            var user = await FindByGuid(id);
+
+            var balance = (user == null) ? -1 : user.AvailableBalance;
+            
+            return balance;
         }
     }
 }

@@ -43,7 +43,7 @@ namespace SportsBetsServer.Controllers
         {
             try
             {
-                var wager = _repo.Wager.Find(id);
+                var wager = _repo.Wager.FindByGuid(id);
                 
                 await _repo.Complete();
 
@@ -81,7 +81,7 @@ namespace SportsBetsServer.Controllers
             }
         }
         [HttpDelete("{id}")]
-        public IActionResult DeleteWager([FromBody]Wager wager)
+        public async Task<IActionResult> DeleteWager([FromBody]Wager wager)
         {
             if (wager.Id == Guid.Empty)
             {
@@ -89,10 +89,10 @@ namespace SportsBetsServer.Controllers
             }
             try
             {
-                var wagerToBeDeleted = _repo.Wager.Find(wager.Id);
+                var wagerToBeDeleted = await _repo.Wager.FindByGuid(wager.Id);
 
                 _repo.Wager.Delete(wagerToBeDeleted);
-                _repo.Complete();
+                await _repo.Complete();
 
                 _logger.LogInfo($"Successfully deleted wager with id {wager.Id}");
                 return NoContent();

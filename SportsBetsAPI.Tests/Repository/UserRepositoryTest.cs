@@ -26,27 +26,28 @@ namespace SportsBetsAPI.Tests.Repository
 
                 var repo = new RepositoryWrapper(context);
                 
-                await repo.User.CreateUserAsync(new User
+                repo.User.Create(new User
                 { 
                     Id = Guid.NewGuid(),
                     Username = "Tester1",
                     AvailableBalance = 100,
                     DateCreated = DateTime.Now       
                 });
-                await repo.User.CreateUserAsync(new User
+                repo.User.Create(new User
                 { 
                     Id = Guid.NewGuid(),
                     Username = "Tester2",
                     AvailableBalance = 100,
                     DateCreated = DateTime.Now       
                 });
-                await repo.User.CreateUserAsync(new User
+                repo.User.Create(new User
                 { 
                     Id = Guid.NewGuid(),
                     Username = "Tester3",
                     AvailableBalance = 100,
                     DateCreated = DateTime.Now       
                 });                
+                await repo.Complete();
             }
 
             using (var context = new RepositoryContext(_options))
@@ -64,13 +65,15 @@ namespace SportsBetsAPI.Tests.Repository
 
                 var repo = new RepositoryWrapper(context);
 
-                await repo.User.CreateUserAsync(new User
+                repo.User.Create(new User
                 { 
                     Id = Guid.NewGuid(),
                     Username = "Tester1",
                     AvailableBalance = 100,
                     DateCreated = DateTime.Now       
                 });
+
+                await repo.Complete();
 
                 var user = await repo.User.GetUserByUsernameAsync("Tester1");
 
@@ -87,7 +90,7 @@ namespace SportsBetsAPI.Tests.Repository
 
                 var repo = new RepositoryWrapper(context);
 
-                await repo.User.CreateUserAsync(new User
+                repo.User.Create(new User
                 { 
                     Id = Guid.NewGuid(),
                     Username = "Tester1",

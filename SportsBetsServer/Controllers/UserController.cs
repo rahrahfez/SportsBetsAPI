@@ -8,6 +8,7 @@ using LoggerService;
 using SportsBetsServer.Entities.Models;
 using SportsBetsServer.Entities.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 
 namespace SportsBetsServer.Controllers
 {
@@ -28,11 +29,13 @@ namespace SportsBetsServer.Controllers
             _repo = repo;
         }
         [HttpGet("users")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetAllUsers()
         {
             try
             {
-                var users = await _repo.User.GetAllUsersAsync();
+                var users = await _repo.User.FindAll();
 
                 _logger.LogInfo($"Returned all users from database.");
 
@@ -45,11 +48,14 @@ namespace SportsBetsServer.Controllers
             }
         }
         [HttpGet("{id}", Name = "UserById")]
-        public async Task<IActionResult> GetUserById(Guid id) 
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
+        public async Task<ActionResult<User>> GetUserById(Guid id) 
         {
             try
             {
-                var user = await _repo.User.GetUserByIdAsync(id);
+                var user = await _repo.User.FindByGuid(id);
                 
                 if (user.Id.Equals(Guid.Empty)) 
                 {
@@ -59,7 +65,7 @@ namespace SportsBetsServer.Controllers
                 else
                 {
                     _logger.LogInfo($"Returned user with id: { id }");
-                    return Ok(user);
+                    return user;
                 }
             }
             catch (Exception ex)
@@ -69,6 +75,9 @@ namespace SportsBetsServer.Controllers
             }
         }
         [HttpPost("register")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> RegisterUser([FromBody]User user)
         {
             try
@@ -89,7 +98,9 @@ namespace SportsBetsServer.Controllers
                 user.AvailableBalance = 100;
                 user.DateCreated = DateTime.Now;
 
-                await _repo.User.CreateUserAsync(user);
+                _repo.User.Create(user);
+
+                await _repo.Complete();
 
                 _logger.LogInfo($"Successfully registered { user.Username }.");
 
@@ -102,6 +113,8 @@ namespace SportsBetsServer.Controllers
             }
         }
         [HttpGet("{id}/balance")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetUserAvailableBalanceById(Guid id)
         {
             try
@@ -116,11 +129,14 @@ namespace SportsBetsServer.Controllers
             }
         }
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> DeleteUser(Guid id)
         {
             try
             {
-                var userToBeDeleted = await _repo.User.GetUserByIdAsync(id);
+                var userToBeDeleted = await _repo.User.FindByGuid(id);
 
                 if (userToBeDeleted == null)
                 {
@@ -128,7 +144,9 @@ namespace SportsBetsServer.Controllers
                     return NotFound();
                 }
 
-                await _repo.User.DeleteUserAsync(userToBeDeleted);
+                _repo.User.Delete(userToBeDeleted);
+
+                await _repo.Complete();
                 _logger.LogInfo($"User with id: { id } successfully deleted.");
 
                 return NoContent();

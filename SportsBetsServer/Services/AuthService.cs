@@ -40,7 +40,7 @@ namespace SportsBetsServer.Services
         public async Task<User> LoginUserAsync(string username, string password)
         {
             var user = await _repo.User.GetUserByUsernameAsync(username);
-            var creds = await _repo.Auth.GetCredentialByUserId(user.Id);
+            var creds = await _repo.Auth.FindByGuid(user.Id);
 
             if(!VerifyPasswordHash(password, creds.PasswordHash, creds.PasswordSalt))
             {

@@ -10,6 +10,7 @@ namespace SportsBetsServer.Repository
         private IUserRepository _user;
         private IWagerRepository _wager;
         private IAuthRepository _auth;
+        private IBetRepository _bet;
         public RepositoryWrapper(RepositoryContext repositoryContext) 
         {
             _repositoryContext = repositoryContext;
@@ -48,6 +49,12 @@ namespace SportsBetsServer.Repository
                 }
                 
                 return _auth;
+            }
+        }
+        public IBetRepository Bet{
+            get 
+            {
+                return _bet ?? new BetRepository(_repositoryContext);
             }
         }
         public async Task Complete()

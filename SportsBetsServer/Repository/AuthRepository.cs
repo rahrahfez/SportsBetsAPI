@@ -17,19 +17,5 @@ namespace SportsBetsServer.Repository
         {
             _repositoryContext = repositoryContext;
         }
-        public async Task<Credential> GetCredentialByUserId(Guid id)
-        {
-            return await FindByCondition(c => c.User.Id.Equals(id))
-                .AsNoTracking()
-                .SingleOrDefaultAsync();
-        }
-        public void CreateCredential(Credential credential)
-        {
-            Create(credential);
-        }
-        public void DeleteCredential(Credential credential)
-        {
-            Delete(credential);
-        }
     }
 }
