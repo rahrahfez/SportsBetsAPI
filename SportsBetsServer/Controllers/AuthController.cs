@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using SportsBetsServer.Contracts.Repository;
+using Microsoft.AspNetCore.Http;
 using SportsBetsServer.Contracts.Services;
 using SportsBetsServer.Entities.Extensions;
 using System.Security.Claims;
@@ -30,6 +30,9 @@ namespace SportsBetsServer.Controllers
             _authService = authService;
         }
         [HttpPost("login")]
+        [ProducesResponseType(200)] 
+        [ProducesResponseType(500)] 
+        [ProducesResponseType(401)]
         public async Task<IActionResult> Login([FromBody]UserToRegister userToLogin)
         {
             var user = await _authService.LoginUserAsync(userToLogin.Username.ToLower(), userToLogin.Password);

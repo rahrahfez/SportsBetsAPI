@@ -1,12 +1,9 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using SportsBetsServer.Contracts.Repository;
 using SportsBetsServer.Contracts.Services;
 using LoggerService;
 using SportsBetsServer.Entities.Models;
-using SportsBetsServer.Entities.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 
@@ -29,8 +26,8 @@ namespace SportsBetsServer.Controllers
             _repo = repo;
         }
         [HttpGet("users")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(500)]
         public async Task<IActionResult> GetAllUsers()
         {
             try
@@ -75,9 +72,9 @@ namespace SportsBetsServer.Controllers
             }
         }
         [HttpPost("register")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(201)]
+        [ProducesResponseType(500)]
+        [ProducesResponseType(400)]
         public async Task<IActionResult> RegisterUser([FromBody]User user)
         {
             try
@@ -113,8 +110,8 @@ namespace SportsBetsServer.Controllers
             }
         }
         [HttpGet("{id}/balance")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(500)]
         public async Task<IActionResult> GetUserAvailableBalanceById(Guid id)
         {
             try
@@ -129,9 +126,9 @@ namespace SportsBetsServer.Controllers
             }
         }
         [HttpDelete("{id}")]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(500)]
         public async Task<IActionResult> DeleteUser(Guid id)
         {
             try
