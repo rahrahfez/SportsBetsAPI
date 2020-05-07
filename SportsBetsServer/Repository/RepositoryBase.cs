@@ -16,21 +16,25 @@ namespace SportsBetsServer.Repository
         {
             RepositoryContext = repositoryContext;
         }
-        public async Task<T> FindByGuid(Guid id)
+        public async Task<T> FindByGuidAsync(Guid id)
         {
             return await this.RepositoryContext.Set<T>().FindAsync(id);
         }
-        public async Task<IEnumerable<T>> FindAll()
+        public async Task<IEnumerable<T>> FindAllAsync()
         {
             return await this.RepositoryContext.Set<T>()
                 .ToListAsync();
         }
-        public async Task<IEnumerable<T>> FindByCondition(Expression<Func<T, bool>> expression)
+        public async Task<IEnumerable<T>> FindByConditionAsync(Expression<Func<T, bool>> expression)
         {
             return await this.RepositoryContext.Set<T>()
                 .Where(expression).ToListAsync();
         }
-        public void Create(T entity) 
+        public async Task CreateAsync(T entity) 
+        {
+            await this.RepositoryContext.Set<T>().AddAsync(entity);
+        }
+        public void Create(T entity)
         {
             this.RepositoryContext.Set<T>().Add(entity);
         }

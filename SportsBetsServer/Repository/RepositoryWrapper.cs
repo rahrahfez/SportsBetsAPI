@@ -54,7 +54,11 @@ namespace SportsBetsServer.Repository
         public IBetRepository Bet{
             get 
             {
-                return _bet ?? new BetRepository(_repositoryContext);
+                if (_bet == null)
+                {
+                    _bet = new BetRepository(_repositoryContext);
+                }
+                return _bet;
             }
         }
         public async Task Complete()

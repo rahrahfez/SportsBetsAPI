@@ -6,6 +6,7 @@ using SportsBetsServer.Contracts.Services;
 using SportsBetsServer.Contracts.Repository;
 using SportsBetsServer.Entities;
 using SportsBetsServer.Repository;
+using SportsBetsServer.Entities.Models;
 
 namespace SportsBetsAPI.Tests.Services
 {
@@ -35,6 +36,13 @@ namespace SportsBetsAPI.Tests.Services
 
             Assert.NotNull(passHash);
             Assert.NotNull(passSalt);
+        }
+        [Fact]
+        public void CreateCredentialsTest()
+        {
+
+          
+
         }
     }
 }

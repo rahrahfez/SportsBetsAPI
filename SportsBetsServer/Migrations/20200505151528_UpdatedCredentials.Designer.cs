@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SportsBetsServer.Entities;
 
 namespace SportsBetsServer.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    partial class RepositoryContextModelSnapshot : ModelSnapshot
+    [Migration("20200505151528_UpdatedCredentials")]
+    partial class UpdatedCredentials
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -23,13 +25,9 @@ namespace SportsBetsServer.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("bet");
 
-                    b.Property<Guid>("UserId")
-                        .IsRequired()
-                        .HasColumnName("user");
+                    b.Property<Guid>("UserId");
 
-                    b.Property<Guid>("WagerId")
-                        .IsRequired()
-                        .HasColumnName("wager");
+                    b.Property<Guid>("WagerId");
 
                     b.HasKey("Id");
 
