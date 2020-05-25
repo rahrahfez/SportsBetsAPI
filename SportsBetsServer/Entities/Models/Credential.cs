@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -8,6 +7,7 @@ namespace SportsBetsServer.Entities.Models
     [Table("credential")]
     public class Credential
     {
+        [Required]
         [ForeignKey("Id")]
         [Column("user")]
         public User User { get; set; }

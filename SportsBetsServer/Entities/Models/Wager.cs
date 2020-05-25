@@ -18,7 +18,7 @@ namespace SportsBetsServer.Entities.Models
         public DateTime DateCreated { get; set; }
         [Required(ErrorMessage="Status is required.")]
         [Column("status")]
-        public string Status { get; set; }
+        public Status Status { get; set; }
         [Required(ErrorMessage="Win condition is required.")]
         [Column("win_condition")]
         public string WinCondition { get; set; }
@@ -26,5 +26,11 @@ namespace SportsBetsServer.Entities.Models
         public string Result { get; set; }
         [Column("amount")]
         public int Amount { get; set; }
+    }
+    public enum Status
+    {
+        open,
+        pending,
+        closed
     }
 }

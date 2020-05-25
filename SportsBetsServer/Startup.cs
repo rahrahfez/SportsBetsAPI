@@ -14,14 +14,66 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using SportsBetsServer.Extensions;
 using NLog;
+using Microsoft.OpenApi.Models;
 
 namespace SportsBetsServer
 {
+    public class StartupDevelopment
+    {
+        public StartupDevelopment(IConfiguration configuration)
+        {
+            LogManager.LoadConfiguration(String.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
+            Configuration = configuration;
+        }
+        public IConfiguration Configuration { get; }
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        {
+            app.UseDeveloperExceptionPage();
+            // app.UseHttpsRedirection();
+            app.UseSwagger();
+            app.UseSwaggerUI(c => 
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API v1");
+                c.RoutePrefix = string.Empty;
+            });
+            app.UseCors("CorsPolicy");
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.All
+            });
+            app.UseStaticFiles();
+            app.UseAuthentication();
+            app.UseMvc();
+        }
+        // This method gets called by the runtime. Use this method to add services to the container.
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.ConfigureCors();
+            services.ConfigureIISIntegration();
+            services.ConfigureLoggerService();
+            services.ConfigureMySql(Configuration);
+            services.ConfigureRepositoryWrapper();
+            services.ConfigureAuthService();
+            services.ConfigureUserService();
+            services.ConfigureDateTime();
+            services.ConfigureJwtAuthentication(Configuration);
+            services.AddMvc()
+                .AddJsonOptions(
+                    options => options.SerializerSettings.ReferenceLoopHandling =
+                    Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                )
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "SportsBets", Version = "v1" });
+            });
+        }
+    }
     public class Startup
     {
         public Startup(IConfiguration configuration)
         {
-            LogManager.LoadConfiguration(String.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
             Configuration = configuration;
         }
 
@@ -32,10 +84,10 @@ namespace SportsBetsServer
         {
             services.ConfigureCors();
             services.ConfigureIISIntegration();
-            services.ConfigureLoggerService();
             services.ConfigureMySql(Configuration);
             services.ConfigureRepositoryWrapper();
             services.ConfigureAuthService();
+            services.ConfigureUserService();
             services.ConfigureDateTime();
             services.ConfigureJwtAuthentication(Configuration);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
@@ -54,7 +106,7 @@ namespace SportsBetsServer
                 app.UseHsts();
             }
 
-            // app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
             app.UseCors("CorsPolicy");
             app.UseForwardedHeaders(new ForwardedHeadersOptions
             {

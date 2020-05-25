@@ -22,5 +22,6 @@ namespace SportsBetsServer.Entities.Models
         [Required(ErrorMessage="Date created is required.")]
         [Column("date_created")]
         public DateTime DateCreated { get; set; }
+        public Credential Credential { get; set; }
     }
 }
