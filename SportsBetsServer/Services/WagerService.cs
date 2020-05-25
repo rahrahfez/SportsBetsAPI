@@ -1,12 +1,13 @@
 using System;
 using SportsBetsServer.Entities.Models;
+using SportsBetsServer.Entities.Extensions;
 using SportsBetsServer.Contracts.Services;
 
 namespace SportsBetsServer.Services
 {
     public class WagerService : IWagerService
     {
-        public Wager CreateWager(Wager wager)
+        public Wager CreateWager(WagerToCreate wager)
         {
             return new Wager 
             {                

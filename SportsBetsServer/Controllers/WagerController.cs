@@ -1,8 +1,10 @@
 using System;
 using System.Threading.Tasks;
 using SportsBetsServer.Contracts.Repository;
-using LoggerService;
+using SportsBetsServer.Contracts.Services;
 using SportsBetsServer.Entities.Models;
+using SportsBetsServer.Entities.Extensions;
+using LoggerService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
@@ -16,11 +18,16 @@ namespace SportsBetsServer.Controllers
     {
         private readonly IRepositoryWrapper _repo;
         private readonly ILoggerManager _logger;
+        private readonly IWagerService _wagerService;
         
-        public WagerController(IRepositoryWrapper repo, ILoggerManager logger)
+        public WagerController(
+            IRepositoryWrapper repo, 
+            ILoggerManager logger,
+            IWagerService wagerService)
         {
             _repo = repo;
             _logger = logger;
+            _wagerService = wagerService;
         }
         [HttpGet]
         [ProducesResponseType(200)]
@@ -42,8 +49,8 @@ namespace SportsBetsServer.Controllers
             }
         }
         [HttpGet("{id}", Name = "WagerById")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(500)]
         public async Task<IActionResult> GetWagerByIdAsync(Guid id) 
         {
             try
@@ -63,21 +70,21 @@ namespace SportsBetsServer.Controllers
             }
         }
         [HttpPost("create")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> CreateWager(Wager wager)
+        [ProducesResponseType(201)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> CreateWager([FromBody]WagerToCreate _wager)
         {
             try
             {
-                wager = new Wager
-                {
-                    Id = Guid.NewGuid(),
-                    DateCreated = DateTime.Now,
-                    Status = Status.open,
-                    WinCondition = wager.WinCondition,
-                    Amount = wager.Amount,
-                };
+                Wager wager = new Wager();
 
+                var balance = await _repo.User.GetUserAvailableBalanceAsync(_wager.UserId);
+
+                if (balance >= _wager.Amount)
+                {
+                    wager = _wagerService.CreateWager(_wager);
+                }
+                
                 await _repo.Wager.CreateAsync(wager);
                 await _repo.Complete();
 
@@ -91,9 +98,9 @@ namespace SportsBetsServer.Controllers
             }
         }
         [HttpDelete("{id}")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
         public async Task<IActionResult> DeleteWager([FromBody]Wager wager)
         {
             if (wager.Id == Guid.Empty)

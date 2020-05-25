@@ -33,7 +33,6 @@ namespace SportsBetsServer.Services
                 User = user,
                 PasswordSalt = passwordSalt,
                 PasswordHash = passwordHash,
-                Id = user.Id
             };
 
             await _repo.Auth.CreateAsync(credentials);

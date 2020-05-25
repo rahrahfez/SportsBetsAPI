@@ -23,13 +23,9 @@ namespace SportsBetsServer.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("bet");
 
-                    b.Property<Guid>("UserId")
-                        .IsRequired()
-                        .HasColumnName("user");
+                    b.Property<Guid>("UserId");
 
-                    b.Property<Guid>("WagerId")
-                        .IsRequired()
-                        .HasColumnName("wager");
+                    b.Property<Guid>("WagerId");
 
                     b.HasKey("Id");
 
@@ -42,9 +38,7 @@ namespace SportsBetsServer.Migrations
 
             modelBuilder.Entity("SportsBetsServer.Entities.Models.Credential", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("user");
+                    b.Property<Guid>("Id");
 
                     b.Property<byte[]>("PasswordHash")
                         .IsRequired()
@@ -54,11 +48,7 @@ namespace SportsBetsServer.Migrations
                         .IsRequired()
                         .HasColumnName("password_salt");
 
-                    b.Property<Guid?>("UserId");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("credential");
                 });
@@ -128,8 +118,9 @@ namespace SportsBetsServer.Migrations
             modelBuilder.Entity("SportsBetsServer.Entities.Models.Credential", b =>
                 {
                     b.HasOne("SportsBetsServer.Entities.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
+                        .WithOne("Credential")
+                        .HasForeignKey("SportsBetsServer.Entities.Models.Credential", "Id")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }
