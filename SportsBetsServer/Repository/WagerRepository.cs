@@ -16,31 +16,5 @@ namespace SportsBetsServer.Repository
             {
 
             }
-    public async Task<IEnumerable<Wager>> GetAllWagersAsync()
-    {
-      return await FindAll().ToListAsync();
-    }
-
-    public async Task<Wager> GetWagerByIdAsync(Guid id)
-    {
-      return await FindByCondition(wager => wager.Id.Equals(id))
-        .AsNoTracking()
-        .SingleOrDefaultAsync();
-    }
-    public async Task CreateWagerAsync(Wager wager)
-    {
-      Create(wager);
-      await SaveAsync();
-    }
-    public async Task UpdateWagerAsync(Wager dbWager, Wager wager)
-    {
-      Update(dbWager);
-      await SaveAsync();
-    }
-    public async Task DeleteWagerAsync(Wager wager)
-    {
-      Delete(wager);
-      await SaveAsync();
-    }
   }
 }

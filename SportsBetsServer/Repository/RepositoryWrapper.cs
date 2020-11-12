@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using SportsBetsServer.Contracts.Repository;
 using SportsBetsServer.Entities;
 
@@ -5,13 +6,14 @@ namespace SportsBetsServer.Repository
 {
     public class RepositoryWrapper : IRepositoryWrapper
     {
-        private readonly RepositoryContext _repoContext;
+        private readonly RepositoryContext _repositoryContext;
         private IUserRepository _user;
         private IWagerRepository _wager;
         private IAuthRepository _auth;
+        private IBetRepository _bet;
         public RepositoryWrapper(RepositoryContext repositoryContext) 
         {
-            _repoContext = repositoryContext;
+            _repositoryContext = repositoryContext;
         }
         public IUserRepository User 
         {
@@ -19,7 +21,7 @@ namespace SportsBetsServer.Repository
             {
                 if (_user == null)
                 {
-                    _user = new UserRepository(_repoContext);
+                    _user = new UserRepository(_repositoryContext);
                 }
 
                 return _user;
@@ -31,7 +33,7 @@ namespace SportsBetsServer.Repository
             {
                 if (_wager == null)
                 {
-                    _wager = new WagerRepository(_repoContext);
+                    _wager = new WagerRepository(_repositoryContext);
                 }
 
                 return _wager;
@@ -43,15 +45,29 @@ namespace SportsBetsServer.Repository
             {
                 if (_auth == null)
                 {
-                    _auth = new AuthRepository(_repoContext);
+                    _auth = new AuthRepository(_repositoryContext);
                 }
                 
                 return _auth;
             }
         }
-        public void Save()
+        public IBetRepository Bet{
+            get 
+            {
+                if (_bet == null)
+                {
+                    _bet = new BetRepository(_repositoryContext);
+                }
+                return _bet;
+            }
+        }
+        public async Task Complete()
         {
-            _repoContext.SaveChanges();
+            await _repositoryContext.SaveChangesAsync();
+        }
+        public void Dispose()
+        {
+            _repositoryContext.Dispose();
         }
     }
 }

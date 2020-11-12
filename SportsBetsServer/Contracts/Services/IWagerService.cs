@@ -1,10 +1,12 @@
 using System;
 using SportsBetsServer.Entities.Models;
+using SportsBetsServer.Entities.Extensions;
 
 namespace SportsBetsServer.Contracts.Services
 {
     public interface IWagerService
     {
-        Wager CreateNewWager(Guid userId);
+        Wager CreateWager(WagerToCreate wager);
+        Wager AcceptWager(Wager wager);
     }
 }

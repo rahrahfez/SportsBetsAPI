@@ -1,9 +1,9 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using SportsBetsServer.Contracts.Repository;
+using Microsoft.AspNetCore.Http;
 using SportsBetsServer.Contracts.Services;
-using SportsBetsServer.Entities.Extensions;
+using SportsBetsServer.Entities.Models.Extensions;
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -30,7 +30,10 @@ namespace SportsBetsServer.Controllers
             _authService = authService;
         }
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody]UserToRegister userToLogin)
+        [ProducesResponseType(200)] 
+        [ProducesResponseType(500)] 
+        [ProducesResponseType(401)]
+        public async Task<IActionResult> Login([FromBody]UserCredentials userToLogin)
         {
             var user = await _authService.LoginUserAsync(userToLogin.Username.ToLower(), userToLogin.Password);
 
@@ -55,7 +58,7 @@ namespace SportsBetsServer.Controllers
                 {
                     Subject = new ClaimsIdentity(claims),
                     NotBefore = DateTime.UtcNow,
-                    Expires = DateTime.UtcNow.AddMinutes(1),
+                    Expires = DateTime.UtcNow.AddMinutes(60),
                     SigningCredentials = creds
                 };
 

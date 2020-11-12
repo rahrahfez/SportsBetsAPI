@@ -1,38 +1,41 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using SportsBetsServer.Contracts.Repository;
 using SportsBetsServer.Contracts.Services;
 using LoggerService;
 using SportsBetsServer.Entities.Models;
-using SportsBetsServer.Entities.Extensions;
+using SportsBetsServer.Entities.Models.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace SportsBetsServer.Controllers
 {
-    [Route("api/user")]
+    [Route("api/users")]
     [ApiController]
     public class UserController : ControllerBase
     {
         private readonly IRepositoryWrapper _repo;    
         private readonly ILoggerManager _logger;
         private readonly IUserService _userService;
+        private readonly IAuthService _authService;
         public UserController(
             IRepositoryWrapper repo, 
             ILoggerManager logger, 
-            IUserService userService)
+            IUserService userService,
+            IAuthService authService)
         {
-            _userService = userService;
             _logger = logger;
             _repo = repo;
+            _authService = authService;
+            _userService = userService;
         }
-        [HttpGet("users")]
+        [HttpGet]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(500)]
         public async Task<IActionResult> GetAllUsers()
         {
             try
             {
-                var users = await _repo.User.GetAllUsersAsync();
+                var users = await _repo.User.FindAllAsync();
 
                 _logger.LogInfo($"Returned all users from database.");
 
@@ -45,11 +48,15 @@ namespace SportsBetsServer.Controllers
             }
         }
         [HttpGet("{id}", Name = "UserById")]
-        public async Task<IActionResult> GetUserById(Guid id) 
+        [Consumes("text/json")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
+        public async Task<ActionResult<User>> GetUserById(Guid id) 
         {
             try
             {
-                var user = await _repo.User.GetUserByIdAsync(id);
+                var user = await _repo.User.FindByGuidAsync(id);
                 
                 if (user.Id.Equals(Guid.Empty)) 
                 {
@@ -59,7 +66,7 @@ namespace SportsBetsServer.Controllers
                 else
                 {
                     _logger.LogInfo($"Returned user with id: { id }");
-                    return Ok(user);
+                    return user;
                 }
             }
             catch (Exception ex)
@@ -68,32 +75,32 @@ namespace SportsBetsServer.Controllers
                 return StatusCode(500, "Internal server error");
             }
         }
-        [HttpPost("register")]
-        public async Task<IActionResult> RegisterUser([FromBody]User user)
+        [HttpPost("create")]
+        [ProducesResponseType(201)]
+        [ProducesResponseType(500)]
+        [ProducesResponseType(400)]
+        public async Task<IActionResult> RegisterUser([FromBody]UserCredentials user)
         {
             try
             {
                 if (_userService.UserExists(user.Username))
                 {
-                    user = null;
                     _logger.LogError("Username already exists.");
                     return BadRequest("Username already exists.");
                 }             
-                if (user == null)
+                if (user.Username == string.Empty || user.Password == string.Empty)
                 {
                     _logger.LogError("User is null.");
                     return BadRequest("User object is null");
                 }
 
-                user.Id = Guid.NewGuid();
-                user.AvailableBalance = 100;
-                user.DateCreated = DateTime.Now;
-
-                await _repo.User.CreateUserAsync(user);
+                User createdUser = await _userService.CreateUserAsync(user);
+                await _authService.CreateCredentialsAsync(createdUser, user.Password); 
+                await _repo.Complete();
 
                 _logger.LogInfo($"Successfully registered { user.Username }.");
 
-                return CreatedAtRoute(routeName: "UserById", routeValues: new { id = user.Id }, value: user);
+                return CreatedAtRoute(routeName: "UserById", routeValues: new { id = createdUser.Id }, value: createdUser);
             }
             catch (Exception ex)
             {
@@ -102,6 +109,8 @@ namespace SportsBetsServer.Controllers
             }
         }
         [HttpGet("{id}/balance")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(500)]
         public async Task<IActionResult> GetUserAvailableBalanceById(Guid id)
         {
             try
@@ -116,11 +125,14 @@ namespace SportsBetsServer.Controllers
             }
         }
         [HttpDelete("{id}")]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(500)]
         public async Task<IActionResult> DeleteUser(Guid id)
         {
             try
             {
-                var userToBeDeleted = await _repo.User.GetUserByIdAsync(id);
+                var userToBeDeleted = await _repo.User.FindByGuidAsync(id);
 
                 if (userToBeDeleted == null)
                 {
@@ -128,7 +140,9 @@ namespace SportsBetsServer.Controllers
                     return NotFound();
                 }
 
-                await _repo.User.DeleteUserAsync(userToBeDeleted);
+                _repo.User.Delete(userToBeDeleted);
+
+                await _repo.Complete();
                 _logger.LogInfo($"User with id: { id } successfully deleted.");
 
                 return NoContent();

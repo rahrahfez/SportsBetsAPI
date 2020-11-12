@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SportsBetsServer.Migrations
 {
-    public partial class InitialAdd : Migration
+    public partial class RevertCredentials : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -28,7 +28,7 @@ namespace SportsBetsServer.Migrations
                 {
                     wager = table.Column<Guid>(nullable: false),
                     date_created = table.Column<DateTime>(nullable: false),
-                    status = table.Column<string>(nullable: false),
+                    status = table.Column<int>(nullable: false),
                     win_condition = table.Column<string>(nullable: false),
                     result = table.Column<string>(nullable: true),
                     amount = table.Column<int>(nullable: false)
@@ -42,16 +42,16 @@ namespace SportsBetsServer.Migrations
                 name: "credential",
                 columns: table => new
                 {
-                    user = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
                     password_hash = table.Column<byte[]>(nullable: false),
                     password_salt = table.Column<byte[]>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_credential", x => x.user);
+                    table.PrimaryKey("PK_credential", x => x.Id);
                     table.ForeignKey(
                         name: "FK_credential_user_Id",
-                        column: x => x.user,
+                        column: x => x.Id,
                         principalTable: "user",
                         principalColumn: "user",
                         onDelete: ReferentialAction.Cascade);
@@ -63,21 +63,21 @@ namespace SportsBetsServer.Migrations
                 {
                     bet = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    wager = table.Column<Guid>(nullable: false),
-                    user = table.Column<Guid>(nullable: false)
+                    WagerId = table.Column<Guid>(nullable: false),
+                    UserId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_bet", x => x.bet);
                     table.ForeignKey(
                         name: "FK_bet_user_UserId",
-                        column: x => x.user,
+                        column: x => x.UserId,
                         principalTable: "user",
                         principalColumn: "user",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_bet_wager_WagerId",
-                        column: x => x.wager,
+                        column: x => x.WagerId,
                         principalTable: "wager",
                         principalColumn: "wager",
                         onDelete: ReferentialAction.Cascade);
@@ -86,12 +86,12 @@ namespace SportsBetsServer.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_bet_UserId",
                 table: "bet",
-                column: "user");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_bet_WagerId",
                 table: "bet",
-                column: "wager");
+                column: "WagerId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
