@@ -10,7 +10,7 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  buildConfiguration: 'Release'
+  buildConfiguration: 'SportsBetsServer\SportsBetsServer.csproj'
 
 steps:
 - script: cd SportsBetsServer
