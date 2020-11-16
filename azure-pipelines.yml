@@ -12,7 +12,10 @@ pool:
 variables:
   buildConfiguration: 'Release'
   workpath: 'SportsBetsServer/SportsBetsServer.csproj'
+  testpath: 'SportsBetsAPI.Tests/SportsBetsAPI.Tests.csproj'
 
 steps:
 - script: dotnet build --configuration $(buildConfiguration) $(workpath)
   displayName: 'dotnet build $(buildConfiguration) $(workpath)'
+- script: dotnet test $(testpath) --logger trx
+  displayName: 'dotnet test $(testpath)'
