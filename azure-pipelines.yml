@@ -11,9 +11,8 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
-  SportsBets.Server: 'SportsBetsServer/'
 
 steps:
 - script: dotnet build --configuration $(buildConfiguration)
-  workingDirectory: $(SportsBets.Server)
+  workingDirectory: $(WORKPATH)
   displayName: 'dotnet build $(buildConfiguration)'
