@@ -30,7 +30,7 @@ namespace SportsBetsServer.Controllers
             _userService = userService;
         }
         [HttpGet]
-        //[Authorize]
+        [Authorize(Policy = Policy.Admin)]
         [ProducesResponseType(200)]
         [ProducesResponseType(500)]
         public IActionResult GetAllUsers()

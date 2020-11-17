@@ -23,5 +23,8 @@ namespace SportsBetsServer.Entities.Models
         [Column("date_created")]
         public DateTime DateCreated { get; set; }
         public Credential Credential { get; set; }
+        [Required(ErrorMessage ="User role is required.")]
+        [Column("user_role")]
+        public string UserRole { get; set; }
     }
 }

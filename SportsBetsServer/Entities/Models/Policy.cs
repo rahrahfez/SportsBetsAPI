@@ -20,7 +20,3 @@ namespace SportsBetsServer.Entities.Models
         }
     }
 }
-
-/*
-  Move to authservice.
- */

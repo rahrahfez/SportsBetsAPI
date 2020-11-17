@@ -2,6 +2,7 @@ using SportsBetsServer.Contracts.Services;
 using SportsBetsServer.Contracts.Repository;
 using SportsBetsServer.Entities.Models;
 using System.Linq;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System;
 
@@ -10,6 +11,11 @@ namespace SportsBetsServer.Services
     public class AuthService : IAuthService
     {
         private readonly IRepositoryWrapper _repo;
+        private List<User> users = new List<User>
+        {
+            new User { Username = "user", UserRole = "user" },
+            new User { Username = "admin", UserRole = "admin" }
+        };
         public AuthService(IRepositoryWrapper repo) 
         {
             _repo = repo;
@@ -61,6 +67,11 @@ namespace SportsBetsServer.Services
             {
                 user = null;
             }
+            return user;
+        }
+        public User LoginUser(string username)
+        {
+            var user = users.Find(u => u.Username == username);
             return user;
         }
     }
