@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace SportsBetsServer.Extensions
 {
@@ -77,6 +78,14 @@ namespace SportsBetsServer.Extensions
                         ValidIssuer = config["Jwt:Issuer"],
                         ValidAudience = config["Jwt:Audience"],
                         ValidateLifetime = true
+                    };
+                    options.Events = new JwtBearerEvents
+                    {
+                        OnMessageReceived = context =>
+                        {
+                            context.Token = context.Request.Cookies["cookie"];
+                            return Task.CompletedTask;
+                        }
                     };
                 });
         }
