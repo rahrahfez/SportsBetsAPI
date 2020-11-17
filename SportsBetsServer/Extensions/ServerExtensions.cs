@@ -8,8 +8,8 @@ using SportsBetsServer.Repository;
 using SportsBetsServer.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
 
 namespace SportsBetsServer.Extensions
