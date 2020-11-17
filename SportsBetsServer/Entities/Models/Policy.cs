@@ -8,8 +8,8 @@ namespace SportsBetsServer.Entities.Models
 {
     public class Policy
     {
-        private const string Admin = "Admin";
-        private const string User = "User";
+        public const string Admin = "Admin";
+        public const string User = "User";
         public static AuthorizationPolicy AdminPolicy()
         {
             return new AuthorizationPolicyBuilder().RequireAuthenticatedUser().RequireRole(Admin).Build();
@@ -20,3 +20,7 @@ namespace SportsBetsServer.Entities.Models
         }
     }
 }
+
+/*
+  Move to authservice.
+ */

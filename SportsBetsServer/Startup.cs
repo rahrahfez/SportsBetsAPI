@@ -73,6 +73,7 @@ namespace SportsBetsServer
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SportsBets", Version = "v1" });
             });
+            services.ConfigureAuthorization(); //move to authservice
         }
     }
     public class Startup

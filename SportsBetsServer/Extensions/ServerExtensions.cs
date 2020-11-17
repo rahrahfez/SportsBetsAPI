@@ -4,6 +4,7 @@ using SportsBetsServer.Contracts.Repository;
 using SportsBetsServer.Contracts.Services;
 using LoggerService;
 using SportsBetsServer.Entities;
+using SportsBetsServer.Entities.Models;
 using SportsBetsServer.Repository;
 using SportsBetsServer.Services;
 using Microsoft.Extensions.Configuration;
@@ -61,7 +62,8 @@ namespace SportsBetsServer.Extensions
         }
         public static void ConfigureJwtAuthentication(this IServiceCollection services, IConfiguration config)
         {
-            services.AddAuthentication(options => {
+            services.AddAuthentication(options => 
+            {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 }).AddJwtBearer(options => {
                     options.RequireHttpsMetadata = false;
@@ -78,5 +80,14 @@ namespace SportsBetsServer.Extensions
                     };
                 });
         }
+        public static void ConfigureAuthorization(this IServiceCollection services)
+        {
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(Policy.Admin, Policy.AdminPolicy());
+                options.AddPolicy(Policy.User, Policy.UserPolicy());
+            });
+        }
+            
     }
 }
