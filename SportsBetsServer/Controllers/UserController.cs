@@ -6,6 +6,7 @@ using LoggerService;
 using SportsBetsServer.Entities.Models;
 using SportsBetsServer.Entities.Models.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SportsBetsServer.Controllers
 {
@@ -29,14 +30,15 @@ namespace SportsBetsServer.Controllers
             _userService = userService;
         }
         [HttpGet]
+        //[Authorize]
         [ProducesResponseType(200)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> GetAllUsers()
+        public IActionResult GetAllUsers()
         {
             try
             {
-                var users = await _repo.User.FindAllAsync();
-
+                //var users = await _repo.User.FindAllAsync();
+                var users = new[] { "user1", "user2" };
                 _logger.LogInfo($"Returned all users from database.");
 
                 return Ok(users);
