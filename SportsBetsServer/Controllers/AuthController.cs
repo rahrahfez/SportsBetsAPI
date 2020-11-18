@@ -36,10 +36,10 @@ namespace SportsBetsServer.Controllers
         [ProducesResponseType(200)] 
         [ProducesResponseType(500)] 
         [ProducesResponseType(401)]
-        public IActionResult Login([FromBody]UserCredentials userToLogin)
+        public async Task<IActionResult> Login([FromBody]UserCredentials userToLogin)
         {
-            //var user = await _authService.LoginUserAsync(userToLogin.Username.ToLower(), userToLogin.Password);
-            var user = _authService.LoginUser(userToLogin.Username);
+            var user = await _authService.LoginUserAsync(userToLogin.Username.ToLower(), userToLogin.Password);
+
             if (user == null)
             {
                 return Unauthorized();

@@ -69,10 +69,5 @@ namespace SportsBetsServer.Services
             }
             return user;
         }
-        public User LoginUser(string username)
-        {
-            var user = users.Find(u => u.Username == username);
-            return user;
-        }
     }
 }
