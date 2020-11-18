@@ -13,6 +13,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace SportsBetsServer.Extensions
 {
@@ -63,10 +64,9 @@ namespace SportsBetsServer.Extensions
         }
         public static void ConfigureJwtAuthentication(this IServiceCollection services, IConfiguration config)
         {
-            services.AddAuthentication(options => 
-            {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                }).AddJwtBearer(options => {
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options => 
+                {
                     options.RequireHttpsMetadata = false;
                     options.SaveToken = true;
                     options.TokenValidationParameters = new TokenValidationParameters
@@ -79,14 +79,9 @@ namespace SportsBetsServer.Extensions
                         ValidAudience = config["Jwt:Audience"],
                         ValidateLifetime = true
                     };
-                    options.Events = new JwtBearerEvents
-                    {
-                        OnMessageReceived = context =>
-                        {
-                            context.Token = context.Request.Cookies["cookie"];
-                            return Task.CompletedTask;
-                        }
-                    };
+                }).AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
+                {
+                                       
                 });
         }
         public static void ConfigureAuthorization(this IServiceCollection services)
