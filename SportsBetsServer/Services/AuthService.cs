@@ -28,20 +28,14 @@ namespace SportsBetsServer.Services
                 passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
             }
         }
-        public async Task CreateCredentialsAsync(User user, string password)
+        public User CreateCredentialsAsync(User user, string password)
         {
-            byte[] passwordSalt, passwordHash;
+            CreatePasswordHash(password, out byte[] passwordSalt, out byte[] passwordHash);
 
-            CreatePasswordHash(password, out passwordSalt, out passwordHash);
+            user.PasswordHash = passwordHash;
+            user.PasswordSalt = passwordSalt;
 
-            Credential credentials = new Credential
-            {
-                User = user,
-                PasswordSalt = passwordSalt,
-                PasswordHash = passwordHash,
-            };
-
-            await _repo.Auth.CreateAsync(credentials);
+            return user;
         }
         public bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
         {
@@ -61,9 +55,8 @@ namespace SportsBetsServer.Services
         public async Task<User> LoginUserAsync(string username, string password)
         {
             var user = await _repo.User.GetUserByUsernameAsync(username);
-            var creds = await _repo.Auth.FindByGuidAsync(user.Id);
 
-            if(!VerifyPasswordHash(password, creds.PasswordHash, creds.PasswordSalt))
+            if(!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
             {
                 user = null;
             }

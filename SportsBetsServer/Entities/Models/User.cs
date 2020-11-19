@@ -26,5 +26,11 @@ namespace SportsBetsServer.Entities.Models
         [Required(ErrorMessage ="User role is required.")]
         [Column("user_role")]
         public string UserRole { get; set; }
+        [Required]
+        [Column("password_hash")]
+        public byte[] PasswordHash { get; set; }
+        [Required]
+        [Column("password_salt")]
+        public byte[] PasswordSalt { get; set; }
     }
 }

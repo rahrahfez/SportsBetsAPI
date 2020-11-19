@@ -79,9 +79,6 @@ namespace SportsBetsServer.Extensions
                         ValidAudience = config["Jwt:Audience"],
                         ValidateLifetime = true
                     };
-                }).AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
-                {
-                                       
                 });
         }
         public static void ConfigureAuthorization(this IServiceCollection services)
