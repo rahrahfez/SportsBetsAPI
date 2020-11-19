@@ -14,9 +14,13 @@ namespace SportsBetsServer.Services
         {
             _repo = repo;
         }
-        public bool UserExists(string username)
+        public async Task<bool> UserExists(string username)
         {
-            // TODO: Figure out where to put this function, in the service or repo?
+            var user = await _repo.User.GetUserByUsernameAsync(username);
+            if (user != null)
+            {
+                return true;
+            }
             return false;
         }
         public User Map(User u1, User u2)
