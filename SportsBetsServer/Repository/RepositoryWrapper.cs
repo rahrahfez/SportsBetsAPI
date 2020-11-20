@@ -9,8 +9,6 @@ namespace SportsBetsServer.Repository
         private readonly RepositoryContext _repositoryContext;
         private IUserRepository _user;
         private IWagerRepository _wager;
-        private IAuthRepository _auth;
-        private IBetRepository _bet;
         public RepositoryWrapper(RepositoryContext repositoryContext) 
         {
             _repositoryContext = repositoryContext;
@@ -37,28 +35,6 @@ namespace SportsBetsServer.Repository
                 }
 
                 return _wager;
-            }
-        }
-        public IAuthRepository Auth
-        {
-            get
-            {
-                if (_auth == null)
-                {
-                    _auth = new AuthRepository(_repositoryContext);
-                }
-                
-                return _auth;
-            }
-        }
-        public IBetRepository Bet{
-            get 
-            {
-                if (_bet == null)
-                {
-                    _bet = new BetRepository(_repositoryContext);
-                }
-                return _bet;
             }
         }
         public async Task Complete()
