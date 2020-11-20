@@ -10,9 +10,11 @@ namespace SportsBetsServer.Services
     public class UserService : IUserService
     {
         private readonly IRepositoryWrapper _repo;
-        public UserService(IRepositoryWrapper repo)
+        private readonly IAuthService _authService;
+        public UserService(IRepositoryWrapper repo, IAuthService authService)
         {
             _repo = repo;
+            _authService = authService;
         }
         public async Task<bool> UserExists(string username)
         {
@@ -30,18 +32,20 @@ namespace SportsBetsServer.Services
             u1.AvailableBalance = u2.AvailableBalance;
             return u1;
         }
-        public async Task<User> CreateUserAsync(UserCredentials user)
+        public User CreateUser(UserCredentials user)
         {
+            _authService.CreatePasswordHash(user.Password, out byte[] passwordHash, out byte[] passwordSalt);
             User createdUser = new User()
-                {
-                    Id = Guid.NewGuid(), 
-                    Username = user.Username,
-                    AvailableBalance = 100,
-                    DateCreated = DateTime.Now,
-                };
-
-            await _repo.User.CreateAsync(createdUser);
-
+            {
+                Id = Guid.NewGuid(),
+                Username = user.Username,
+                AvailableBalance = 100,
+                DateCreated = DateTime.Now,
+                PasswordHash = passwordHash,
+                PasswordSalt = passwordSalt,
+                UserRole = "User"
+             };
+            
             return createdUser;
         }
     }

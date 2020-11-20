@@ -11,19 +11,16 @@ namespace SportsBetsServer.Entities.Models
         [Key]
         [Column("wager")]
         public Guid Id { get; set; }
-        [Column("bet")]
-        public ICollection<Bet> Bet { get; set; }
-        [Required(ErrorMessage="Date created is required.")]
+        [Column("user")]
+        public User User { get; set; }
         [Column("date_created")]
         public DateTime DateCreated { get; set; }
         [Required(ErrorMessage="Status is required.")]
         [Column("status")]
         public Status Status { get; set; }
         [Required(ErrorMessage="Win condition is required.")]
-        [Column("win_condition")]
-        public string WinCondition { get; set; }
         [Column("result")]
-        public string Result { get; set; }
+        public Result Result { get; set; }
         [Column("amount")]
         public int Amount { get; set; }
     }
@@ -32,5 +29,11 @@ namespace SportsBetsServer.Entities.Models
         open,
         pending,
         closed
+    }
+    public enum Result
+    {
+        win,
+        loss,
+        push
     }
 }

@@ -11,11 +11,7 @@ namespace SportsBetsServer.Services
     public class AuthService : IAuthService
     {
         private readonly IRepositoryWrapper _repo;
-        private List<User> users = new List<User>
-        {
-            new User { Username = "user", UserRole = "user" },
-            new User { Username = "admin", UserRole = "admin" }
-        };
+
         public AuthService(IRepositoryWrapper repo) 
         {
             _repo = repo;
@@ -27,15 +23,6 @@ namespace SportsBetsServer.Services
                 passwordSalt = hmac.Key;
                 passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
             }
-        }
-        public User CreateCredentialsAsync(User user, string password)
-        {
-            CreatePasswordHash(password, out byte[] passwordSalt, out byte[] passwordHash);
-
-            user.PasswordHash = passwordHash;
-            user.PasswordSalt = passwordSalt;
-
-            return user;
         }
         public bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
         {

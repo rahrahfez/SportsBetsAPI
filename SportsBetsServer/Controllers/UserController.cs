@@ -37,8 +37,8 @@ namespace SportsBetsServer.Controllers
         {
             try
             {
-                //var users = await _repo.User.FindAllAsync();
-                var users = new[] { "user1", "user2" };
+                var users = await _repo.User.FindAllAsync();
+
                 _logger.LogInfo($"Returned all users from database.");
 
                 return Ok(users);
@@ -85,7 +85,7 @@ namespace SportsBetsServer.Controllers
         {
             try
             {
-                if (_userService.UserExists(user.Username))
+                if (await _userService.UserExists(user.Username))
                 {
                     _logger.LogError("Username already exists.");
                     return BadRequest("Username already exists.");
@@ -96,8 +96,9 @@ namespace SportsBetsServer.Controllers
                     return BadRequest("User object is null");
                 }
 
-                User createdUser = await _userService.CreateUserAsync(user);
-                await _authService.CreateCredentialsAsync(createdUser, user.Password); 
+                User createdUser = _userService.CreateUser(user);
+                await _authService.CreateCredentialsAsync(createdUser, user.Password);
+                await _repo.User.CreateAsync(createdUser);
                 await _repo.Complete();
 
                 _logger.LogInfo($"Successfully registered { user.Username }.");
