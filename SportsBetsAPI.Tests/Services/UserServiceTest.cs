@@ -1,19 +1,15 @@
 using System;
 using Xunit;
-using Microsoft.EntityFrameworkCore;
-using SportsBetsServer.Entities;
+using System.Collections.Generic;
+using SportsBetsServer.Entities.Models;
 
 namespace SportsBetsAPI.Tests.Services
 {
     public class UserServiceTest
     {
-        private DbContextOptions<RepositoryContext> _options;
-        private readonly RepositoryContext _repo;
+        private List<User> users = new List<User>();
         public UserServiceTest()
         {
-            _options = new DbContextOptionsBuilder<RepositoryContext>()
-                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
-                .Options;
         }
         [Fact]
         public void UserExistTest()
