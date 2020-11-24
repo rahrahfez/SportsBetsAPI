@@ -87,6 +87,7 @@ namespace SportsBetsServer.Extensions
             {
                 options.AddPolicy(Policy.Admin, Policy.AdminPolicy());
                 options.AddPolicy(Policy.User, Policy.UserPolicy());
+                options.FallbackPolicy = Policy.FallBackPolicy();
             });
         }
             

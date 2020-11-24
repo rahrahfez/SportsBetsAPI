@@ -18,5 +18,9 @@ namespace SportsBetsServer.Entities.Models
         {
             return new AuthorizationPolicyBuilder().RequireAuthenticatedUser().RequireRole(User).Build();
         }
+        public static AuthorizationPolicy FallBackPolicy()
+        {
+            return new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+        }
     }
 }

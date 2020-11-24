@@ -8,6 +8,5 @@ namespace SportsBetsServer.Entities
         public RepositoryContext(DbContextOptions options) : base(options) {}
         public DbSet<User> User { get; set; }
         public DbSet<Wager> Wager { get; set; }
-        public DbSet<Bet> Bet { get; set; }
     }
 }

@@ -35,7 +35,6 @@ namespace SportsBetsServer.Controllers
         [AllowAnonymous]
         [ProducesResponseType(200)] 
         [ProducesResponseType(500)] 
-        [ProducesResponseType(401)]
         public async Task<IActionResult> Login([FromBody]UserCredentials userToLogin)
         {
             var user = await _authService.LoginUserAsync(userToLogin.Username.ToLower(), userToLogin.Password);

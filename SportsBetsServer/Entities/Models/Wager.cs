@@ -11,14 +11,14 @@ namespace SportsBetsServer.Entities.Models
         [Key]
         [Column("wager")]
         public Guid Id { get; set; }
+        [ForeignKey("UserId")]
         [Column("user")]
-        public User User { get; set; }
+        public Guid UserId { get; set; }
         [Column("date_created")]
         public DateTime DateCreated { get; set; }
         [Required(ErrorMessage="Status is required.")]
         [Column("status")]
         public Status Status { get; set; }
-        [Required(ErrorMessage="Win condition is required.")]
         [Column("result")]
         public Result Result { get; set; }
         [Column("amount")]

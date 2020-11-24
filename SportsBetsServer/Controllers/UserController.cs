@@ -11,29 +11,27 @@ using Microsoft.AspNetCore.Authorization;
 namespace SportsBetsServer.Controllers
 {
     [Route("api/users")]
+    [Authorize(Policy = Policy.User)]
     [ApiController]
     public class UserController : ControllerBase
     {
         private readonly IRepositoryWrapper _repo;    
         private readonly ILoggerManager _logger;
         private readonly IUserService _userService;
-        private readonly IAuthService _authService;
         public UserController(
             IRepositoryWrapper repo, 
             ILoggerManager logger, 
-            IUserService userService,
-            IAuthService authService)
+            IUserService userService)
         {
             _logger = logger;
             _repo = repo;
-            _authService = authService;
             _userService = userService;
         }
         [HttpGet]
         [Authorize(Policy = Policy.Admin)]
         [ProducesResponseType(200)]
         [ProducesResponseType(500)]
-        public IActionResult GetAllUsers()
+        public async Task<IActionResult> GetAllUsers()
         {
             try
             {
@@ -77,7 +75,8 @@ namespace SportsBetsServer.Controllers
                 return StatusCode(500, "Internal server error");
             }
         }
-        [HttpPost("create")]
+        [HttpPost("register")]
+        [AllowAnonymous]
         [ProducesResponseType(201)]
         [ProducesResponseType(500)]
         [ProducesResponseType(400)]
@@ -97,7 +96,7 @@ namespace SportsBetsServer.Controllers
                 }
 
                 User createdUser = _userService.CreateUser(user);
-                await _authService.CreateCredentialsAsync(createdUser, user.Password);
+
                 await _repo.User.CreateAsync(createdUser);
                 await _repo.Complete();
 
