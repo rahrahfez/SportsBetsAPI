@@ -39,14 +39,14 @@ namespace SportsBetsServer.Services
             }
             return true;
         }
-        public async Task<User> LoginUserAsync(string username, string password)
+        public User LoginUser(string username, string password)
         {
-            var user = await _repo.User.GetUserByUsernameAsync(username);
+            var user = _repo.User.GetUserByUsername(username);
 
-            if(!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
+/*            if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
             {
                 user = null;
-            }
+            }*/
             return user;
         }
     }

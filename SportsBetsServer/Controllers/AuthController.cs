@@ -35,13 +35,14 @@ namespace SportsBetsServer.Controllers
         [AllowAnonymous]
         [ProducesResponseType(200)] 
         [ProducesResponseType(500)] 
+        [ProducesResponseType(400)]
         public async Task<IActionResult> Login([FromBody]UserCredentials userToLogin)
         {
-            var user = await _authService.LoginUserAsync(userToLogin.Username.ToLower(), userToLogin.Password);
+            var user = _authService.LoginUser(userToLogin.Username.ToLower(), userToLogin.Password);
 
             if (user == null)
             {
-                return Unauthorized();
+                return BadRequest();
             }
 
             try
