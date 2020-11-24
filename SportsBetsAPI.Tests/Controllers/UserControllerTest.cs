@@ -11,9 +11,6 @@ namespace SportsBetsAPI.Tests.Controllers
         private readonly RepositoryContext _context;
         public UserControllerTest()
         {
-            _options = new DbContextOptionsBuilder<RepositoryContext>()
-                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
-                .Options;
             _context = new RepositoryContext(_options);
         }
     }
