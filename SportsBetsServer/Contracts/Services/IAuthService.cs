@@ -7,8 +7,7 @@ namespace SportsBetsServer.Contracts.Services
   {
     void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt);
     bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt);
-
-    Task CreateCredentialsAsync(User user, string password);
-    Task<User> LoginUserAsync(string username, string password);
+    //Task<User> LoginUserAsync(string username, string password);
+    User LoginUser(string username, string password);
   }
 }

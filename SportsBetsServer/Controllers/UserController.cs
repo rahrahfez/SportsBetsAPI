@@ -6,29 +6,29 @@ using LoggerService;
 using SportsBetsServer.Entities.Models;
 using SportsBetsServer.Entities.Models.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SportsBetsServer.Controllers
 {
     [Route("api/users")]
+    [Authorize(Policy = Policy.User)]
     [ApiController]
     public class UserController : ControllerBase
     {
         private readonly IRepositoryWrapper _repo;    
         private readonly ILoggerManager _logger;
         private readonly IUserService _userService;
-        private readonly IAuthService _authService;
         public UserController(
             IRepositoryWrapper repo, 
             ILoggerManager logger, 
-            IUserService userService,
-            IAuthService authService)
+            IUserService userService)
         {
             _logger = logger;
             _repo = repo;
-            _authService = authService;
             _userService = userService;
         }
         [HttpGet]
+        [Authorize(Policy = Policy.Admin)]
         [ProducesResponseType(200)]
         [ProducesResponseType(500)]
         public async Task<IActionResult> GetAllUsers()
@@ -75,7 +75,8 @@ namespace SportsBetsServer.Controllers
                 return StatusCode(500, "Internal server error");
             }
         }
-        [HttpPost("create")]
+        [HttpPost("register")]
+        [AllowAnonymous]
         [ProducesResponseType(201)]
         [ProducesResponseType(500)]
         [ProducesResponseType(400)]
@@ -83,7 +84,7 @@ namespace SportsBetsServer.Controllers
         {
             try
             {
-                if (_userService.UserExists(user.Username))
+                if (await _userService.UserExists(user.Username))
                 {
                     _logger.LogError("Username already exists.");
                     return BadRequest("Username already exists.");
@@ -94,8 +95,9 @@ namespace SportsBetsServer.Controllers
                     return BadRequest("User object is null");
                 }
 
-                User createdUser = await _userService.CreateUserAsync(user);
-                await _authService.CreateCredentialsAsync(createdUser, user.Password); 
+                User createdUser = _userService.CreateUser(user);
+
+                await _repo.User.CreateAsync(createdUser);
                 await _repo.Complete();
 
                 _logger.LogInfo($"Successfully registered { user.Username }.");

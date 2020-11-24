@@ -6,8 +6,8 @@ namespace SportsBetsServer.Contracts.Services
 {
     public interface IUserService
     {
-        bool UserExists(string username);
+        Task<bool> UserExists(string username);
         User Map(User u1, User u2);
-        Task<User> CreateUserAsync(UserCredentials user);
+        User CreateUser(UserCredentials user);
     }
 }

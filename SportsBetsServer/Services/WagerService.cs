@@ -11,26 +11,11 @@ namespace SportsBetsServer.Services
         {
             return new Wager 
             {                
-                Id = Guid.NewGuid(),
+                Id = wager.Id,
+                UserId = wager.UserId,
                 DateCreated = DateTime.Now,
                 Status = Status.open,
-                WinCondition = wager.WinCondition,
                 Amount = wager.Amount,
-            };
-        }
-        public Wager AcceptWager(Wager wager)
-        {
-            if (wager.Id == null)
-            {
-                return null;
-            }
-            return new Wager
-            {
-                Id = wager.Id,
-                DateCreated = DateTime.Now,
-                Status = Status.pending,
-                WinCondition = wager.WinCondition,
-                Amount = wager.Amount
             };
         }
     }

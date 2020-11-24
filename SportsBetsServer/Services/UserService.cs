@@ -10,13 +10,19 @@ namespace SportsBetsServer.Services
     public class UserService : IUserService
     {
         private readonly IRepositoryWrapper _repo;
-        public UserService(IRepositoryWrapper repo)
+        private readonly IAuthService _authService;
+        public UserService(IRepositoryWrapper repo, IAuthService authService)
         {
             _repo = repo;
+            _authService = authService;
         }
-        public bool UserExists(string username)
+        public async Task<bool> UserExists(string username)
         {
-            // TODO: Figure out where to put this function, in the service or repo?
+            var user = await _repo.User.GetUserByUsernameAsync(username);
+            if (user != null)
+            {
+                return true;
+            }
             return false;
         }
         public User Map(User u1, User u2)
@@ -26,18 +32,20 @@ namespace SportsBetsServer.Services
             u1.AvailableBalance = u2.AvailableBalance;
             return u1;
         }
-        public async Task<User> CreateUserAsync(UserCredentials user)
+        public User CreateUser(UserCredentials user)
         {
+            _authService.CreatePasswordHash(user.Password, out byte[] passwordHash, out byte[] passwordSalt);
             User createdUser = new User()
-                {
-                    Id = Guid.NewGuid(), 
-                    Username = user.Username,
-                    AvailableBalance = 100,
-                    DateCreated = DateTime.Now,
-                };
-
-            await _repo.User.CreateAsync(createdUser);
-
+            {
+                Id = Guid.NewGuid(),
+                Username = user.Username,
+                AvailableBalance = 100,
+                DateCreated = DateTime.Now,
+                PasswordHash = passwordHash,
+                PasswordSalt = passwordSalt,
+                UserRole = "User"
+             };
+            
             return createdUser;
         }
     }

@@ -28,10 +28,9 @@ namespace SportsBetsServer
         }
         public IConfiguration Configuration { get; }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app)
         {
             app.UseDeveloperExceptionPage();
-            app.UseHttpsRedirection();
             app.UseSwagger();
             app.UseSwaggerUI(c => 
             {
@@ -45,6 +44,12 @@ namespace SportsBetsServer
             });
             app.UseStaticFiles();
             app.UseAuthentication();
+            app.UseRouting();
+            app.UseAuthorization();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
         }
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -68,6 +73,7 @@ namespace SportsBetsServer
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SportsBets", Version = "v1" });
             });
+            services.ConfigureAuthorization(); 
         }
     }
     public class Startup
@@ -90,7 +96,6 @@ namespace SportsBetsServer
             services.ConfigureUserService();
             services.ConfigureDateTime();
             services.ConfigureJwtAuthentication(Configuration);
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -105,8 +110,6 @@ namespace SportsBetsServer
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
-            app.UseHttpsRedirection();
             app.UseCors("CorsPolicy");
             app.UseForwardedHeaders(new ForwardedHeadersOptions
             {
@@ -114,6 +117,7 @@ namespace SportsBetsServer
             });
             app.UseStaticFiles();
             app.UseAuthentication();
+            app.UseAuthorization();
         }
     }
 }

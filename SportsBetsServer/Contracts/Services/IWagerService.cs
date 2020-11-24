@@ -7,6 +7,5 @@ namespace SportsBetsServer.Contracts.Services
     public interface IWagerService
     {
         Wager CreateWager(WagerToCreate wager);
-        Wager AcceptWager(Wager wager);
     }
 }

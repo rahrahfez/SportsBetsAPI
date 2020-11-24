@@ -1,13 +1,15 @@
 using System;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
 using SportsBetsServer.Contracts.Services;
+using SportsBetsServer.Entities.Models;
 using SportsBetsServer.Entities.Models.Extensions;
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Authorization;
 using System.IdentityModel.Tokens.Jwt;
 using LoggerService;
 
@@ -30,16 +32,17 @@ namespace SportsBetsServer.Controllers
             _authService = authService;
         }
         [HttpPost("login")]
+        [AllowAnonymous]
         [ProducesResponseType(200)] 
         [ProducesResponseType(500)] 
-        [ProducesResponseType(401)]
+        [ProducesResponseType(400)]
         public async Task<IActionResult> Login([FromBody]UserCredentials userToLogin)
         {
-            var user = await _authService.LoginUserAsync(userToLogin.Username.ToLower(), userToLogin.Password);
+            var user = _authService.LoginUser(userToLogin.Username.ToLower(), userToLogin.Password);
 
             if (user == null)
             {
-                return Unauthorized();
+                return BadRequest();
             }
 
             try
@@ -47,19 +50,22 @@ namespace SportsBetsServer.Controllers
                 var claims = new[]
                 {
                     new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                    new Claim(ClaimTypes.Name, user.Username)
+                    new Claim(ClaimTypes.Name, user.Username),
+                    new Claim(ClaimTypes.Role, user.UserRole)
                 };
 
                 var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetSection("AppSettings:Token").Value));
 
-                var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+                var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
                     Subject = new ClaimsIdentity(claims),
                     NotBefore = DateTime.UtcNow,
                     Expires = DateTime.UtcNow.AddMinutes(60),
-                    SigningCredentials = creds
+                    SigningCredentials = credentials,
+                    Issuer = _config["Jwt:Issuer"],
+                    Audience = _config["Jwt:Audience"]
                 };
 
                 var tokenHandler = new JwtSecurityTokenHandler();

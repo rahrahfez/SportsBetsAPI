@@ -4,6 +4,7 @@ using SportsBetsServer.Contracts.Repository;
 using SportsBetsServer.Contracts.Services;
 using LoggerService;
 using SportsBetsServer.Entities;
+using SportsBetsServer.Entities.Models;
 using SportsBetsServer.Repository;
 using SportsBetsServer.Services;
 using Microsoft.Extensions.Configuration;
@@ -11,6 +12,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace SportsBetsServer.Extensions
 {
@@ -23,8 +26,8 @@ namespace SportsBetsServer.Extensions
                 options.AddPolicy("CorsPolicy",
                     builder => builder.AllowAnyOrigin()
                     .AllowAnyHeader()
-                    .AllowAnyMethod()
-                    .AllowCredentials());
+                    .AllowAnyMethod());
+                    //.AllowCredentials());
             });
         }
         public static void ConfigureIISIntegration(this IServiceCollection services)
@@ -61,17 +64,32 @@ namespace SportsBetsServer.Extensions
         }
         public static void ConfigureJwtAuthentication(this IServiceCollection services, IConfiguration config)
         {
-            services.AddAuthentication(options => {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                }).AddJwtBearer(options => {
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options => 
+                {
+                    options.RequireHttpsMetadata = false;
+                    options.SaveToken = true;
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(config.GetSection("AppSettings:Token").Value)),
-                        ValidateIssuer = false,
-                        ValidateAudience = false
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidIssuer = config["Jwt:Issuer"],
+                        ValidAudience = config["Jwt:Audience"],
+                        ValidateLifetime = true
                     };
                 });
         }
+        public static void ConfigureAuthorization(this IServiceCollection services)
+        {
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(Policy.Admin, Policy.AdminPolicy());
+                options.AddPolicy(Policy.User, Policy.UserPolicy());
+                options.FallbackPolicy = Policy.FallBackPolicy();
+            });
+        }
+            
     }
 }

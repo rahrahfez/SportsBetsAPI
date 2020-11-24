@@ -19,6 +19,11 @@ namespace SportsBetsServer.Repository
                 .Where(u => u.Username.Equals(username)).FirstOrDefaultAsync();
 
         }
+        public User GetUserByUsername(string username)
+        {
+            return RepositoryContext.User
+                .Where(u => u.Username.Equals(username)).FirstOrDefault();
+        }
         public async Task<int> GetUserAvailableBalanceAsync(Guid id)
         {
             var user = await FindByGuidAsync(id);
