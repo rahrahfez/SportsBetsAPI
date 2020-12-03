@@ -1,6 +1,6 @@
 using System;
 using Xunit;
-using SportsBetsServer.Entities.Extensions;
+using SportsBetsServer.Entities.Models.Extensions;
 using SportsBetsServer.Contracts.Services;
 using SportsBetsServer.Services;
 

@@ -1,53 +1,61 @@
-using SportsBetsServer.Contracts.Services;
-using SportsBetsServer.Contracts.Repository;
-using SportsBetsServer.Entities.Models;
-using System.Linq;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using System;
+using System.Text;
+using System.Security.Claims;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Configuration;
+using System.IdentityModel.Tokens.Jwt;
+using SportsBetsServer.Contracts.Services;
+using SportsBetsServer.Entities.Models;
+using Scrypt;
 
 namespace SportsBetsServer.Services
 {
     public class AuthService : IAuthService
     {
-        private readonly IRepositoryWrapper _repo;
+        public AuthService() 
+        {
 
-        public AuthService(IRepositoryWrapper repo) 
-        {
-            _repo = repo;
         }
-        public void CreatePasswordHash(string password, out byte[] passwordSalt, out byte[] passwordHash)
+        public string CreatePasswordHash(string password)
         {
-            using (var hmac = new System.Security.Cryptography.HMACSHA512())
+            ScryptEncoder encoder = new ScryptEncoder();
+            string hashedPassword = encoder.Encode(password);
+            return hashedPassword;
+        }
+        public bool VerifyPassword(string password, string hashedPassword)
+        {
+            ScryptEncoder encoder = new ScryptEncoder();
+            bool result = encoder.Compare(password, hashedPassword);
+            return result;
+        }
+        public string CreateJsonToken(IConfiguration config, User user)
+        {
+            var claims = new[]
             {
-                passwordSalt = hmac.Key;
-                passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-            }
-        }
-        public bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
-        {
-            using (var hmac = new System.Security.Cryptography.HMACSHA512(passwordSalt))
-            {
-                var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-                for (int i = 0; i < computedHash.Length; i++)
-                {
-                    if (computedHash[i] != passwordHash[i])
-                    {
-                        return false;
-                    }
-                }
-            }
-            return true;
-        }
-        public User LoginUser(string username, string password)
-        {
-            var user = _repo.User.GetUserByUsername(username);
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Name, user.Username),
+                new Claim(ClaimTypes.Role, user.UserRole)
+            };
 
-/*            if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config.GetSection("AppSettings:Token").Value));
+
+            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+
+            var tokenDescriptor = new SecurityTokenDescriptor
             {
-                user = null;
-            }*/
-            return user;
+                Subject = new ClaimsIdentity(claims),
+                NotBefore = DateTime.UtcNow,
+                Expires = DateTime.UtcNow.AddMinutes(60),
+                SigningCredentials = credentials,
+                Issuer = config["Jwt:Issuer"],
+                Audience = config["Jwt:Audience"]
+            };
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+
+            return tokenHandler.WriteToken(token);
         }
     }
 }

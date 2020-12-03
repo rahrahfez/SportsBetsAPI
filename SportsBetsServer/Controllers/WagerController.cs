@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using SportsBetsServer.Contracts.Repository;
 using SportsBetsServer.Contracts.Services;
 using SportsBetsServer.Entities.Models;
-using SportsBetsServer.Entities.Extensions;
+using SportsBetsServer.Entities.Models.Extensions;
 using LoggerService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

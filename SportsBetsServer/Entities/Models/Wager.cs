@@ -20,7 +20,7 @@ namespace SportsBetsServer.Entities.Models
         [Column("status")]
         public Status Status { get; set; }
         [Column("result")]
-        public Result Result { get; set; }
+        public Result? Result { get; set; }
         [Column("amount")]
         public int Amount { get; set; }
     }

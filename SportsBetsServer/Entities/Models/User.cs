@@ -27,9 +27,6 @@ namespace SportsBetsServer.Entities.Models
         public string UserRole { get; set; }
         [Required]
         [Column("password_hash")]
-        public byte[] PasswordHash { get; set; }
-        [Required]
-        [Column("password_salt")]
-        public byte[] PasswordSalt { get; set; }
+        public string HashedPassword { get; set; }
     }
 }

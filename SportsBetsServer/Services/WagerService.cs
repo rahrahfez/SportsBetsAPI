@@ -1,6 +1,6 @@
 using System;
 using SportsBetsServer.Entities.Models;
-using SportsBetsServer.Entities.Extensions;
+using SportsBetsServer.Entities.Models.Extensions;
 using SportsBetsServer.Contracts.Services;
 
 namespace SportsBetsServer.Services

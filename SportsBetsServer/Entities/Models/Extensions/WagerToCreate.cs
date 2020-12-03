@@ -1,7 +1,6 @@
 using System;
-using SportsBetsServer.Entities.Models;
 
-namespace SportsBetsServer.Entities.Extensions
+namespace SportsBetsServer.Entities.Models.Extensions
 {
     public class WagerToCreate
     {

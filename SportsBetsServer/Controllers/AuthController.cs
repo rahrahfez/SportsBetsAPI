@@ -1,16 +1,9 @@
 using System;
-using System.Threading.Tasks;
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using SportsBetsServer.Contracts.Services;
-using SportsBetsServer.Entities.Models;
-using SportsBetsServer.Entities.Models.Extensions;
-using System.Security.Claims;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using Microsoft.Extensions.Configuration;
+using SportsBetsServer.Contracts.Services;
+using SportsBetsServer.Entities.Models.Extensions;
 using Microsoft.AspNetCore.Authorization;
-using System.IdentityModel.Tokens.Jwt;
 using LoggerService;
 
 namespace SportsBetsServer.Controllers
@@ -21,15 +14,19 @@ namespace SportsBetsServer.Controllers
     {
         private readonly ILoggerManager _logger;
         private readonly IAuthService _authService;
+        private readonly IUserService _userService;
         private readonly IConfiguration _config;
+
         public AuthController(
             ILoggerManager logger, 
-            IConfiguration config,
-            IAuthService authService)
+            IAuthService authService,
+            IUserService userService,
+            IConfiguration config)
         {
             _logger = logger;
-            _config = config;
             _authService = authService;
+            _userService = userService;
+            _config = config;
         }
         [HttpPost("login")]
         [AllowAnonymous]
@@ -37,44 +34,19 @@ namespace SportsBetsServer.Controllers
         [ProducesResponseType(500)] 
         [ProducesResponseType(400)]
         public IActionResult Login([FromBody]UserCredentials userToLogin)
-        {
-            var user = _authService.LoginUser(userToLogin.Username.ToLower(), userToLogin.Password);
-
-            if (user == null)
-            {
-                return BadRequest();
-            }
-
+        {            
             try
             {
-                var claims = new[]
+                var user = _userService.GetUserByUsername(userToLogin.Username);
+
+                if (!_authService.VerifyPassword(userToLogin.Password, user.HashedPassword))
                 {
-                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                    new Claim(ClaimTypes.Name, user.Username),
-                    new Claim(ClaimTypes.Role, user.UserRole)
-                };
+                    return BadRequest();
+                }
 
-                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetSection("AppSettings:Token").Value));
+                var signedAndEncodedToken = _authService.CreateJsonToken(_config, user);
 
-                var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
-
-                var tokenDescriptor = new SecurityTokenDescriptor
-                {
-                    Subject = new ClaimsIdentity(claims),
-                    NotBefore = DateTime.UtcNow,
-                    Expires = DateTime.UtcNow.AddMinutes(60),
-                    SigningCredentials = credentials,
-                    Issuer = _config["Jwt:Issuer"],
-                    Audience = _config["Jwt:Audience"]
-                };
-
-                var tokenHandler = new JwtSecurityTokenHandler();
-
-                var token = tokenHandler.CreateToken(tokenDescriptor);
-
-                var signedAndEncodedToken = tokenHandler.WriteToken(token);
-
-                _logger.LogInfo($"{token} successfully created. Encoded as {signedAndEncodedToken}");
+                _logger.LogInfo($"Token successfully created. Encoded as {signedAndEncodedToken}");
                 return Ok(signedAndEncodedToken);
             }
             catch (Exception ex)
