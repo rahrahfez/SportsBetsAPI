@@ -15,7 +15,7 @@ namespace SportsBetsAPI.Tests.Repository
         {
             _context = new RepositoryContext(_options);
         }
-        [Fact]
+        [Fact(Skip = "Not fully implemented")]
         public async void GetAllUsers()
         {
             using var repo = new RepositoryWrapper(_context);
@@ -47,7 +47,7 @@ namespace SportsBetsAPI.Tests.Repository
 
             Assert.Equal(3, await _context.User.CountAsync());
         }
-        [Fact]
+        [Fact(Skip = "Not fully implemented")]
         public async void GetUserByUsername()
         {
             using var context = new RepositoryContext(_options);
@@ -71,7 +71,7 @@ namespace SportsBetsAPI.Tests.Repository
 
             Assert.NotNull(user);
         }
-        [Fact]
+        [Fact(Skip = "Not fully implemented")]
         public async void GetUserAvailableBalance()
         {            
             using var context = new RepositoryContext(_options);
