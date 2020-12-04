@@ -5,6 +5,7 @@ using SportsBetsServer.Contracts.Services;
 using SportsBetsServer.Services;
 using SportsBetsServer.Entities.Models;
 using SportsBetsServer.Entities.Models.Extensions;
+using System.IO;
 
 namespace SportsBetsAPI.Tests.Services
 {
@@ -49,6 +50,7 @@ namespace SportsBetsAPI.Tests.Services
         public void CreateJsonTokenTest()
         {
             var config = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json")
                 .Build();
 
