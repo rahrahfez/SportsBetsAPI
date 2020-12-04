@@ -18,8 +18,6 @@
     <ProjectReference Include="..\SportsBetsServer\SportsBetsServer.csproj" />
   </ItemGroup>
   <ItemGroup>
-	<Content Update="appsettings.json">
-	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	</Content>
+	<Content Update="appsettings.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>
