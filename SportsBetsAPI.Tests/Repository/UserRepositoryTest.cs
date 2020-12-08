@@ -1,7 +1,10 @@
 using System;
+using System.Threading.Tasks;
 using Xunit;
+using Moq;
 using Microsoft.EntityFrameworkCore;
 using SportsBetsServer.Repository;
+using SportsBetsServer.Contracts.Repository;
 using SportsBetsServer.Entities;
 using SportsBetsServer.Entities.Models;
 
@@ -9,19 +12,15 @@ namespace SportsBetsAPI.Tests.Repository
 {
     public class UserRepositoryTest
     {
-        private readonly DbContextOptions<RepositoryContext> _options;
-        private readonly RepositoryContext _context;
         public UserRepositoryTest()
         {
-            _context = new RepositoryContext(_options);
         }
         [Fact(Skip = "Not fully implemented")]
         public async void GetAllUsers()
         {
-            using var repo = new RepositoryWrapper(_context);
-            _context.Database.EnsureDeleted();
-            _context.Database.EnsureCreated();
-
+            var repo = new Mock<RepositoryContext>();
+            var User = new Mock<DbSet<User>>();
+            User.Setup(t => t.AddAsync(It.IsAny<User>())).Verifiable();
             await repo.User.CreateAsync(new User
             {
                 Id = Guid.NewGuid(),
@@ -45,7 +44,7 @@ namespace SportsBetsAPI.Tests.Repository
             });
             await repo.Complete();
 
-            Assert.Equal(3, await _context.User.CountAsync());
+            Assert.Equal(3, await User.CountAsync());
         }
         [Fact(Skip = "Not fully implemented")]
         public async void GetUserByUsername()

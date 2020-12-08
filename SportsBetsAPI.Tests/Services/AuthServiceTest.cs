@@ -1,4 +1,5 @@
 using System;
+using Moq;
 using Xunit;
 using Microsoft.Extensions.Configuration;
 using SportsBetsServer.Contracts.Services;
@@ -49,11 +50,8 @@ namespace SportsBetsAPI.Tests.Services
         [Fact]
         public void CreateJsonTokenTest()
         {
-            var config = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json")
-                .Build();
-
+            var config = new Mock<IConfiguration>();
+            config.SetupGet(t => t[It.IsAny<string>()]).Returns("ConnectionString");
             string hashedPassword = _authService.CreatePasswordHash("password");
 
             User user = new User
@@ -66,7 +64,7 @@ namespace SportsBetsAPI.Tests.Services
                 UserRole = "User"
             };
 
-            var token = _authService.CreateJsonToken(config, user);
+            var token = _authService.CreateJsonToken(config.Object, user);
 
             Assert.NotNull(token);
         }
