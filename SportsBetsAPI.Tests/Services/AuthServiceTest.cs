@@ -51,7 +51,14 @@ namespace SportsBetsAPI.Tests.Services
         public void CreateJsonTokenTest()
         {
             var config = new Mock<IConfiguration>();
-            config.SetupGet(t => t[It.IsAny<string>()]).Returns("ConnectionString");
+            var configSection = new Mock<IConfigurationSection>();
+
+            configSection.Setup(t => t.Value).Returns("testValue");
+            config.Setup(t => t.GetSection("AppSettings:Token")).Returns(configSection.Object);
+            configSection.Setup(t => t.Value).Returns("https://localhost:5000/");
+            config.Setup(t => t.GetSection("Jwt:Issuer")).Returns(configSection.Object);
+            config.Setup(t => t.GetSection("Jwt:Audience")).Returns(configSection.Object);
+
             string hashedPassword = _authService.CreatePasswordHash("password");
 
             User user = new User
