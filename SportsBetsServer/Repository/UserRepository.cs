@@ -15,14 +15,14 @@ namespace SportsBetsServer.Repository
             { }
         public async Task<User> GetUserByUsernameAsync(string username)
         {
-            return await this.RepositoryContext.User
+            return await RepositoryContext.User
                 .Where(u => u.Username.Equals(username)).FirstOrDefaultAsync();
 
         }
         public User GetUserByUsername(string username)
         {
             return RepositoryContext.User
-                .Where(u => u.Username.Equals(username)).FirstOrDefault();
+                .Where(u => u.Username.Equals(username)).SingleOrDefault();
         }
         public async Task<int> GetUserAvailableBalanceAsync(Guid id)
         {
