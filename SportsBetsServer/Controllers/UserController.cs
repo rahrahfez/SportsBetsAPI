@@ -31,17 +31,16 @@ namespace SportsBetsServer.Controllers
         [Authorize(Policy = Policy.Admin)]
         [ProducesResponseType(200)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> GetAllUsers()
+        public IActionResult GetAllUsers()
         {
             try
             {
-                var users = await _repo.User.FindAllAsync();
+                var users = _repo.User.GetAllUsers();
 
                 _logger.LogInfo($"Returned all users from database.");
-
                 return Ok(users);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _logger.LogError($"Something went wrong inside GetAllUsers() action: { ex.Message }");
                 return StatusCode(500, "Internal Server Error");
@@ -56,7 +55,7 @@ namespace SportsBetsServer.Controllers
         {
             try
             {
-                var user = await _repo.User.FindByGuidAsync(id);
+                var user = await _repo.User.GetUserByGuidAsync(id);
                 
                 if (user.Id.Equals(Guid.Empty)) 
                 {
@@ -142,9 +141,9 @@ namespace SportsBetsServer.Controllers
                     return NotFound();
                 }
 
-                _repo.User.Delete(userToBeDeleted);
+                _repo.User.Remove(userToBeDeleted);
 
-                await _repo.Complete();
+                await _repo.User.Complete();
                 _logger.LogInfo($"User with id: { id } successfully deleted.");
 
                 return NoContent();

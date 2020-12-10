@@ -8,11 +8,9 @@ namespace SportsBetsServer.Contracts.Repository
 {
     public interface IRepositoryBase<T>
     {
-        Task<T> FindByGuidAsync(Guid id);
-        Task<IEnumerable<T>> FindAllAsync();
-        Task<IEnumerable<T>> FindByConditionAsync(Expression<Func<T, bool>> expression);
-        Task CreateAsync(T entity);
-        void Create(T entity);
-        void Delete(T entity);
+        void Add(T entity);
+        Task AddAsync(T entity);
+        void Remove(T entity);
+        Task Complete();
     }
 }

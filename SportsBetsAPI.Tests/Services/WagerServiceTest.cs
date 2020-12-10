@@ -27,7 +27,6 @@ namespace SportsBetsAPI.Tests.Services
             Assert.NotNull(wager);
             Assert.Equal(100, wager.Amount);
             Assert.Equal("open", wager.Status.ToString());
-
         }
     }
 }

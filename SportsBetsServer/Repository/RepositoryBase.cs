@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
 using SportsBetsServer.Contracts.Repository;
 using SportsBetsServer.Entities;
 using System.Threading.Tasks;
@@ -14,33 +10,23 @@ namespace SportsBetsServer.Repository
         protected RepositoryContext RepositoryContext { get; set; }
         public RepositoryBase(RepositoryContext repositoryContext)
         {
-            RepositoryContext = repositoryContext;
+            RepositoryContext = repositoryContext ?? throw new ArgumentNullException("context");
         }
-        public async Task<T> FindByGuidAsync(Guid id)
-        {
-            return await RepositoryContext.Set<T>().FindAsync(id);
-        }
-        public async Task<IEnumerable<T>> FindAllAsync()
-        {
-            return await RepositoryContext.Set<T>()
-                .ToListAsync();
-        }
-        public async Task<IEnumerable<T>> FindByConditionAsync(Expression<Func<T, bool>> expression)
-        {
-            return await RepositoryContext.Set<T>()
-                .Where(expression).ToListAsync();
-        }
-        public async Task CreateAsync(T entity) 
-        {
-            await RepositoryContext.Set<T>().AddAsync(entity);
-        }
-        public void Create(T entity)
+        public virtual void Add(T entity)
         {
             RepositoryContext.Set<T>().Add(entity);
         }
-        public void Delete(T entity)
+        public virtual async Task AddAsync(T entity)
+        {
+            await RepositoryContext.Set<T>().AddAsync(entity);
+        }
+        public virtual void Remove(T entity)
         {
             RepositoryContext.Set<T>().Remove(entity);
+        }
+        public async Task Complete()
+        {
+            await RepositoryContext.SaveChangesAsync();
         }
     }
 }

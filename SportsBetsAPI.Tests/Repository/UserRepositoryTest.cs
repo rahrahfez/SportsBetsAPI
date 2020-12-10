@@ -101,11 +101,12 @@ namespace SportsBetsAPI.Tests.Repository
             Repo.Setup(x => x.User.CreateAsync(It.IsAny<User>())).Returns(Task.FromResult(Repo.Object));
 
             await Repo.Object.User.CreateAsync(newUser);
-            //await Repo.Object.Complete();
+            await Repo.Object.Complete();
 
             var user = Repo.Object.User.GetUserByUsername("tester");
 
             Assert.NotNull(user);
+            Assert.Equal("tester", user.Username);
         }
 
         [Fact(Skip = "not working")]

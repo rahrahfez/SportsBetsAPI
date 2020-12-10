@@ -1,5 +1,4 @@
 using System;
-using System.Threading.Tasks;
 
 namespace SportsBetsServer.Contracts.Repository
 {
@@ -7,6 +6,5 @@ namespace SportsBetsServer.Contracts.Repository
     {
          IUserRepository User { get; }
          IWagerRepository Wager { get; }         
-         Task Complete();
     }
 }

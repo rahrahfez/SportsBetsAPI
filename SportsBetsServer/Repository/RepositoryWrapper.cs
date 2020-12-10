@@ -37,10 +37,6 @@ namespace SportsBetsServer.Repository
                 return _wager;
             }
         }
-        public async Task Complete()
-        {
-            await _repositoryContext.SaveChangesAsync();
-        }
         public void Dispose()
         {
             _repositoryContext.Dispose();

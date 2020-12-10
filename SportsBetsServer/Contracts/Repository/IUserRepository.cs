@@ -8,7 +8,9 @@ namespace SportsBetsServer.Contracts.Repository
     public interface IUserRepository : IRepositoryBase<User>
     {
         Task<User> GetUserByUsernameAsync(string username);
+        Task<IEnumerable<User>> GetAllUsers();
+        Task<User> GetUserByGuidAsync(Guid id);
         User GetUserByUsername(string username);
-        Task<int> GetUserAvailableBalanceAsync(Guid id);
+        int GetUserAvailableBalanceAsync(Guid id);
     }
 }
