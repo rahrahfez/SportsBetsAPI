@@ -25,13 +25,6 @@ namespace SportsBetsServer.Services
             }
             return false;
         }
-        public User Map(User u1, User u2)
-        {
-            u1.Id = u2.Id;
-            u1.Username = u2.Username;
-            u1.AvailableBalance = u2.AvailableBalance;
-            return u1;
-        }
         public User CreateUser(UserCredentials user)
         {
             string hashedPassword = _authService.CreatePasswordHash(user.Password);
@@ -47,9 +40,9 @@ namespace SportsBetsServer.Services
             
             return createdUser;
         }
-        public User GetUserByUsername(string username)
+        public async Task<User> GetUserByUsernameAsync(string username)
         {
-            return _repo.User.GetUserByUsername(username);
+            return await _repo.User.GetUserByUsernameAsync(username);
         }
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using SportsBetsServer.Contracts.Services;
@@ -33,11 +34,11 @@ namespace SportsBetsServer.Controllers
         [ProducesResponseType(200)] 
         [ProducesResponseType(500)] 
         [ProducesResponseType(400)]
-        public IActionResult Login([FromBody]UserCredentials userToLogin)
+        public async Task<IActionResult> Login([FromBody]UserCredentials userToLogin)
         {            
             try
             {
-                var user = _userService.GetUserByUsername(userToLogin.Username);
+                var user = await _userService.GetUserByUsernameAsync(userToLogin.Username);
 
                 if (!_authService.VerifyPassword(userToLogin.Password, user.HashedPassword))
                 {

@@ -13,8 +13,8 @@ namespace SportsBetsServer.Repository
     {
         public UserRepository(RepositoryContext repositoryContext)
             : base(repositoryContext)
-            { }
-        public async Task<IEnumerable<User>> GetAllUsers()
+        { }
+        public async Task<IEnumerable<User>> GetAllUsersAsync()
         {
             return await RepositoryContext.User.ToListAsync();
         }
@@ -28,15 +28,10 @@ namespace SportsBetsServer.Repository
             return await RepositoryContext.User
                 .Where(u => u.Username.Equals(username)).SingleOrDefaultAsync();
         }
-        public User GetUserByUsername(string username)
+        public async Task<int> GetUserAvailableBalanceAsync(Guid id)
         {
-            return RepositoryContext.User
-                .Where(u => u.Username.Equals(username)).SingleOrDefault();
-        }
-        public int GetUserAvailableBalanceAsync(Guid id)
-        {
-            var user = RepositoryContext.User
-                .Where(u => u.Id.Equals(id)).SingleOrDefault();
+            var user = await RepositoryContext.User
+                .Where(u => u.Id.Equals(id)).SingleOrDefaultAsync();
 
             var balance = (user == null) ? -1 : user.AvailableBalance;
             

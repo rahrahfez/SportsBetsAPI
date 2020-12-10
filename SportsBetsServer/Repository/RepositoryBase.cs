@@ -24,9 +24,5 @@ namespace SportsBetsServer.Repository
         {
             RepositoryContext.Set<T>().Remove(entity);
         }
-        public async Task Complete()
-        {
-            await RepositoryContext.SaveChangesAsync();
-        }
     }
 }

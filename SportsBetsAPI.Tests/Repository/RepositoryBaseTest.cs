@@ -19,14 +19,16 @@ namespace SportsBetsAPI.Tests.Repository
         {
             var stub = new TestStub { Text = "this is a test." };
 
-            var repo = new Mock<IRepositoryBase<TestStub>>();
-            repo.Setup(x => x.Add(It.IsAny<TestStub>())).Verifiable();
+            var repoBase = new Mock<IRepositoryBase<TestStub>>();
+            repoBase.Setup(x => x.Add(It.IsAny<TestStub>())).Verifiable();
+            var repo = new Mock<IRepositoryWrapper>();
             repo.Setup(x => x.Complete()).Returns(Task.CompletedTask);
 
-            repo.Object.Add(stub);
+            repoBase.Object.Add(stub);
             repo.Object.Complete();
 
-            repo.Verify();           
+            repoBase.Verify();           
+            
         }
     }
 }

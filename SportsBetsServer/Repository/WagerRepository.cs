@@ -13,8 +13,15 @@ namespace SportsBetsServer.Repository
     {
         public WagerRepository(RepositoryContext repositoryContext)
             : base(repositoryContext)
-            {
-
-            }
-  }
+            { }
+        public async Task<IEnumerable<Wager>> GetAllWagersAsync()
+        {
+            return await RepositoryContext.Wager.ToListAsync();
+        }
+        public async Task<Wager> GetWagerByIdAsync(Guid Id)
+        {
+            return await RepositoryContext.Wager
+                    .Where(x => x.Id.Equals(Id)).SingleOrDefaultAsync();
+        }
+    }
 }

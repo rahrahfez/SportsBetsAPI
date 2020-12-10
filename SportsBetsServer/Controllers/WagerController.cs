@@ -36,10 +36,9 @@ namespace SportsBetsServer.Controllers
         {   
             try
             {   
-                var wagers = await _repo.Wager.FindAllAsync();
+                var wagers = await _repo.Wager.GetAllWagersAsync();
                 
-                _logger.LogInfo("Successfully retrieved all wagers");
-                
+                _logger.LogInfo("Successfully retrieved all wagers");               
                 return Ok(wagers);
             }
             catch (Exception ex)
@@ -55,12 +54,9 @@ namespace SportsBetsServer.Controllers
         {
             try
             {
-                var wager = _repo.Wager.FindByGuidAsync(id);
-                
-                await _repo.Complete();
-
+                var wager = await _repo.Wager.GetWagerByIdAsync(id);
+             
                 _logger.LogInfo($"Successfully retrieved wager with id {id}");
-
                 return Ok(wager);
             }
             catch (Exception ex)
@@ -85,7 +81,7 @@ namespace SportsBetsServer.Controllers
                     wager = _wagerService.CreateWager(_wager);
                 }
                 
-                await _repo.Wager.CreateAsync(wager);
+                await _repo.Wager.AddAsync(wager);
                 await _repo.Complete();
 
                 _logger.LogInfo($"Successfully created wager with id {wager.Id}");
@@ -109,9 +105,9 @@ namespace SportsBetsServer.Controllers
             }
             try
             {
-                var wagerToBeDeleted = await _repo.Wager.FindByGuidAsync(wager.Id);
+                var wagerToBeDeleted = await _repo.Wager.GetWagerByIdAsync(wager.Id);
 
-                _repo.Wager.Delete(wagerToBeDeleted);
+                _repo.Wager.Remove(wagerToBeDeleted);
                 await _repo.Complete();
 
                 _logger.LogInfo($"Successfully deleted wager with id {wager.Id}");

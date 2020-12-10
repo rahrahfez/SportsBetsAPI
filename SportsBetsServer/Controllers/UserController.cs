@@ -31,11 +31,11 @@ namespace SportsBetsServer.Controllers
         [Authorize(Policy = Policy.Admin)]
         [ProducesResponseType(200)]
         [ProducesResponseType(500)]
-        public IActionResult GetAllUsers()
+        public async Task<IActionResult> GetAllUsers()
         {
             try
             {
-                var users = _repo.User.GetAllUsers();
+                var users = await _repo.User.GetAllUsersAsync();
 
                 _logger.LogInfo($"Returned all users from database.");
                 return Ok(users);
@@ -96,7 +96,7 @@ namespace SportsBetsServer.Controllers
 
                 User createdUser = _userService.CreateUser(user);
 
-                await _repo.User.CreateAsync(createdUser);
+                await _repo.User.AddAsync(createdUser);
                 await _repo.Complete();
 
                 _logger.LogInfo($"Successfully registered { user.Username }.");
@@ -133,7 +133,7 @@ namespace SportsBetsServer.Controllers
         {
             try
             {
-                var userToBeDeleted = await _repo.User.FindByGuidAsync(id);
+                var userToBeDeleted = await _repo.User.GetUserByGuidAsync(id);
 
                 if (userToBeDeleted == null)
                 {
@@ -142,10 +142,9 @@ namespace SportsBetsServer.Controllers
                 }
 
                 _repo.User.Remove(userToBeDeleted);
+                await _repo.Complete();
 
-                await _repo.User.Complete();
                 _logger.LogInfo($"User with id: { id } successfully deleted.");
-
                 return NoContent();
             }
             catch (Exception ex)
