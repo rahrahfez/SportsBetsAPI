@@ -4,10 +4,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using Xunit;
 using Moq;
-using Microsoft.EntityFrameworkCore;
-using SportsBetsServer.Repository;
 using SportsBetsServer.Contracts.Repository;
-using SportsBetsServer.Entities;
 using SportsBetsServer.Entities.Models;
 
 namespace SportsBetsAPI.Tests.Repository
@@ -28,11 +25,9 @@ namespace SportsBetsAPI.Tests.Repository
             };
             var RepoMock = new Mock<IRepositoryWrapper>();
             RepoMock.Setup(u => u.User.AddAsync(It.IsAny<User>())).Returns(Task.CompletedTask).Verifiable();
-            RepoMock.Setup(r => r.Complete()).Returns(Task.CompletedTask);
             var repo = RepoMock.Object;
 
             await repo.User.AddAsync(user);
-            await repo.Complete();
 
             RepoMock.VerifyAll();
         }
@@ -98,6 +93,28 @@ namespace SportsBetsAPI.Tests.Repository
 
             RepoMock.VerifyAll();
             Assert.Equal("tester", user.Username);
+        }
+
+        [Fact]
+        public async void User_FindUserById()
+        {
+            var user = new User
+            {
+                Id = Guid.NewGuid(),
+                Username = "Tester1",
+                AvailableBalance = 100,
+                DateCreated = DateTime.Now,
+                UserRole = "User"
+            };
+
+            var RepoMock = new Mock<IRepositoryWrapper>();
+            RepoMock.Setup(x => x.User.GetUserByGuidAsync(It.IsAny<Guid>())).Returns(Task.FromResult(user)).Verifiable();
+            var repo = RepoMock.Object;
+
+            var testuser = await repo.User.GetUserByGuidAsync(user.Id);
+
+            RepoMock.VerifyAll();
+            Assert.NotNull(testuser);
         }
 
         [Fact]
