@@ -18,7 +18,7 @@ namespace SportsBetsServer.Services
         }
         public async Task<bool> UserExists(string username)
         {
-            var user = await _repo.User.GetUserByUsernameAsync(username);
+            var user = await GetUserByUsernameAsync(username);
             if (user != null)
             {
                 return true;
@@ -43,6 +43,10 @@ namespace SportsBetsServer.Services
         public async Task<User> GetUserByUsernameAsync(string username)
         {
             return await _repo.User.GetUserByUsernameAsync(username);
+        }
+        public void UpdateUserBalance(User user, int newBalance)
+        {
+            user.AvailableBalance = newBalance;
         }
     }
 }

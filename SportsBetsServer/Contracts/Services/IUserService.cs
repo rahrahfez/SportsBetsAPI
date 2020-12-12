@@ -9,5 +9,6 @@ namespace SportsBetsServer.Contracts.Services
         Task<bool> UserExists(string username);
         User CreateUser(UserCredentials user);
         Task<User> GetUserByUsernameAsync(string username);
+        void UpdateUserBalance(User user, int newBalance);
     }
 }

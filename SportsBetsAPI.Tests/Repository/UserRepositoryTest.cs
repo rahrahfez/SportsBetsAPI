@@ -13,7 +13,7 @@ namespace SportsBetsAPI.Tests.Repository
     {
         public UserRepositoryTest() { }
         [Fact]
-        public async void User_AddUser_VerifyCreation()
+        public void User_AddUser_VerifyCreation()
         {
             var user = new User
             {
@@ -24,7 +24,27 @@ namespace SportsBetsAPI.Tests.Repository
                 UserRole = "User"
             };
             var RepoMock = new Mock<IRepositoryWrapper>();
-            RepoMock.Setup(u => u.User.AddAsync(It.IsAny<User>())).Returns(Task.CompletedTask).Verifiable();
+            RepoMock.Setup(u => u.User.Add(It.IsAny<User>())).Verifiable();
+            var repo = RepoMock.Object;
+
+            repo.User.Add(user);
+
+            RepoMock.VerifyAll();
+        }
+
+        [Fact]
+        public async void User_AddUserAsync_VerifyCreation()
+        {
+            var user = new User
+            {
+                Id = Guid.NewGuid(),
+                Username = "Tester1",
+                AvailableBalance = 100,
+                DateCreated = DateTime.Now,
+                UserRole = "User"
+            };
+            var RepoMock = new Mock<IRepositoryWrapper>();
+            RepoMock.Setup(u => u.User.AddAsync(It.IsAny<User>())).Verifiable();
             var repo = RepoMock.Object;
 
             await repo.User.AddAsync(user);

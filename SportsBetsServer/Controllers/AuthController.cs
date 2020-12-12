@@ -32,29 +32,21 @@ namespace SportsBetsServer.Controllers
         [HttpPost("login")]
         [AllowAnonymous]
         [ProducesResponseType(200)] 
-        [ProducesResponseType(500)] 
         [ProducesResponseType(400)]
         public async Task<IActionResult> Login([FromBody]UserCredentials userToLogin)
         {            
-            try
+
+            var user = await _userService.GetUserByUsernameAsync(userToLogin.Username);
+
+            if (!_authService.VerifyPassword(userToLogin.Password, user.HashedPassword))
             {
-                var user = await _userService.GetUserByUsernameAsync(userToLogin.Username);
-
-                if (!_authService.VerifyPassword(userToLogin.Password, user.HashedPassword))
-                {
-                    return BadRequest();
-                }
-
-                var signedAndEncodedToken = _authService.CreateJsonToken(_config, user);
-
-                _logger.LogInfo($"Token successfully created. Encoded as {signedAndEncodedToken}");
-                return Ok(signedAndEncodedToken);
+                return BadRequest();
             }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Login error {ex.Message}");
-                return StatusCode(500, "Internal server error");
-            }
+
+            var signedAndEncodedToken = _authService.CreateJsonToken(_config, user);
+
+            _logger.LogInfo($"Token successfully created. Encoded as {signedAndEncodedToken}");
+            return Ok(signedAndEncodedToken);
         }
     }
     
