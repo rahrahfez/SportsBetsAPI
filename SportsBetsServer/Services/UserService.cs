@@ -4,14 +4,15 @@ using SportsBetsServer.Contracts.Repository;
 using SportsBetsServer.Contracts.Services;
 using SportsBetsServer.Entities.Models;
 using SportsBetsServer.Entities.Models.Extensions;
+using SportsBetsServer.Repository;
 
 namespace SportsBetsServer.Services
 {
     public class UserService : IUserService
     {
-        private readonly IUserRepository _repo;
+        private readonly IRepositoryBase<User> _repo;
         private readonly IAuthService _authService;
-        public UserService(IUserRepository repo)
+        public UserService(IRepositoryBase<User> repo)
         {
             _repo = repo;
             _authService = new AuthService();

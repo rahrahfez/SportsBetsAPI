@@ -46,6 +46,10 @@ namespace SportsBetsServer.Extensions
             services.AddDbContext<RepositoryContext>(options => 
                 options.UseMySql(connectionString));
         }
+        public static void ConfigureRepositoryBase(this IServiceCollection services)
+        {
+            services.AddScoped<IRepositoryBase<User>, RepositoryBase<User>>();
+        }
         public static void ConfigureAuthService(this IServiceCollection services)
         {
             services.AddScoped<IAuthService, AuthService>();

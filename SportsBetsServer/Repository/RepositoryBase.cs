@@ -14,7 +14,8 @@ namespace SportsBetsServer.Repository
         private readonly RepositoryContext RepositoryContext;
         public RepositoryBase(RepositoryContext repositoryContext)
         {
-            RepositoryContext = repositoryContext ?? throw new ArgumentNullException("missing context");
+            RepositoryContext = repositoryContext ?? 
+                throw new ArgumentNullException(nameof(repositoryContext), "missing context");
         }
         public T Get(Guid id)
         {

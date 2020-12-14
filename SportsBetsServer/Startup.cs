@@ -45,7 +45,7 @@ namespace SportsBetsServer
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseRouting();
-            app.UseAuthorization();
+            //app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
@@ -62,6 +62,7 @@ namespace SportsBetsServer
             services.ConfigureUserService();
             services.ConfigureDateTime();
             services.ConfigureJwtAuthentication(Configuration);
+            services.ConfigureRepositoryBase();
             services.AddControllers()
                 .AddNewtonsoftJson(
                     options => options.SerializerSettings.ReferenceLoopHandling =
@@ -114,7 +115,7 @@ namespace SportsBetsServer
                 ForwardedHeaders = ForwardedHeaders.All
             });
             app.UseStaticFiles();
-            app.UseAuthentication();
+            //app.UseAuthentication();
             app.UseAuthorization();
         }
     }

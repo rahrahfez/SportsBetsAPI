@@ -32,15 +32,10 @@ namespace SportsBetsServer.Migrations
                         .HasColumnName("date_created")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<byte[]>("PasswordHash")
+                    b.Property<string>("HashedPassword")
                         .IsRequired()
                         .HasColumnName("password_hash")
-                        .HasColumnType("longblob");
-
-                    b.Property<byte[]>("PasswordSalt")
-                        .IsRequired()
-                        .HasColumnName("password_salt")
-                        .HasColumnType("longblob");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("UserRole")
                         .IsRequired()
@@ -73,7 +68,7 @@ namespace SportsBetsServer.Migrations
                         .HasColumnName("date_created")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("Result")
+                    b.Property<int?>("Result")
                         .HasColumnName("result")
                         .HasColumnType("int");
 

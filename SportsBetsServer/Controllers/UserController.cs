@@ -11,15 +11,15 @@ using Microsoft.AspNetCore.Authorization;
 namespace SportsBetsServer.Controllers
 {
     [Route("api/users")]
-    [Authorize(Policy = Policy.User)]
+    //[Authorize(Policy = Policy.User)]
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IUserRepository _repo;    
+        private readonly IRepositoryBase<User> _repo;    
         private readonly ILoggerManager _logger;
         private readonly IUserService _userService;
         public UserController(
-            IUserRepository repo, 
+            IRepositoryBase<User> repo, 
             ILoggerManager logger, 
             IUserService userService)
         {
@@ -28,7 +28,7 @@ namespace SportsBetsServer.Controllers
             _userService = userService;
         }
         [HttpGet]
-        [Authorize(Policy = Policy.Admin)]
+        //[Authorize(Policy = Policy.Admin)]
         [ProducesResponseType(200)]
         [ProducesResponseType(500)]
         public IActionResult GetAllUsers()

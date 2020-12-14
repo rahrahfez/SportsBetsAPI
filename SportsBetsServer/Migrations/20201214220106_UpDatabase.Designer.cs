@@ -9,8 +9,8 @@ using SportsBetsServer.Entities;
 namespace SportsBetsServer.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20201120224616_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20201214220106_UpDatabase")]
+    partial class UpDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,15 +34,10 @@ namespace SportsBetsServer.Migrations
                         .HasColumnName("date_created")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<byte[]>("PasswordHash")
+                    b.Property<string>("HashedPassword")
                         .IsRequired()
                         .HasColumnName("password_hash")
-                        .HasColumnType("longblob");
-
-                    b.Property<byte[]>("PasswordSalt")
-                        .IsRequired()
-                        .HasColumnName("password_salt")
-                        .HasColumnType("longblob");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("UserRole")
                         .IsRequired()
@@ -75,7 +70,7 @@ namespace SportsBetsServer.Migrations
                         .HasColumnName("date_created")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("Result")
+                    b.Property<int?>("Result")
                         .HasColumnName("result")
                         .HasColumnType("int");
 

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SportsBetsServer.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class UpDatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -16,8 +16,7 @@ namespace SportsBetsServer.Migrations
                     available_balance = table.Column<int>(nullable: false),
                     date_created = table.Column<DateTime>(nullable: false),
                     user_role = table.Column<string>(nullable: false),
-                    password_hash = table.Column<byte[]>(nullable: false),
-                    password_salt = table.Column<byte[]>(nullable: false)
+                    password_hash = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
