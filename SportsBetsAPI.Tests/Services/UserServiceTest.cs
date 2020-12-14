@@ -14,14 +14,14 @@ namespace SportsBetsAPI.Tests.Services
         {
         }
         [Fact]
-        public async void UserService_CheckForExistingUsername_ReturnsNullIfTrue()
+        public void UserService_CheckForExistingUsername_ReturnsNullIfTrue()
         {
             string username = "tester";
             var ServiceMock = new Mock<IUserService>();
-            ServiceMock.Setup(x => x.UserExists(It.IsAny<string>())).Returns(Task.FromResult(true));
+            ServiceMock.Setup(x => x.UserExists(It.IsAny<string>())).Returns(true);
             var userService = ServiceMock.Object;
 
-            var userExists = await userService.UserExists(username);
+            var userExists = userService.UserExists(username);
 
             ServiceMock.VerifyAll();
             Assert.True(userExists);

@@ -1,41 +1,14 @@
-using System;
-using System.Collections.Generic;
-using SportsBetsServer.Contracts.Repository;
-using SportsBetsServer.Entities;
-using SportsBetsServer.Entities.Models;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using SportsBetsServer.Contracts.Repository;
+using SportsBetsServer.Entities.Models;
 
 namespace SportsBetsServer.Repository
 {
-    public class UserRepository : RepositoryBase<User>, IUserRepository
-    {
-        public UserRepository(RepositoryContext repositoryContext)
-            : base(repositoryContext)
-        { }
-        public async Task<IEnumerable<User>> GetAllUsersAsync()
+    public static class UserRepository
+    { 
+        public static User GetUserByUsername(this IRepositoryBase<User> users, string username)
         {
-            return await RepositoryContext.User.ToListAsync();
-        }
-        public async Task<User> GetUserByGuidAsync(Guid id)
-        {
-            return await RepositoryContext.User
-                .Where(u => u.Id.Equals(id)).SingleOrDefaultAsync();
-        }
-        public async Task<User> GetUserByUsernameAsync(string username)
-        {
-            return await RepositoryContext.User
-                .Where(u => u.Username.Equals(username)).SingleOrDefaultAsync();
-        }
-        public async Task<int> GetUserAvailableBalanceAsync(Guid id)
-        {
-            var user = await RepositoryContext.User
-                .Where(u => u.Id.Equals(id)).SingleOrDefaultAsync();
-
-            var balance = (user == null) ? -1 : user.AvailableBalance;
-            
-            return balance;
+            return users.GetAll().Where(u => u.Username.Equals(username)).SingleOrDefault();
         }
     }
 }
