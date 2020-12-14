@@ -1,12 +1,8 @@
-using System;
-using System.Threading.Tasks;
-
 namespace SportsBetsServer.Contracts.Repository
 {
-    public interface IRepositoryWrapper : IDisposable
+    public interface IRepositoryWrapper 
     {
          IUserRepository User { get; }
          IWagerRepository Wager { get; }
-         Task Complete();
     }
 }

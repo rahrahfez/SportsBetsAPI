@@ -6,8 +6,9 @@ using System.Linq.Expressions;
 
 namespace SportsBetsServer.Contracts.Repository
 {
-    public interface IRepositoryBase<T>
+    public interface IRepositoryBase<T> where T : class
     {
+        T Get(Guid id);
         void Add(T entity);
         Task AddAsync(T entity);
         void Remove(T entity);

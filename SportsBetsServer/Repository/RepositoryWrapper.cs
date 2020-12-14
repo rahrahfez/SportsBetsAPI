@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using SportsBetsServer.Contracts.Repository;
 using SportsBetsServer.Entities;
 
@@ -15,35 +14,17 @@ namespace SportsBetsServer.Repository
         }
         public IUserRepository User 
         {
-            get 
+            get
             {
-                if (_user == null)
-                {
-                    _user = new UserRepository(_repositoryContext);
-                }
-
-                return _user;
+                return _user ??= new UserRepository(_repositoryContext);
             }
         }
         public IWagerRepository Wager
         {
             get
             {
-                if (_wager == null)
-                {
-                    _wager = new WagerRepository(_repositoryContext);
-                }
-
-                return _wager;
+                return _wager ??= new WagerRepository(_repositoryContext);
             }
-        }
-        public async Task Complete()
-        {
-            await _repositoryContext.SaveChangesAsync();
-        }
-        public void Dispose()
-        {
-            _repositoryContext.Dispose();
         }
     }
 }

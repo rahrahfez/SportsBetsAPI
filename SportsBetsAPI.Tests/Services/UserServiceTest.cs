@@ -36,12 +36,16 @@ namespace SportsBetsAPI.Tests.Services
                 Password = "_"
             };
 
+            var id = Guid.NewGuid();
+            var dateCreated = DateTime.Now;
+            var availableBalance = 100;
+
             var testUser = new User
             {
-                Id = Guid.NewGuid(),
+                Id = id,
                 Username = "tester",
-                AvailableBalance = 100,
-                DateCreated = DateTime.UtcNow,
+                AvailableBalance = availableBalance,
+                DateCreated = dateCreated,
                 UserRole = "User",
                 HashedPassword = "_"
             };
@@ -51,7 +55,14 @@ namespace SportsBetsAPI.Tests.Services
             var userService = ServiceMock.Object;
 
             var user = userService.CreateUser(userCredentials);
+
+            Assert.NotNull(user);
+            Assert.Equal("tester", user.Username);
+            Assert.Equal(availableBalance, user.AvailableBalance);
+            Assert.Equal(id, user.Id);
+            Assert.Equal("User", user.UserRole);            
         }
+
         [Fact]
         public void UserService_GetUserByUsername()
         {
