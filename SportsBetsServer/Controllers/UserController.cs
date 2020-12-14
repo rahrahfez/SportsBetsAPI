@@ -15,11 +15,11 @@ namespace SportsBetsServer.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IRepositoryWrapper _repo;    
+        private readonly IUserRepository _repo;    
         private readonly ILoggerManager _logger;
         private readonly IUserService _userService;
         public UserController(
-            IRepositoryWrapper repo, 
+            IUserRepository repo, 
             ILoggerManager logger, 
             IUserService userService)
         {
@@ -31,11 +31,11 @@ namespace SportsBetsServer.Controllers
         [Authorize(Policy = Policy.Admin)]
         [ProducesResponseType(200)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> GetAllUsers()
+        public IActionResult GetAllUsers()
         {
             try
             {
-                var users = await _repo.User.GetAllUsersAsync();
+                var users = _repo.GetAll();
 
                 _logger.LogInfo($"Returned all users from database.");
                 return Ok(users);
@@ -55,9 +55,9 @@ namespace SportsBetsServer.Controllers
         {
             try
             {
-                var user = await _repo.User.GetUserByGuidAsync(id);
+                var user = await _repo.GetAsync(id);
                 
-                if (user.Id.Equals(Guid.Empty)) 
+                if (user.Id.Equals(Guid.Empty) || user == null) 
                 {
                     _logger.LogError($"User with id: { id } was not found in db.");
                     return NotFound();
@@ -83,7 +83,7 @@ namespace SportsBetsServer.Controllers
         {
             try
             {
-                if (await _userService.UserExists(user.Username))
+                if (_userService.UserExists(user.Username))
                 {
                     _logger.LogError("Username already exists.");
                     return BadRequest("Username already exists.");
@@ -96,8 +96,7 @@ namespace SportsBetsServer.Controllers
 
                 User createdUser = _userService.CreateUser(user);
 
-                await _repo.User.AddAsync(createdUser);
-                await _repo.Complete();
+                await _repo.AddAsync(createdUser);
 
                 _logger.LogInfo($"Successfully registered { user.Username }.");
 
@@ -116,8 +115,8 @@ namespace SportsBetsServer.Controllers
         {
             try
             {
-                var availablebalance = await _repo.User.GetUserAvailableBalanceAsync(id);
-                return Ok(availablebalance);
+                var user = await _repo.GetAsync(id);
+                return Ok(user.AvailableBalance);
             }
             catch (Exception ex)
             {
@@ -133,7 +132,7 @@ namespace SportsBetsServer.Controllers
         {
             try
             {
-                var userToBeDeleted = await _repo.User.GetUserByGuidAsync(id);
+                var userToBeDeleted = await _repo.GetAsync(id);
 
                 if (userToBeDeleted == null)
                 {
@@ -141,8 +140,7 @@ namespace SportsBetsServer.Controllers
                     return NotFound();
                 }
 
-                _repo.User.Remove(userToBeDeleted);
-                await _repo.Complete();
+                _repo.Remove(userToBeDeleted);
 
                 _logger.LogInfo($"User with id: { id } successfully deleted.");
                 return NoContent();

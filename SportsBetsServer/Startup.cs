@@ -58,7 +58,6 @@ namespace SportsBetsServer
             services.ConfigureIISIntegration();
             services.ConfigureLoggerService();
             services.ConfigureMySql(Configuration);
-            services.ConfigureRepositoryWrapper();
             services.ConfigureAuthService();
             services.ConfigureUserService();
             services.ConfigureDateTime();
@@ -91,7 +90,6 @@ namespace SportsBetsServer
             services.ConfigureCors();
             services.ConfigureIISIntegration();
             services.ConfigureMySql(Configuration);
-            services.ConfigureRepositoryWrapper();
             services.ConfigureAuthService();
             services.ConfigureUserService();
             services.ConfigureDateTime();

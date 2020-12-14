@@ -9,16 +9,16 @@ namespace SportsBetsServer.Services
 {
     public class UserService : IUserService
     {
-        private readonly IRepositoryWrapper _repo;
+        private readonly IUserRepository _repo;
         private readonly IAuthService _authService;
-        public UserService(IRepositoryWrapper repo)
+        public UserService(IUserRepository repo)
         {
             _repo = repo;
             _authService = new AuthService();
         }
-        public async Task<bool> UserExists(string username)
+        public bool UserExists(string username)
         {
-            var user = await GetUserByUsernameAsync(username);
+            var user = _repo.GetUserByUsername(username);
             if (user != null)
             {
                 return true;
@@ -39,10 +39,6 @@ namespace SportsBetsServer.Services
              };
             
             return createdUser;
-        }
-        public async Task<User> GetUserByUsernameAsync(string username)
-        {
-            return await _repo.User.GetUserByUsernameAsync(username);
         }
         public void UpdateUserBalance(User user, int newBalance)
         {

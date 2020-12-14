@@ -16,12 +16,12 @@ namespace SportsBetsServer.Controllers
     [ApiController]
     public class WagerController : ControllerBase
     {
-        private readonly IRepositoryWrapper _repo;
+        private readonly IWagerRepository _repo;
         private readonly ILoggerManager _logger;
         private readonly IWagerService _wagerService;
         
         public WagerController(
-            IRepositoryWrapper repo, 
+            IWagerRepository repo, 
             ILoggerManager logger,
             IWagerService wagerService)
         {
@@ -32,11 +32,11 @@ namespace SportsBetsServer.Controllers
         [HttpGet]
         [ProducesResponseType(200)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> GetAllWagers()
+        public IActionResult GetAllWagers()
         {   
             try
             {   
-                var wagers = await _repo.Wager.GetAllWagersAsync();
+                var wagers = _repo.GetAll();
                 
                 _logger.LogInfo("Successfully retrieved all wagers");               
                 return Ok(wagers);
@@ -54,7 +54,7 @@ namespace SportsBetsServer.Controllers
         {
             try
             {
-                var wager = await _repo.Wager.GetWagerByIdAsync(id);
+                var wager = await _repo.GetAsync(id);
              
                 _logger.LogInfo($"Successfully retrieved wager with id {id}");
                 return Ok(wager);
@@ -65,7 +65,7 @@ namespace SportsBetsServer.Controllers
                 return StatusCode(500, "Internal Server Error");
             }
         }
-        [HttpPost("create")]
+/*        [HttpPost("create")]
         [ProducesResponseType(201)]
         [ProducesResponseType(500)]
         public async Task<IActionResult> CreateWager([FromBody]WagerToCreate _wager)
@@ -74,15 +74,14 @@ namespace SportsBetsServer.Controllers
             {
                 Wager wager = new Wager();
 
-                var balance = await _repo.User.GetUserAvailableBalanceAsync(_wager.UserId);
+                var user = _repo.User.Get(_wager.UserId);
 
-                if (balance >= _wager.Amount)
+                if (user.AvailableBalance >= _wager.Amount)
                 {
                     wager = _wagerService.CreateWager(_wager);
                 }
                 
                 await _repo.Wager.AddAsync(wager);
-                await _repo.Complete();
 
                 _logger.LogInfo($"Successfully created wager with id {wager.Id}");
                 return CreatedAtRoute("WagerById", wager);
@@ -92,7 +91,7 @@ namespace SportsBetsServer.Controllers
                 _logger.LogError($"Error occurred in CreateWager(): {ex.Message}");
                 return StatusCode(500, "Internal Server Error");
             }
-        }
+        }*/
         [HttpDelete("{id}")]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
@@ -105,10 +104,9 @@ namespace SportsBetsServer.Controllers
             }
             try
             {
-                var wagerToBeDeleted = await _repo.Wager.GetWagerByIdAsync(wager.Id);
+                var wagerToBeDeleted = await _repo.GetAsync(wager.Id);
 
-                _repo.Wager.Remove(wagerToBeDeleted);
-                await _repo.Complete();
+                _repo.Remove(wagerToBeDeleted);
 
                 _logger.LogInfo($"Successfully deleted wager with id {wager.Id}");
                 return NoContent();
