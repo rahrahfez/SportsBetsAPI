@@ -1,5 +1,5 @@
 using System;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 using SportsBetsServer.Contracts.Repository;
 using SportsBetsServer.Contracts.Services;
 using SportsBetsServer.Entities.Models;
@@ -10,21 +10,10 @@ namespace SportsBetsServer.Services
 {
     public class UserService : IUserService
     {
-        private readonly IRepositoryBase<User> _repo;
         private readonly IAuthService _authService;
-        public UserService(IRepositoryBase<User> repo)
+        public UserService(IConfiguration config)
         {
-            _repo = repo;
-            _authService = new AuthService();
-        }
-        public bool UserExists(string username)
-        {
-            var user = _repo.GetUserByUsername(username);
-            if (user != null)
-            {
-                return true;
-            }
-            return false;
+            _authService = new AuthService(config);
         }
         public User CreateUser(UserCredentials user)
         {

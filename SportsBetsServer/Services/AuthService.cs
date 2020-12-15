@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Text;
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
@@ -12,9 +13,10 @@ namespace SportsBetsServer.Services
 {
     public class AuthService : IAuthService
     {
-        public AuthService() 
+        private readonly IConfiguration _config;
+        public AuthService(IConfiguration config) 
         {
-
+            _config = config;
         }
         public string CreatePasswordHash(string password)
         {
@@ -28,27 +30,36 @@ namespace SportsBetsServer.Services
             bool result = encoder.Compare(password, hashedPassword);
             return result;
         }
-        public string CreateJsonToken(IConfiguration config, User user)
+        public Claim[] GenerateNewClaims(User user)
         {
-            var claims = new[]
+            return new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Name, user.Username),
                 new Claim(ClaimTypes.Role, user.UserRole)
             };
+        }
+        public string GetClaim(string token, string claimType)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var securityToken = tokenHandler.ReadJwtToken(token);
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config.GetSection("AppSettings:Token").Value));
+            var stringClaimvalue = securityToken.Claims.First(claim => claim.Type == claimType).Value;
 
-            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+            return stringClaimvalue;
+        }
+        public string CreateJsonToken(User user)
+        {
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetSection("AppSettings:Token").Value));
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(claims),
+                Subject = new ClaimsIdentity(GenerateNewClaims(user)),
                 NotBefore = DateTime.UtcNow,
                 Expires = DateTime.UtcNow.AddMinutes(60),
-                SigningCredentials = credentials,
-                Issuer = config["Jwt:Issuer"],
-                Audience = config["Jwt:Audience"]
+                SigningCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature),
+                Issuer = _config["Jwt:Issuer"],
+                Audience = _config["Jwt:Audience"]
             };
 
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -56,6 +67,29 @@ namespace SportsBetsServer.Services
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
             return tokenHandler.WriteToken(token);
+        }
+        public bool ValidateJsonToken(string token)
+        {
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetSection("AppSettings:Token").Value));
+            var tokenHandler = new JwtSecurityTokenHandler();
+
+            try
+            {
+                tokenHandler.ValidateToken(token, new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    ValidateAudience = true,
+                    ValidateIssuer = true,
+                    ValidIssuer = _config["Jwt:Issuer"],
+                    ValidAudience = _config["Jwt:Audience"],
+                    IssuerSigningKey = key
+                }, out SecurityToken validatedToken);
+            }
+            catch
+            {
+                return false;
+            }
+            return true;            
         }
     }
 }

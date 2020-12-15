@@ -15,11 +15,11 @@ namespace SportsBetsServer.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IRepositoryBase<User> _repo;    
+        private readonly IUserRepository _repo;    
         private readonly ILoggerManager _logger;
         private readonly IUserService _userService;
         public UserController(
-            IRepositoryBase<User> repo, 
+            IUserRepository repo, 
             ILoggerManager logger, 
             IUserService userService)
         {
@@ -48,6 +48,7 @@ namespace SportsBetsServer.Controllers
         }
         [HttpGet("{id}", Name = "UserById")]
         [Consumes("text/json")]
+        //[Authorize]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
@@ -79,22 +80,24 @@ namespace SportsBetsServer.Controllers
         [ProducesResponseType(201)]
         [ProducesResponseType(500)]
         [ProducesResponseType(400)]
-        public async Task<IActionResult> RegisterUser([FromBody]UserCredentials user)
+        public async Task<IActionResult> RegisterUser([FromBody]UserCredentials userCredentials)
         {
             try
             {
-                if (_userService.UserExists(user.Username))
+                var user = _repo.GetUserByUsername(userCredentials.Username);
+
+                if (user != null)
                 {
                     _logger.LogError("Username already exists.");
                     return BadRequest("Username already exists.");
                 }             
-                if (user.Username == string.Empty || user.Password == string.Empty)
+                if (userCredentials.Username == string.Empty || userCredentials.Password == string.Empty)
                 {
                     _logger.LogError("User is null.");
                     return BadRequest("User object is null");
                 }
 
-                User createdUser = _userService.CreateUser(user);
+                User createdUser = _userService.CreateUser(userCredentials);
 
                 await _repo.AddAsync(createdUser);
 

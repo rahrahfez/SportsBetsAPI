@@ -23,7 +23,7 @@ namespace SportsBetsServer
     {
         public StartupDevelopment(IConfiguration configuration)
         {
-            LogManager.LoadConfiguration(String.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
+            LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
             Configuration = configuration;
         }
         public IConfiguration Configuration { get; }
@@ -45,7 +45,7 @@ namespace SportsBetsServer
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseRouting();
-            //app.UseAuthorization();
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
@@ -115,7 +115,7 @@ namespace SportsBetsServer
                 ForwardedHeaders = ForwardedHeaders.All
             });
             app.UseStaticFiles();
-            //app.UseAuthentication();
+            app.UseAuthentication();
             app.UseAuthorization();
         }
     }

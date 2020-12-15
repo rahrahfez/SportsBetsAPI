@@ -2,29 +2,21 @@ using System;
 using System.Threading.Tasks;
 using Xunit;
 using Moq;
+using Microsoft.Extensions.Configuration;
 using SportsBetsServer.Entities.Models;
 using SportsBetsServer.Entities.Models.Extensions;
 using SportsBetsServer.Contracts.Services;
+using SportsBetsServer.Services;
 
 namespace SportsBetsAPI.Tests.Services
 {
     public class UserServiceTest
     {
+        private readonly IUserService _service;
         public UserServiceTest()
         {
-        }
-        [Fact]
-        public void UserService_CheckForExistingUsername_ReturnsNullIfTrue()
-        {
-            string username = "tester";
-            var ServiceMock = new Mock<IUserService>();
-            ServiceMock.Setup(x => x.UserExists(It.IsAny<string>())).Returns(true);
-            var userService = ServiceMock.Object;
-
-            var userExists = userService.UserExists(username);
-
-            ServiceMock.VerifyAll();
-            Assert.True(userExists);
+            var config = new Mock<IConfiguration>();
+            _service = new UserService(config.Object);
         }
 
         [Fact]
@@ -36,30 +28,13 @@ namespace SportsBetsAPI.Tests.Services
                 Password = "_"
             };
 
-            var id = Guid.NewGuid();
-            var dateCreated = DateTime.Now;
             var availableBalance = 100;
 
-            var testUser = new User
-            {
-                Id = id,
-                Username = "tester",
-                AvailableBalance = availableBalance,
-                DateCreated = dateCreated,
-                UserRole = "User",
-                HashedPassword = "_"
-            };
-
-            var ServiceMock = new Mock<IUserService>();
-            ServiceMock.Setup(x => x.CreateUser(It.IsAny<UserCredentials>())).Returns(testUser);
-            var userService = ServiceMock.Object;
-
-            var user = userService.CreateUser(userCredentials);
+            var user = _service.CreateUser(userCredentials);
 
             Assert.NotNull(user);
             Assert.Equal("tester", user.Username);
             Assert.Equal(availableBalance, user.AvailableBalance);
-            Assert.Equal(id, user.Id);
             Assert.Equal("User", user.UserRole);            
         }
 

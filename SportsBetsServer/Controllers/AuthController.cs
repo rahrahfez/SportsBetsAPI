@@ -16,18 +16,15 @@ namespace SportsBetsServer.Controllers
     {
         private readonly ILoggerManager _logger;
         private readonly IAuthService _authService;
-        private readonly IConfiguration _config;
         private readonly IRepositoryBase<User> _userRepo;
 
         public AuthController(
             ILoggerManager logger, 
             IAuthService authService,
-            IConfiguration config,
             IRepositoryBase<User> repo)
         {
             _logger = logger;
             _authService = authService;
-            _config = config;
             _userRepo = repo;
         }
         [HttpPost("login")]
@@ -44,7 +41,7 @@ namespace SportsBetsServer.Controllers
                 return BadRequest("Incorrect Username and/or Password.");
             }
 
-            var signedAndEncodedToken = _authService.CreateJsonToken(_config, user);
+            var signedAndEncodedToken = _authService.CreateJsonToken(user);
 
             _logger.LogInfo($"Token successfully created. Encoded as {signedAndEncodedToken}");
             return Ok(signedAndEncodedToken);
