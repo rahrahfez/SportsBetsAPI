@@ -1,35 +1,16 @@
-#nullable enable
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Threading.Tasks;
+using SportsBetsServer.Entities;
 
 namespace SportsBetsServer.Entities.Models
 {
-    [Table("user")]
-    public class User 
+    public class User
     {
-        [Key]
-        [Column("user")]
         public Guid Id { get; set; }
-        [Column("wager")]
-        public ICollection<Wager>? Wagers { get; set; }
-        [Required(ErrorMessage = "Username is required.")]
-        [StringLength(30, ErrorMessage = "Username cannot be longer than 30 characters.")]
-        [Column("username")]
-        public string Username { get; set; } = "_";
-        [Column("available_balance")]
-        public int AvailableBalance { get; set; } 
-        [Required(ErrorMessage="Date created is required.")]
-        [Column("date_created")]
-        public DateTime DateCreated { get; set; }
-        [Required(ErrorMessage = "User role is required.")]
-        [Column("user_role")]
-        public string UserRole { get; set; } = "_";
-        [Required]
-        [Column("password_hash")]
-        public string HashedPassword { get; set; } = "_";
+        public string Username { get; set; }
+        public int AvailableBalance { get; set; }
+        public Role Role { get; set; }
     }
 }
-
-#nullable restore

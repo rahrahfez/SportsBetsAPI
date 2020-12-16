@@ -14,6 +14,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using SportsBetsServer.Extensions;
+using SportsBetsServer.Middleware;
 using NLog;
 using Microsoft.OpenApi.Models;
 
@@ -42,6 +43,7 @@ namespace SportsBetsServer
             {
                 ForwardedHeaders = ForwardedHeaders.All
             });
+            app.UseMiddleware<ErrorHandler>();
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseRouting();
@@ -91,8 +93,6 @@ namespace SportsBetsServer
             services.ConfigureMySql(Configuration);
             services.ConfigureAuthService();
             services.ConfigureUserService();
-            services.ConfigureDateTime();
-            services.ConfigureJwtAuthentication(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

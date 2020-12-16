@@ -1,4 +1,4 @@
-using SportsBetsServer.Entities.Models;
+using SportsBetsServer.Entities;
 
 namespace SportsBetsServer.Contracts.Repository
 {

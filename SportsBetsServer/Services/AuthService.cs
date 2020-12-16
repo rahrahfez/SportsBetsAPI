@@ -36,7 +36,7 @@ namespace SportsBetsServer.Services
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Name, user.Username),
-                new Claim(ClaimTypes.Role, user.UserRole)
+                new Claim(ClaimTypes.Role, user.Role.ToString())
             };
         }
         public string GetClaim(string token, string claimType)

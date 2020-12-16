@@ -1,9 +1,8 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SportsBetsServer.Entities.Models
+namespace SportsBetsServer.Entities
 {
     [Table("wager")]
     public class Wager

@@ -1,16 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SportsBetsServer.Entities.Models;
-
+using SportsBetsServer.Entities;
 
 namespace SportsBetsServer.Contracts.Repository
 {
     public interface IRepositoryContext 
     {
-        DbSet<User> User { get; set; }
+        DbSet<Account> Account { get; set; }
         DbSet<Wager> Wager { get; set; }
-
-        void BeginTransaction();
-        void Commit();
-        void Rollback();
     }
 }

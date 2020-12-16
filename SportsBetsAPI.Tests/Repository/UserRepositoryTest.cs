@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Xunit;
 using Moq;
 using SportsBetsServer.Contracts.Repository;
+using SportsBetsServer.Entities;
 using SportsBetsServer.Entities.Models;
 
 namespace SportsBetsAPI.Tests.Repository
@@ -20,8 +21,7 @@ namespace SportsBetsAPI.Tests.Repository
                 Id = Guid.NewGuid(),
                 Username = "Tester1",
                 AvailableBalance = 100,
-                DateCreated = DateTime.Now,
-                UserRole = "User"
+                Role = Role.User
             };
             var RepoMock = new Mock<IUserRepository>();
             RepoMock.Setup(u => u.Add(It.IsAny<User>())).Verifiable();
