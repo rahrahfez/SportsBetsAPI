@@ -5,8 +5,6 @@ using Microsoft.Extensions.Configuration;
 using SportsBetsServer.Contracts.Services;
 using SportsBetsServer.Services;
 using SportsBetsServer.Entities.Models;
-using SportsBetsServer.Entities.Models.Extensions;
-using System.IO;
 
 namespace SportsBetsAPI.Tests.Services
 {
@@ -28,36 +26,29 @@ namespace SportsBetsAPI.Tests.Services
 
         }
         [Fact]
-        public void CreatePasswordHashTest()
+        public void AuthService_CreatePasswordHashTest()
         {
-            UserCredentials testUser = new UserCredentials()
-            {
-                Username = "Tester",
-                Password = "password"
-            };
-
-            string hashedPassword = _authService.CreatePasswordHash(testUser.Password);
-
+            string password = "password";
+            string hashedPassword = _authService.CreatePasswordHash(password);
+            
             Assert.NotNull(hashedPassword);
-
         }
         [Fact]
-        public void VerifyPasswordTest()
+        public void AuthService_VerifyPasswordTest_ReturnsBoolean()
         {
-            UserCredentials testUser = new UserCredentials()
-            {
-                Username = "Tester",
-                Password = "password"
-            };
-
-            string hashedPassword = _authService.CreatePasswordHash(testUser.Password);
-
-            var result = _authService.VerifyPassword(testUser.Password, hashedPassword);
+            string password = "password";
+            string hashedPassword = _authService.CreatePasswordHash(password);
+            var result = _authService.VerifyPassword(password, hashedPassword);
 
             Assert.True(result);
+
+            password = "wrong";
+            result = _authService.VerifyPassword(password, hashedPassword);
+
+            Assert.False(result);
         }
         [Fact]
-        public void CreateJsonTokenTest()
+        public void AuthService_CreateJsonTokenTest()
         {
             string hashedPassword = _authService.CreatePasswordHash("password");
 
@@ -74,6 +65,11 @@ namespace SportsBetsAPI.Tests.Services
             var token = _authService.CreateJsonToken(user);
 
             Assert.NotNull(token);
+        }
+        [Fact]
+        public void AuthService_ValidateJsonToken_ReturnsBoolean()
+        {
+
         }
     }
 }

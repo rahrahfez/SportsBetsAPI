@@ -39,11 +39,6 @@ namespace SportsBetsAPI.Tests.Services
         }
 
         [Fact]
-        public void UserService_GetUserByUsername()
-        {
-
-        }
-        [Fact]
         public void UserService_UpdateUserBalance()
         {
 
