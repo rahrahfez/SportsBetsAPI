@@ -60,8 +60,6 @@ namespace SportsBetsServer
             services.ConfigureMySql(Configuration);
             services.ConfigureAuthService();
             services.ConfigureUserService();
-            services.ConfigureDateTime();
-            services.ConfigureJwtAuthentication(Configuration);
             services.ConfigureRepositoryBase();
             services.AddControllers()
                 .AddNewtonsoftJson(

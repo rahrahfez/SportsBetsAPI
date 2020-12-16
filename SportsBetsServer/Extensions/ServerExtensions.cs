@@ -26,8 +26,8 @@ namespace SportsBetsServer.Extensions
                 options.AddPolicy("CorsPolicy",
                     builder => builder.AllowAnyOrigin()
                     .AllowAnyHeader()
-                    .AllowAnyMethod());
-                    //.AllowCredentials());
+                    .AllowAnyMethod()
+                    .AllowCredentials());
             });
         }
         public static void ConfigureIISIntegration(this IServiceCollection services)
@@ -57,29 +57,6 @@ namespace SportsBetsServer.Extensions
         public static void ConfigureUserService(this IServiceCollection services)
         {
             services.AddScoped<IUserService, UserService>();
-        }
-        public static void ConfigureDateTime(this IServiceCollection services) 
-        {
-            services.AddSingleton<IDateTime, SystemDateTime>();
-        }
-        public static void ConfigureJwtAuthentication(this IServiceCollection services, IConfiguration config)
-        {
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options => 
-                {
-                    options.RequireHttpsMetadata = false;
-                    options.SaveToken = true;
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(config.GetSection("AppSettings:Token").Value)),
-                        ValidateIssuer = true,
-                        ValidateAudience = true,
-                        ValidIssuer = config["Jwt:Issuer"],
-                        ValidAudience = config["Jwt:Audience"],
-                        ValidateLifetime = true
-                    };
-                });
         }
         public static void ConfigureAuthorization(this IServiceCollection services)
         {
