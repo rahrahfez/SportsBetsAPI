@@ -35,7 +35,7 @@ namespace SportsBetsAPI.Tests.Services
             Assert.NotNull(user);
             Assert.Equal("tester", user.Username);
             Assert.Equal(availableBalance, user.AvailableBalance);
-            Assert.Equal("User", user.UserRole);            
+            Assert.Equal("User", user.Role.ToString());            
         }
 
         [Fact]

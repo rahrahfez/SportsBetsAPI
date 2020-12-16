@@ -1,4 +1,4 @@
-using SportsBetsServer.Entities.Models;
+using SportsBetsServer.Models.Account;
 using SportsBetsServer.Entities.Models.Extensions;
 
 namespace SportsBetsServer.Contracts.Services

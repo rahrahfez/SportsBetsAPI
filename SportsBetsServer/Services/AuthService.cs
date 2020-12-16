@@ -6,7 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Configuration;
 using System.IdentityModel.Tokens.Jwt;
 using SportsBetsServer.Contracts.Services;
-using SportsBetsServer.Entities.Models;
+using SportsBetsServer.Models.Account;
 using Scrypt;
 
 namespace SportsBetsServer.Services

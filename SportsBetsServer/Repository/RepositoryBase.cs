@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using SportsBetsServer.Contracts.Repository;
-using SportsBetsServer.Entities;
 using System.Threading.Tasks;
-
+using SportsBetsServer.Contracts.Repository;
 
 namespace SportsBetsServer.Repository
 {

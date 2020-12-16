@@ -10,21 +10,21 @@ using SportsBetsServer.Entities.Models;
 
 namespace SportsBetsAPI.Tests.Repository
 {
-    public class UserRepositoryTest
+    public class AccountRepositoryTest
     {
-        public UserRepositoryTest() { }
+        public AccountRepositoryTest() { }
         [Fact]
-        public void User_AddUser_VerifyCreation()
+        public void Account_AddUser_VerifyCreation()
         {
-            var user = new User
+            var user = new Account
             {
                 Id = Guid.NewGuid(),
                 Username = "Tester1",
                 AvailableBalance = 100,
                 Role = Role.User
             };
-            var RepoMock = new Mock<IUserRepository>();
-            RepoMock.Setup(u => u.Add(It.IsAny<User>())).Verifiable();
+            var RepoMock = new Mock<IAccountRepository>();
+            RepoMock.Setup(u => u.Add(It.IsAny<Account>())).Verifiable();
             var repo = RepoMock.Object;
 
             repo.Add(user);

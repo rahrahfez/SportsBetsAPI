@@ -1,4 +1,4 @@
-using SportsBetsServer.Entities.Models;
+using SportsBetsServer.Models.Account;
 using System.Security.Claims;
 
 namespace SportsBetsServer.Contracts.Services 

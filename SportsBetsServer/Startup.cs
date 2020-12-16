@@ -57,12 +57,10 @@ namespace SportsBetsServer
         public void ConfigureServices(IServiceCollection services)
         {
             services.ConfigureCors();
-            services.ConfigureIISIntegration();
             services.ConfigureLoggerService();
             services.ConfigureMySql(Configuration);
             services.ConfigureAuthService();
             services.ConfigureUserService();
-            services.ConfigureRepositoryBase();
             services.AddControllers()
                 .AddNewtonsoftJson(
                     options => options.SerializerSettings.ReferenceLoopHandling =
@@ -89,7 +87,6 @@ namespace SportsBetsServer
         public void ConfigureServices(IServiceCollection services)
         {
             services.ConfigureCors();
-            services.ConfigureIISIntegration();
             services.ConfigureMySql(Configuration);
             services.ConfigureAuthService();
             services.ConfigureUserService();

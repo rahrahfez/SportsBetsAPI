@@ -30,11 +30,6 @@ namespace SportsBetsServer.Extensions
                     .AllowCredentials());
             });
         }
-        public static void ConfigureIISIntegration(this IServiceCollection services)
-        {
-            services.Configure<IISOptions>(options =>
-            {});
-        }
         public static void ConfigureLoggerService(this IServiceCollection services)
         {
             services.AddSingleton<ILoggerManager, LoggerManager>();
@@ -45,10 +40,6 @@ namespace SportsBetsServer.Extensions
 
             services.AddDbContext<RepositoryContext>(options => 
                 options.UseMySql(connectionString));
-        }
-        public static void ConfigureRepositoryBase(this IServiceCollection services)
-        {
-            services.AddScoped<IRepositoryBase<User>, RepositoryBase<User>>();
         }
         public static void ConfigureAuthService(this IServiceCollection services)
         {

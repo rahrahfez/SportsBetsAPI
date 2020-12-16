@@ -2,9 +2,9 @@ using System;
 using Microsoft.Extensions.Configuration;
 using SportsBetsServer.Contracts.Repository;
 using SportsBetsServer.Contracts.Services;
-using SportsBetsServer.Entities.Models;
+using SportsBetsServer.Models.Account;
 using SportsBetsServer.Entities.Models.Extensions;
-using SportsBetsServer.Repository;
+using SportsBetsServer.Entities;
 
 namespace SportsBetsServer.Services
 {
@@ -17,15 +17,12 @@ namespace SportsBetsServer.Services
         }
         public User CreateUser(UserCredentials user)
         {
-            string hashedPassword = _authService.CreatePasswordHash(user.Password);
             User createdUser = new User()
             {
                 Id = Guid.NewGuid(),
                 Username = user.Username,
                 AvailableBalance = 100,
-                DateCreated = DateTime.Now,
-                HashedPassword = hashedPassword,
-                UserRole = "User"
+                Role = Role.User
              };
             
             return createdUser;

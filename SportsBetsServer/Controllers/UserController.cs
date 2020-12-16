@@ -13,7 +13,7 @@ namespace SportsBetsServer.Controllers
     [Route("api/users")]
     //[Authorize(Policy = Policy.User)]
     [ApiController]
-    public class UserController : ControllerBase
+    public class UserController : BaseController
     {
         private readonly IUserRepository _repo;    
         private readonly ILoggerManager _logger;

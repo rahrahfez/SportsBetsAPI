@@ -1,4 +1,3 @@
-#nullable enable
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -13,11 +12,11 @@ namespace SportsBetsServer.Entities
         [Column("account")]
         public Guid Id { get; set; }
         [Column("wager")]
-        public ICollection<Wager>? Wagers { get; set; }
+        public ICollection<Wager> Wagers { get; set; }
         [Required(ErrorMessage = "Username is required.")]
         [StringLength(30, ErrorMessage = "Username cannot be longer than 30 characters.")]
         [Column("username")]
-        public string? Username { get; set; }
+        public string Username { get; set; }
         [Column("available_balance")]
         public int AvailableBalance { get; set; } 
         [Required(ErrorMessage="Date created is required.")]
@@ -28,8 +27,11 @@ namespace SportsBetsServer.Entities
         public Role Role { get; set; } 
         [Required]
         [Column("password_hash")]
-        public string? HashedPassword { get; set; }
-        public string? VerificationToken { get; set; }
+        public string HashedPassword { get; set; }
+        [Required]
+        [Column("verification_token")]
+        public string VerificationToken { get; set; }
+        public List<RefreshToken> RefeshTokens { get; set; }
     }
 
     public enum Role
@@ -39,4 +41,3 @@ namespace SportsBetsServer.Entities
     }
 }
 
-#nullable restore

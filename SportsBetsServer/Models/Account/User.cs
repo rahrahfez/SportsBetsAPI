@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿#nullable enable
+using System;
 using SportsBetsServer.Entities;
 
-namespace SportsBetsServer.Entities.Models
+namespace SportsBetsServer.Models.Account
 {
     public class User
     {
@@ -14,3 +12,5 @@ namespace SportsBetsServer.Entities.Models
         public Role Role { get; set; }
     }
 }
+
+#nullable disable

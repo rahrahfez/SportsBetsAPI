@@ -3,6 +3,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using LoggerService;
 using Microsoft.AspNetCore.Http;
+using SportsBetsServer.Helpers;
 
 namespace SportsBetsServer.Middleware
 {
@@ -28,8 +29,12 @@ namespace SportsBetsServer.Middleware
 
                 switch(ex)
                 {
+                    case AppException _:
+                        _log.LogError($"{ ex?.Message }");
+                        response.StatusCode = StatusCodes.Status400BadRequest;
+                        break;
                     default:
-                        _log.LogError($"{ex?.Message}");
+                        _log.LogError($"{ ex?.Message }");
                         response.StatusCode = StatusCodes.Status500InternalServerError;
                         break;
                 }
