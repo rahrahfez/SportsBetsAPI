@@ -6,7 +6,7 @@ using Xunit;
 using Moq;
 using SportsBetsServer.Contracts.Repository;
 using SportsBetsServer.Entities;
-using SportsBetsServer.Entities.Models;
+using SportsBetsServer.Models.Account;
 
 namespace SportsBetsAPI.Tests.Repository
 {
@@ -35,16 +35,15 @@ namespace SportsBetsAPI.Tests.Repository
         [Fact]
         public async void User_AddUserAsync_VerifyCreation()
         {
-            var user = new User
+            var user = new Account
             {
                 Id = Guid.NewGuid(),
                 Username = "Tester1",
                 AvailableBalance = 100,
-                DateCreated = DateTime.Now,
-                UserRole = "User"
+                Role = Role.User
             };
-            var RepoMock = new Mock<IUserRepository>();
-            RepoMock.Setup(u => u.AddAsync(It.IsAny<User>())).Verifiable();
+            var RepoMock = new Mock<IAccountRepository>();
+            RepoMock.Setup(u => u.AddAsync(It.IsAny<Account>())).Verifiable();
             var repo = RepoMock.Object;
 
             await repo.AddAsync(user);
@@ -55,35 +54,33 @@ namespace SportsBetsAPI.Tests.Repository
         [Fact]
         public void User_Get_All()
         {
-            var listOfUsers = new List<User>
+            var listOfUsers = new List<Account>
             {
-                new User
+                new Account
                 {
                     Id = Guid.NewGuid(),
                     Username = "Tester1",
                     AvailableBalance = 100,
-                    DateCreated = DateTime.Now,
-                    UserRole = "User"
+                    Role = Role.User
                 },
-                new User
+                new Account
                 {
                     Id = Guid.NewGuid(),
                     Username = "Tester2",
                     AvailableBalance = 100,
-                    DateCreated = DateTime.Now,
-                    UserRole = "User"
+                    Role = Role.User
                 },
-                new User
+                new Account
                 {
                     Id = Guid.NewGuid(),
                     Username = "Tester3",
                     AvailableBalance = 100,
                     DateCreated = DateTime.Now,
-                    UserRole = "User"
+                    Role = Role.User
                 }
             };
 
-            var RepoMock = new Mock<IUserRepository>();
+            var RepoMock = new Mock<IAccountRepository>();
             RepoMock.Setup(x => x.GetAll()).Returns(listOfUsers).Verifiable();
             var repo = RepoMock.Object;
 
@@ -96,16 +93,16 @@ namespace SportsBetsAPI.Tests.Repository
         [Fact]
         public void User_FindBy_Username()
         {
-            var newUser = new User
+            var newUser = new Account
             {
                 Id = Guid.NewGuid(),
                 Username = "tester",
                 AvailableBalance = 100,
                 DateCreated = DateTime.Now,
-                UserRole = "User"
+                Role = Role.User
             };
 
-            var RepoMock = new Mock<IUserRepository>();
+            var RepoMock = new Mock<IAccountRepository>();
             RepoMock.Setup(x => x.GetUserByUsername(It.IsAny<string>())).Returns(newUser).Verifiable();
             var repo = RepoMock.Object;
 
@@ -118,16 +115,16 @@ namespace SportsBetsAPI.Tests.Repository
         [Fact]
         public async void User_FindUserById()
         {
-            var user = new User
+            var user = new Account
             {
                 Id = Guid.NewGuid(),
                 Username = "Tester1",
                 AvailableBalance = 100,
                 DateCreated = DateTime.Now,
-                UserRole = "User"
+                Role = Role.User
             };
 
-            var RepoMock = new Mock<IUserRepository>();
+            var RepoMock = new Mock<IAccountRepository>();
             RepoMock.Setup(x => x.GetAsync(It.IsAny<Guid>())).Returns(Task.FromResult(user)).Verifiable();
             var repo = RepoMock.Object;
 
@@ -139,17 +136,17 @@ namespace SportsBetsAPI.Tests.Repository
         [Fact]
         public void User_RemovesUser()
         {
-            var user = new User
+            var user = new Account
             {
                 Id = Guid.NewGuid(),
                 Username = "Tester1",
                 AvailableBalance = 100,
                 DateCreated = DateTime.Now,
-                UserRole = "User"
+                Role = Role.User
             };
 
-            var RepoMock = new Mock<IUserRepository>();
-            RepoMock.Setup(x => x.Remove(It.IsAny<User>())).Verifiable();
+            var RepoMock = new Mock<IAccountRepository>();
+            RepoMock.Setup(x => x.Remove(It.IsAny<Account>())).Verifiable();
             var repo = RepoMock.Object;
 
             repo.Remove(user);

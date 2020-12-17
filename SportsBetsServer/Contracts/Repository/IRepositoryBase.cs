@@ -14,5 +14,6 @@ namespace SportsBetsServer.Contracts.Repository
         void Add(T entity);
         Task AddAsync(T entity);
         void Remove(T entity);
+        Task Complete();
     }
 }

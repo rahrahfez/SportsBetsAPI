@@ -44,9 +44,9 @@ namespace SportsBetsServer.Services
             var tokenHandler = new JwtSecurityTokenHandler();
             var securityToken = tokenHandler.ReadJwtToken(token);
 
-            var stringClaimvalue = securityToken.Claims.First(claim => claim.Type == claimType).Value;
+            var stringClaimValue = securityToken.Claims.First(claim => claim.Type == claimType).Value;
 
-            return stringClaimvalue;
+            return stringClaimValue;
         }
         public string CreateJsonToken(User user)
         {

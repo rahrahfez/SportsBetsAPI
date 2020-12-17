@@ -1,9 +1,6 @@
-using System;
-using System.Threading.Tasks;
 using Xunit;
 using Moq;
 using Microsoft.Extensions.Configuration;
-using SportsBetsServer.Entities.Models;
 using SportsBetsServer.Entities.Models.Extensions;
 using SportsBetsServer.Contracts.Services;
 using SportsBetsServer.Services;

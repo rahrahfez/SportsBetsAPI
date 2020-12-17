@@ -9,43 +9,44 @@ namespace SportsBetsServer.Repository
 {
     public class RepositoryBase<T> : IRepositoryBase<T> where T : class
     {
-        private readonly RepositoryContext RepositoryContext;
-        public RepositoryBase(RepositoryContext repositoryContext)
+        private readonly RepositoryContext _context;
+        public RepositoryBase(RepositoryContext context)
         {
-            RepositoryContext = repositoryContext ?? 
-                throw new ArgumentNullException(nameof(repositoryContext), "missing context");
+            _context = context ?? 
+                throw new ArgumentNullException(nameof(context), "missing context");
         }
         public T Get(Guid id)
         {
-            return RepositoryContext.Set<T>().Find(id);
+            return _context.Set<T>().Find(id);
         }
         public async Task<T> GetAsync(Guid id)
         {
-            return await RepositoryContext.Set<T>().FindAsync(id);
+            return await _context.Set<T>().FindAsync(id);
         }
         public IEnumerable<T> GetAll()
         {
-            return RepositoryContext.Set<T>();
+            return _context.Set<T>();
         }
         public IEnumerable<T> GetAllBy(Expression<Func<T, bool>> predicate)
         {
-            return RepositoryContext.Set<T>()
+            return _context.Set<T>()
                 .Where(predicate).ToList();
         }
         public void Add(T entity)
         {
-            RepositoryContext.Set<T>().Add(entity);
-            RepositoryContext.SaveChanges();
+            _context.Set<T>().Add(entity);
         }
         public async Task AddAsync(T entity)
         {
-            await RepositoryContext.Set<T>().AddAsync(entity);
-            RepositoryContext.SaveChanges();
+            await _context.Set<T>().AddAsync(entity);
         }
         public void Remove(T entity)
         {
-            RepositoryContext.Set<T>().Remove(entity);
-            RepositoryContext.SaveChanges();
+            _context.Set<T>().Remove(entity);
+        }
+        public async Task Complete()
+        {
+            await _context.SaveChangesAsync();
         }
     }
 }

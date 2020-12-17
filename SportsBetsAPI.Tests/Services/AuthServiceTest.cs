@@ -4,7 +4,8 @@ using Xunit;
 using Microsoft.Extensions.Configuration;
 using SportsBetsServer.Contracts.Services;
 using SportsBetsServer.Services;
-using SportsBetsServer.Entities.Models;
+using SportsBetsServer.Models.Account;
+using SportsBetsServer.Entities;
 
 namespace SportsBetsAPI.Tests.Services
 {
@@ -50,16 +51,12 @@ namespace SportsBetsAPI.Tests.Services
         [Fact]
         public void AuthService_CreateJsonTokenTest()
         {
-            string hashedPassword = _authService.CreatePasswordHash("password");
-
             User user = new User
             {
                 Id = Guid.NewGuid(),
                 Username = "Tester",
                 AvailableBalance = 100,
-                DateCreated = DateTime.Now,
-                HashedPassword = hashedPassword,
-                UserRole = "User"
+                Role = Role.User
             };
 
             var token = _authService.CreateJsonToken(user);

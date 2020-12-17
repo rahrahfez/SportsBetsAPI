@@ -3,7 +3,8 @@ using System.Threading.Tasks;
 using SportsBetsServer.Contracts.Repository;
 using SportsBetsServer.Contracts.Services;
 using LoggerService;
-using SportsBetsServer.Entities.Models;
+using SportsBetsServer.Models.Account;
+using SportsBetsServer.Entities;
 using SportsBetsServer.Entities.Models.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
@@ -15,11 +16,11 @@ namespace SportsBetsServer.Controllers
     [ApiController]
     public class UserController : BaseController
     {
-        private readonly IUserRepository _repo;    
+        private readonly IAccountRepository _repo;    
         private readonly ILoggerManager _logger;
         private readonly IUserService _userService;
         public UserController(
-            IUserRepository repo, 
+            IAccountRepository repo, 
             ILoggerManager logger, 
             IUserService userService)
         {
@@ -52,7 +53,7 @@ namespace SportsBetsServer.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
-        public async Task<ActionResult<User>> GetUserById(Guid id) 
+        public async Task<ActionResult<Account>> GetUserById(Guid id) 
         {
             try
             {
@@ -98,8 +99,9 @@ namespace SportsBetsServer.Controllers
                 }
 
                 User createdUser = _userService.CreateUser(userCredentials);
+                Account account = new Account();
 
-                await _repo.AddAsync(createdUser);
+                await _repo.AddAsync(account);
 
                 _logger.LogInfo($"Successfully registered { user.Username }.");
 
@@ -119,6 +121,7 @@ namespace SportsBetsServer.Controllers
             try
             {
                 var user = await _repo.GetAsync(id);
+                await _repo.Complete();
                 return Ok(user.AvailableBalance);
             }
             catch (Exception ex)
@@ -144,6 +147,7 @@ namespace SportsBetsServer.Controllers
                 }
 
                 _repo.Remove(userToBeDeleted);
+                await _repo.Complete();
 
                 _logger.LogInfo($"User with id: { id } successfully deleted.");
                 return NoContent();

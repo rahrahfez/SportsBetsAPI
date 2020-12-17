@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using SportsBetsServer.Entities.Models;
+using SportsBetsServer.Entities;
 
 namespace SportsBetsServer.Contracts.Repository
 {

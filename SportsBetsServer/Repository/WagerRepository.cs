@@ -9,10 +9,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace SportsBetsServer.Repository
 {
-    public class WagerRepository : RepositoryBase<Wager>, IWagerRepository
+    public class WagerRepository 
     {
-        public WagerRepository(RepositoryContext repositoryContext)
-            : base(repositoryContext)
-            { }
+        public WagerRepository()
+        { }
     }
 }
