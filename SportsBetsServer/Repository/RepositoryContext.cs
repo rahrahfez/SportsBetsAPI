@@ -1,10 +1,9 @@
-﻿using SportsBetsServer.Contracts.Repository;
-using SportsBetsServer.Entities;
+﻿using SportsBetsServer.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace SportsBetsServer.Repository
 {
-    public class RepositoryContext : DbContext, IRepositoryContext
+    public class RepositoryContext : DbContext
     {
         public RepositoryContext(DbContextOptions options) 
             : base(options) 

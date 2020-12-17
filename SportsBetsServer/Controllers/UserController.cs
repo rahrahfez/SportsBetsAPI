@@ -18,15 +18,12 @@ namespace SportsBetsServer.Controllers
     {
         private readonly IAccountRepository _repo;    
         private readonly ILoggerManager _logger;
-        private readonly IUserService _userService;
         public UserController(
             IAccountRepository repo, 
-            ILoggerManager logger, 
-            IUserService userService)
+            ILoggerManager logger)
         {
             _logger = logger;
             _repo = repo;
-            _userService = userService;
         }
         [HttpGet]
         //[Authorize(Policy = Policy.Admin)]
@@ -98,14 +95,13 @@ namespace SportsBetsServer.Controllers
                     return BadRequest("User object is null");
                 }
 
-                User createdUser = _userService.CreateUser(userCredentials);
                 Account account = new Account();
 
                 await _repo.AddAsync(account);
 
                 _logger.LogInfo($"Successfully registered { user.Username }.");
 
-                return CreatedAtRoute(routeName: "UserById", routeValues: new { id = createdUser.Id }, value: createdUser);
+                return CreatedAtRoute(routeName: "UserById", routeValues: new { id = account.Id }, value: account);
             }
             catch (Exception ex)
             {

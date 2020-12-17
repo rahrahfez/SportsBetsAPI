@@ -9,10 +9,10 @@ using SportsBetsServer.Entities;
 
 namespace SportsBetsAPI.Tests.Services
 {
-    public class AuthServiceTest
+    public class AccountServiceTest
     {
-        private readonly IAuthService _authService;
-        public AuthServiceTest()
+        private readonly IAccountService _accountService;
+        public AccountServiceTest()
         {
             var config = new Mock<IConfiguration>();
             var configSection = new Mock<IConfigurationSection>();
@@ -23,33 +23,33 @@ namespace SportsBetsAPI.Tests.Services
             config.Setup(t => t.GetSection("Jwt:Issuer")).Returns(configSection.Object);
             config.Setup(t => t.GetSection("Jwt:Audience")).Returns(configSection.Object);
 
-            _authService = new AuthService(config.Object);
+            _accountService = new AccountService(config.Object);
 
         }
         [Fact]
-        public void AuthService_CreatePasswordHashTest()
+        public void AccountService_CreatePasswordHashTest()
         {
             string password = "password";
-            string hashedPassword = _authService.CreatePasswordHash(password);
+            string hashedPassword = _accountService.CreatePasswordHash(password);
             
             Assert.NotNull(hashedPassword);
         }
         [Fact]
-        public void AuthService_VerifyPasswordTest_ReturnsBoolean()
+        public void AccountService_VerifyPasswordTest_ReturnsBoolean()
         {
             string password = "password";
-            string hashedPassword = _authService.CreatePasswordHash(password);
-            var result = _authService.VerifyPassword(password, hashedPassword);
+            string hashedPassword = _accountService.CreatePasswordHash(password);
+            var result = _accountService.VerifyPassword(password, hashedPassword);
 
             Assert.True(result);
 
             password = "wrong";
-            result = _authService.VerifyPassword(password, hashedPassword);
+            result = _accountService.VerifyPassword(password, hashedPassword);
 
             Assert.False(result);
         }
         [Fact]
-        public void AuthService_CreateJsonTokenTest()
+        public void AccountService_CreateJsonTokenTest()
         {
             User user = new User
             {
@@ -59,12 +59,12 @@ namespace SportsBetsAPI.Tests.Services
                 Role = Role.User
             };
 
-            var token = _authService.CreateJsonToken(user);
+            var token = _accountService.CreateJsonToken(user);
 
             Assert.NotNull(token);
         }
         [Fact]
-        public void AuthService_ValidateJsonToken_ReturnsBoolean()
+        public void AccountService_ValidateJsonToken_ReturnsBoolean()
         {
 
         }

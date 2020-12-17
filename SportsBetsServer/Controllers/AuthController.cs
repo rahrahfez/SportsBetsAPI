@@ -8,6 +8,7 @@ using SportsBetsServer.Models.Account;
 using SportsBetsServer.Entities.Models.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using LoggerService;
+using SportsBetsServer.Helpers;
 
 namespace SportsBetsServer.Controllers
 {
@@ -16,16 +17,16 @@ namespace SportsBetsServer.Controllers
     public class AuthController : BaseController
     {
         private readonly ILoggerManager _logger;
-        private readonly IAuthService _authService;
+        private readonly IAccountService _accountService;
         private readonly IAccountRepository _repo;
 
         public AuthController(
             ILoggerManager logger, 
-            IAuthService authService,
+            IAccountService authService,
             IAccountRepository repo)
         {
             _logger = logger;
-            _authService = authService;
+            _accountService = authService;
             _repo = repo;
         }
         [HttpPost("login")]
@@ -37,9 +38,9 @@ namespace SportsBetsServer.Controllers
 
             var account = _repo.GetUserByUsername(userToLogin.Username);
 
-            if (account == null || (!_authService.VerifyPassword(userToLogin.Password, account.HashedPassword)))
+            if (account == null || (!_accountService.VerifyPassword(userToLogin.Password, account.HashedPassword)))
             {
-                return BadRequest("Incorrect Username and/or Password.");
+                throw new AppException("Incorrect Username and/or Password.");
             }
 
             var user = new User
@@ -49,7 +50,7 @@ namespace SportsBetsServer.Controllers
                 Role = account.Role
             };
 
-            var signedAndEncodedToken = _authService.CreateJsonToken(user);
+            var signedAndEncodedToken = _accountService.CreateJsonToken(user);
 
             _logger.LogInfo($"Token successfully created. Encoded as {signedAndEncodedToken}");
             return Ok(signedAndEncodedToken);

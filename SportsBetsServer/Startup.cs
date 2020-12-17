@@ -16,6 +16,7 @@ using Microsoft.Extensions.Options;
 using SportsBetsServer.Extensions;
 using SportsBetsServer.Middleware;
 using NLog;
+using AutoMapper;
 using Microsoft.OpenApi.Models;
 
 namespace SportsBetsServer
@@ -44,6 +45,7 @@ namespace SportsBetsServer
                 ForwardedHeaders = ForwardedHeaders.All
             });
             app.UseMiddleware<ErrorHandler>();
+            app.UseMiddleware<JwtMiddleware>();
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseRouting();
@@ -59,8 +61,7 @@ namespace SportsBetsServer
             services.ConfigureCors();
             services.ConfigureLoggerService();
             services.ConfigureMySql(Configuration);
-            services.ConfigureAuthService();
-            services.ConfigureUserService();
+            services.ConfigureAccountService();
             services.AddControllers()
                 .AddNewtonsoftJson(
                     options => options.SerializerSettings.ReferenceLoopHandling =
@@ -71,7 +72,8 @@ namespace SportsBetsServer
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SportsBets", Version = "v1" });
             });
-            services.ConfigureAuthorization(); 
+            services.ConfigureAuthorization();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
     }
     public class Startup
@@ -88,8 +90,7 @@ namespace SportsBetsServer
         {
             services.ConfigureCors();
             services.ConfigureMySql(Configuration);
-            services.ConfigureAuthService();
-            services.ConfigureUserService();
+            services.ConfigureAccountService();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

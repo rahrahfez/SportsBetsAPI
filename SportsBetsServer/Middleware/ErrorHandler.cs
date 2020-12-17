@@ -33,6 +33,10 @@ namespace SportsBetsServer.Middleware
                         _log.LogError($"{ ex?.Message }");
                         response.StatusCode = StatusCodes.Status400BadRequest;
                         break;
+                    case NotFoundException _:
+                        _log.LogError($"{ ex.Message }");
+                        response.StatusCode = StatusCodes.Status401Unauthorized;
+                        break;
                     default:
                         _log.LogError($"{ ex?.Message }");
                         response.StatusCode = StatusCodes.Status500InternalServerError;

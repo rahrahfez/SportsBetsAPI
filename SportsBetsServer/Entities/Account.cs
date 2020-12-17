@@ -31,7 +31,6 @@ namespace SportsBetsServer.Entities
         [Required]
         [Column("verification_token")]
         public string VerificationToken { get; set; }
-        public List<RefreshToken> RefeshTokens { get; set; }
     }
 
     public enum Role
