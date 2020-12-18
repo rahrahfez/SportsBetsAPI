@@ -7,6 +7,7 @@ using SportsBetsServer.Entities;
 using SportsBetsServer.Models.Account;
 using SportsBetsServer.Entities.Models.Extensions;
 using Microsoft.AspNetCore.Authorization;
+using AutoMapper;
 using LoggerService;
 using SportsBetsServer.Helpers;
 
@@ -18,16 +19,19 @@ namespace SportsBetsServer.Controllers
     {
         private readonly ILoggerManager _logger;
         private readonly IAccountService _accountService;
+        private readonly IMapper _mapper;
         private readonly IAccountRepository _repo;
 
         public AuthController(
             ILoggerManager logger, 
             IAccountService authService,
-            IAccountRepository repo)
+            IAccountRepository repo,
+            IMapper mapper)
         {
             _logger = logger;
             _accountService = authService;
             _repo = repo;
+            _mapper = mapper;
         }
         [HttpPost("login")]
         [AllowAnonymous]
@@ -43,12 +47,7 @@ namespace SportsBetsServer.Controllers
                 throw new AppException("Incorrect Username and/or Password.");
             }
 
-            var user = new User
-            {
-                Id = account.Id,
-                Username = account.Username,
-                Role = account.Role
-            };
+            var user = _mapper.Map<User>(account);
 
             var signedAndEncodedToken = _accountService.CreateJsonToken(user);
 

@@ -1,19 +1,11 @@
-using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using SportsBetsServer.Contracts.Repository;
 using SportsBetsServer.Contracts.Services;
 using LoggerService;
-using SportsBetsServer.Entities;
 using SportsBetsServer.Entities.Models;
 using SportsBetsServer.Repository;
 using SportsBetsServer.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace SportsBetsServer.Extensions
 {

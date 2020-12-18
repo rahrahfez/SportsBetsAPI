@@ -9,6 +9,6 @@ namespace SportsBetsServer.Repository
             : base(options) 
         {}
         public DbSet<Account> Account { get; set; }
-        public DbSet<Wager> Wager { get; set; }
+        //public DbSet<Wager> Wager { get; set; }
     }
 }

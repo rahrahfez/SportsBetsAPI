@@ -11,8 +11,6 @@ namespace SportsBetsServer.Entities
         [Key]
         [Column("account")]
         public Guid Id { get; set; }
-        [Column("wager")]
-        public ICollection<Wager> Wagers { get; set; }
         [Required(ErrorMessage = "Username is required.")]
         [StringLength(30, ErrorMessage = "Username cannot be longer than 30 characters.")]
         [Column("username")]
@@ -28,9 +26,6 @@ namespace SportsBetsServer.Entities
         [Required]
         [Column("password_hash")]
         public string HashedPassword { get; set; }
-        [Required]
-        [Column("verification_token")]
-        public string VerificationToken { get; set; }
     }
 
     public enum Role

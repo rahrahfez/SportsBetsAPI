@@ -32,28 +32,32 @@ namespace SportsBetsServer.Middleware
             var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
 
             if (token != null)
-                await attachTokenToContext(context, token);
+                await AttachTokenToContext(context, token);
 
             await _next(context);
         }
-        private async Task attachTokenToContext(HttpContext context, string token)
+        private async Task AttachTokenToContext(HttpContext context, string token)
         {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetSection("AppSettings:Token").Value));
-            tokenHandler.ValidateToken(token, new TokenValidationParameters
+            try
             {
-                ValidateIssuerSigningKey = true,
-                ValidateAudience = true,
-                ValidateIssuer = true,
-                IssuerSigningKey = key,
-                ClockSkew = TimeSpan.Zero
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetSection("AppSettings:Token").Value));
+                tokenHandler.ValidateToken(token, new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    ValidateAudience = true,
+                    ValidateIssuer = true,
+                    IssuerSigningKey = key,
+                    ClockSkew = TimeSpan.Zero
 
-            }, out SecurityToken validatedToken);
+                }, out SecurityToken validatedToken);
 
-            var jwtToken = (JwtSecurityToken)validatedToken;
-            var accountId = jwtToken.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value;
+                var jwtToken = (JwtSecurityToken)validatedToken;
+                var accountId = jwtToken.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value;
 
-            context.Items["Account"] = await _repo.GetAsync(new Guid(accountId));
+                context.Items["Account"] = await _repo.GetAsync(new Guid(accountId));
+            }
+            catch { }
         }
     }
 }
