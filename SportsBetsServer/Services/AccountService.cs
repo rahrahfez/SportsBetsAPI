@@ -1,22 +1,33 @@
 using System;
 using System.Linq;
+using System.Collections.Generic;
 using System.Text;
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Configuration;
 using System.IdentityModel.Tokens.Jwt;
+using AutoMapper;
+using Scrypt;
+using SportsBetsServer.Repository;
+using SportsBetsServer.Entities;
 using SportsBetsServer.Contracts.Services;
 using SportsBetsServer.Models.Account;
-using Scrypt;
 
 namespace SportsBetsServer.Services
 {
     public class AccountService : IAccountService
     {
         private readonly IConfiguration _config;
-        public AccountService(IConfiguration config) 
+        private readonly RepositoryContext _context;
+        private readonly IMapper _mapper;
+        public AccountService(
+            IConfiguration config, 
+            IMapper mapper,
+            RepositoryContext context) 
         {
             _config = config;
+            _mapper = mapper;
+            _context = context;
         }
         public string CreatePasswordHash(string password)
         {
@@ -34,9 +45,9 @@ namespace SportsBetsServer.Services
         {
             return new[]
             {
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, user.Username),
-                new Claim(ClaimTypes.Role, user.Role.ToString())
+                new Claim("Id", user.Id.ToString()),
+                new Claim("Username", user.Username),
+                new Claim("Role", user.Role.ToString())
             };
         }
         public string CreateJsonToken(User user)
@@ -58,6 +69,19 @@ namespace SportsBetsServer.Services
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
             return tokenHandler.WriteToken(token);
+        }
+        public IEnumerable<Account> GetAll()
+        {
+            var accounts = _context.Account.ToList();
+            foreach (var account in accounts)
+            {
+                _mapper.Map<User>(account);
+            }
+            return accounts;
+        }
+        public Account GetAccountByUsername(string username)
+        {
+            return _context.Account.Where(x => x.Username.Equals(username)).SingleOrDefault();
         }
     }
 }

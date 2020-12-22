@@ -3,6 +3,9 @@ using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using NLog;
+using AutoMapper;
+using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -15,9 +18,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using SportsBetsServer.Extensions;
 using SportsBetsServer.Middleware;
-using NLog;
-using AutoMapper;
-using Microsoft.OpenApi.Models;
+using SportsBetsServer.Repository;
 
 namespace SportsBetsServer
 {
@@ -62,6 +63,7 @@ namespace SportsBetsServer
             services.ConfigureLoggerService();
             services.ConfigureMySql(Configuration);
             services.ConfigureAccountService();
+            services.AddDbContext<RepositoryContext>();
             services.AddControllers()
                 .AddNewtonsoftJson(
                     options => options.SerializerSettings.ReferenceLoopHandling =
@@ -72,7 +74,6 @@ namespace SportsBetsServer
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SportsBets", Version = "v1" });
             });
-            services.ConfigureAuthorization();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
     }
@@ -91,6 +92,7 @@ namespace SportsBetsServer
             services.ConfigureCors();
             services.ConfigureMySql(Configuration);
             services.ConfigureAccountService();
+            services.AddDbContext<RepositoryContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

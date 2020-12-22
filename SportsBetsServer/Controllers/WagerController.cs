@@ -1,14 +1,15 @@
-using System;
+/*using System;
 using System.Threading.Tasks;
-using SportsBetsServer.Contracts.Repository;
-using SportsBetsServer.Contracts.Services;
-using SportsBetsServer.Entities;
-using SportsBetsServer.Entities.Models.Extensions;
-using SportsBetsServer.Models.Account;
 using LoggerService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
+using SportsBetsServer.Repository;
+using SportsBetsServer.Contracts.Services;
+using SportsBetsServer.Entities;
+using SportsBetsServer.Entities.Models.Extensions;
+using SportsBetsServer.Models.Account;
+
 
 namespace SportsBetsServer.Controllers
 {
@@ -17,18 +18,18 @@ namespace SportsBetsServer.Controllers
     [ApiController]
     public class WagerController : BaseController
     {
-        private readonly IRepositoryBase<Wager> _repo;
+        private readonly RepositoryContext _context;
         private readonly ILoggerManager _logger;
-        private readonly IWagerService _wagerService;
+        private readonly IWagerService _service;
         
         public WagerController(
-            IRepositoryBase<Wager> repo, 
+            RepositoryContext context,
             ILoggerManager logger,
-            IWagerService wagerService)
+            IWagerService service)
         {
-            _repo = repo;
+            _context = context;
             _logger = logger;
-            _wagerService = wagerService;
+            _service = service;
         }
         [HttpGet]
         [ProducesResponseType(200)]
@@ -124,4 +125,4 @@ namespace SportsBetsServer.Controllers
             }
         }
     }
-}
+}*/

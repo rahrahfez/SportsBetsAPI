@@ -1,42 +1,36 @@
 ﻿using System;
 using System.Text;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using SportsBetsServer.Contracts.Repository;
-using SportsBetsServer.Entities;
-using System.Security.Claims;
+using SportsBetsServer.Repository;
 
 namespace SportsBetsServer.Middleware
 {
     public class JwtMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly IRepositoryBase<Account> _repo;
         private readonly IConfiguration _config;
         public JwtMiddleware(
             RequestDelegate next, 
-            IRepositoryBase<Account> repo,
             IConfiguration config)
         {
             _next = next;
-            _repo = repo;
             _config = config;
         }
-        public async Task Invoke(HttpContext context)
+        public async Task Invoke(HttpContext http, RepositoryContext context)
         {
-            var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+            var token = http.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
 
             if (token != null)
-                await AttachTokenToContext(context, token);
+                await AttachTokenToContext(http, context, token);
 
-            await _next(context);
+            await _next(http);
         }
-        private async Task AttachTokenToContext(HttpContext context, string token)
+        private async Task AttachTokenToContext(HttpContext http, RepositoryContext context, string token)
         {
             try
             {
@@ -45,19 +39,21 @@ namespace SportsBetsServer.Middleware
                 tokenHandler.ValidateToken(token, new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
-                    ValidateAudience = true,
-                    ValidateIssuer = true,
                     IssuerSigningKey = key,
+                    ValidateAudience = false,
+                    ValidateIssuer = false,
                     ClockSkew = TimeSpan.Zero
-
                 }, out SecurityToken validatedToken);
 
                 var jwtToken = (JwtSecurityToken)validatedToken;
-                var accountId = jwtToken.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value;
+                var accountId = jwtToken.Claims.First(x => x.Type == "Id").Value;
 
-                context.Items["Account"] = await _repo.GetAsync(new Guid(accountId));
+                http.Items["Account"] = await context.Account.FindAsync(new Guid(accountId));
             }
-            catch { }
+            catch(Exception ex)
+            {
+                throw new InvalidOperationException($"{ ex.Message }");
+            }
         }
     }
 }

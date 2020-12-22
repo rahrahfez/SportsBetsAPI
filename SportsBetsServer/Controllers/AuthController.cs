@@ -1,15 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using SportsBetsServer.Contracts.Services;
-using SportsBetsServer.Contracts.Repository;
 using SportsBetsServer.Repository;
-using SportsBetsServer.Entities;
 using SportsBetsServer.Models.Account;
-using SportsBetsServer.Entities.Models.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using AutoMapper;
 using LoggerService;
 using SportsBetsServer.Helpers;
+using Microsoft.AspNetCore.Http;
+using System;
 
 namespace SportsBetsServer.Controllers
 {
@@ -18,21 +16,19 @@ namespace SportsBetsServer.Controllers
     public class AuthController : BaseController
     {
         private readonly ILoggerManager _logger;
-        private readonly IAccountService _accountService;
+        private readonly IAccountService _service;
         private readonly IMapper _mapper;
-        private readonly IAccountRepository _repo;
 
         public AuthController(
             ILoggerManager logger, 
-            IAccountService authService,
-            IAccountRepository repo,
+            IAccountService service,
             IMapper mapper)
         {
             _logger = logger;
-            _accountService = authService;
-            _repo = repo;
+            _service = service;
             _mapper = mapper;
         }
+
         [HttpPost("login")]
         [AllowAnonymous]
         [ProducesResponseType(200)] 
@@ -40,19 +36,29 @@ namespace SportsBetsServer.Controllers
         public IActionResult Login([FromBody]UserCredentials userToLogin)
         {
 
-            var account = _repo.GetUserByUsername(userToLogin.Username);
+            var account = _service.GetAccountByUsername(userToLogin.Username);
 
-            if (account == null || (!_accountService.VerifyPassword(userToLogin.Password, account.HashedPassword)))
+            if (account == null || (!_service.VerifyPassword(userToLogin.Password, account.HashedPassword)))
             {
                 throw new AppException("Incorrect Username and/or Password.");
             }
 
             var user = _mapper.Map<User>(account);
 
-            var signedAndEncodedToken = _accountService.CreateJsonToken(user);
+            var signedAndEncodedToken = _service.CreateJsonToken(user);
+            SetTokenCookie(signedAndEncodedToken);
 
             _logger.LogInfo($"Token successfully created. Encoded as {signedAndEncodedToken}");
             return Ok(signedAndEncodedToken);
+        }
+        private void SetTokenCookie(string token)
+        {
+            var cookieOptions = new CookieOptions
+            {
+                HttpOnly = true,
+                Expires = DateTime.UtcNow.AddDays(1)
+            };
+            Response.Cookies.Append("token", token, cookieOptions);
         }
     }
     

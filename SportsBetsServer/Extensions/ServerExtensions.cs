@@ -1,11 +1,11 @@
 using Microsoft.Extensions.DependencyInjection;
-using SportsBetsServer.Contracts.Services;
-using LoggerService;
-using SportsBetsServer.Entities.Models;
-using SportsBetsServer.Repository;
-using SportsBetsServer.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
+using LoggerService;
+using SportsBetsServer.Contracts.Services;
+using SportsBetsServer.Entities;
+using SportsBetsServer.Repository;
+using SportsBetsServer.Services;
 
 namespace SportsBetsServer.Extensions
 {
@@ -18,8 +18,8 @@ namespace SportsBetsServer.Extensions
                 options.AddPolicy("CorsPolicy",
                     builder => builder.AllowAnyOrigin()
                     .AllowAnyHeader()
-                    .AllowAnyMethod()
-                    .AllowCredentials());
+                    .AllowAnyMethod());
+                    //.AllowCredentials());
             });
         }
         public static void ConfigureLoggerService(this IServiceCollection services)
@@ -36,16 +36,6 @@ namespace SportsBetsServer.Extensions
         public static void ConfigureAccountService(this IServiceCollection services)
         {
             services.AddScoped<IAccountService, AccountService>();
-        }
-        public static void ConfigureAuthorization(this IServiceCollection services)
-        {
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy(Policy.Admin, Policy.AdminPolicy());
-                options.AddPolicy(Policy.User, Policy.UserPolicy());
-                options.FallbackPolicy = Policy.FallBackPolicy();
-            });
-        }
-            
+        }         
     }
 }
