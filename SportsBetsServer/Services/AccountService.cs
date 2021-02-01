@@ -41,22 +41,22 @@ namespace SportsBetsServer.Services
             bool result = encoder.Compare(password, hashedPassword);
             return result;
         }
-        public Claim[] GenerateNewClaims(User user)
+        public Claim[] GenerateNewClaims(Account account)
         {
             return new[]
             {
-                new Claim("Id", user.Id.ToString()),
-                new Claim("Username", user.Username),
-                new Claim("Role", user.Role.ToString())
+                new Claim("Id", account.Id.ToString()),
+                new Claim("Username", account.Username),
+                new Claim("Role", account.Role.ToString())
             };
         }
-        public string CreateJsonToken(User user)
+        public string CreateJsonToken(Account account)
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetSection("AppSettings:Token").Value));
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(GenerateNewClaims(user)),
+                Subject = new ClaimsIdentity(GenerateNewClaims(account)),
                 NotBefore = DateTime.UtcNow,
                 Expires = DateTime.UtcNow.AddMinutes(60),
                 SigningCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature),

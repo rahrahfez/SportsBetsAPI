@@ -47,9 +47,9 @@ namespace SportsBetsServer.Controllers
 
             var signedAndEncodedToken = _service.CreateJsonToken(user);
             SetTokenCookie(signedAndEncodedToken);
+            user.RefreshToken = signedAndEncodedToken;
 
-            _logger.LogInfo($"Token successfully created. Encoded as {signedAndEncodedToken}");
-            return Ok(signedAndEncodedToken);
+            return Ok(user);
         }
         private void SetTokenCookie(string token)
         {

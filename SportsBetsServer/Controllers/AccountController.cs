@@ -41,26 +41,18 @@ namespace SportsBetsServer.Controllers
             var users = _service.GetAll();
             return Ok(users);
         }
-        [HttpGet("{id}", Name = "UserById")]
+        [HttpGet("{id}", Name = "AccountById")]
         [Consumes("text/json")]
         [Authorize]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
-        public async Task<ActionResult<User>> GetUserById(Guid id) 
+        public async Task<ActionResult<Account>> GetAccountById(Guid id) 
         {
             var account = await _context.Account.FindAsync(id);
-            var user = _mapper.Map<User>(account);
                 
-            if (user.Id.Equals(Guid.Empty) || user == null) 
-            {
-                throw new NotFoundException("User not found.");
-            }
-            else
-            {
-                _logger.LogInfo($"Returned user with id: { id }");
-                return user;
-            }
+            if (account.Id.Equals(Guid.Empty) || account == null) throw new NotFoundException("Account not found.");
+            return account;
         }
         [HttpPost("register")]
         [ProducesResponseType(201)]
@@ -97,7 +89,7 @@ namespace SportsBetsServer.Controllers
             var user = _mapper.Map<User>(newAccount);
 
             _logger.LogInfo($"Successfully registered { user.Username }.");
-            return CreatedAtRoute(routeName: "UserById", routeValues: new { id = user.Id }, value: user);
+            return CreatedAtRoute(routeName: "UserById", routeValues: new { id = account.Id }, value: user);
 
         }
         [HttpGet("{id}/balance")]

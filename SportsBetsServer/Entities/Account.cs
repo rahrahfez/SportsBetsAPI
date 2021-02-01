@@ -21,6 +21,8 @@ namespace SportsBetsServer.Entities
         public Role Role { get; set; } 
         [Column("password_hash")]
         public string HashedPassword { get; set; }
+        [Column("refresh_token")]
+        public ICollection<RefreshToken> RefreshTokens { get; set; }
     }
 
     public enum Role
