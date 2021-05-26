@@ -26,13 +26,6 @@ namespace SportsBetsServer.Extensions
         {
             services.AddSingleton<ILoggerManager, LoggerManager>();
         }
-        public static void ConfigureMySql(this IServiceCollection services, IConfiguration config)
-        {
-            var connectionString = config["mysqlconnection:connectionString"];
-
-            services.AddDbContext<RepositoryContext>(options => 
-                options.UseMySql(connectionString));
-        }
         public static void ConfigureAccountService(this IServiceCollection services)
         {
             services.AddScoped<IAccountService, AccountService>();

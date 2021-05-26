@@ -10,5 +10,6 @@ namespace SportsBetsServer.Repository
         {}
         public virtual DbSet<Account> Account { get; set; }
         //public DbSet<Wager> Wager { get; set; }
+        public virtual DbSet<Counter> Counter { get; set; }
     }
 }

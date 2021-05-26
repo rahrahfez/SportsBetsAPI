@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using SportsBetsServer.Contracts.Services;
+using SportsBetsServer.Entities;
 using SportsBetsServer.Repository;
 using SportsBetsServer.Models.Account;
 using Microsoft.AspNetCore.Authorization;
@@ -47,7 +48,8 @@ namespace SportsBetsServer.Controllers
 
             var signedAndEncodedToken = _service.CreateJsonToken(user);
             SetTokenCookie(signedAndEncodedToken);
-            user.RefreshToken = signedAndEncodedToken;
+            var refreshToken = new RefreshToken();
+            account.RefreshToken.Add(refreshToken);
 
             return Ok(user);
         }

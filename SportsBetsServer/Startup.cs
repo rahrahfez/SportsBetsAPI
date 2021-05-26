@@ -19,6 +19,7 @@ using Microsoft.Extensions.Options;
 using SportsBetsServer.Extensions;
 using SportsBetsServer.Middleware;
 using SportsBetsServer.Repository;
+using Microsoft.EntityFrameworkCore;
 
 namespace SportsBetsServer
 {
@@ -61,9 +62,9 @@ namespace SportsBetsServer
         {
             services.ConfigureCors();
             services.ConfigureLoggerService();
-            services.ConfigureMySql(Configuration);
             services.ConfigureAccountService();
-            services.AddDbContext<RepositoryContext>();
+            services.AddDbContext<RepositoryContext>(options =>
+                options.UseNpgsql(Configuration.GetConnectionString("postgresql_connection_string")));
             services.AddControllers()
                 .AddNewtonsoftJson(
                     options => options.SerializerSettings.ReferenceLoopHandling =
@@ -90,7 +91,6 @@ namespace SportsBetsServer
         public void ConfigureServices(IServiceCollection services)
         {
             services.ConfigureCors();
-            services.ConfigureMySql(Configuration);
             services.ConfigureAccountService();
             services.AddDbContext<RepositoryContext>();
         }
