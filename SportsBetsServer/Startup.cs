@@ -41,7 +41,6 @@ namespace SportsBetsServer
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API v1");
                 c.RoutePrefix = string.Empty;
             });
-            app.UseCors("CorsPolicy");
             app.UseForwardedHeaders(new ForwardedHeadersOptions
             {
                 ForwardedHeaders = ForwardedHeaders.All
@@ -51,6 +50,7 @@ namespace SportsBetsServer
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseRouting();
+            app.UseCors("CorsPolicy");
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {

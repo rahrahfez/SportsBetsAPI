@@ -29,38 +29,6 @@ namespace SportsBetsServer.Controllers
             _service = service;
             _mapper = mapper;
         }
-
-        [HttpPost("login")]
-        [AllowAnonymous]
-        [ProducesResponseType(200)] 
-        [ProducesResponseType(400)]
-        public IActionResult Login([FromBody]UserCredentials userToLogin)
-        {
-
-            var account = _service.GetAccountByUsername(userToLogin.Username);
-
-            if (account == null || (!_service.VerifyPassword(userToLogin.Password, account.HashedPassword)))
-            {
-                throw new AppException("Incorrect Username and/or Password.");
-            }
-
-            var user = _mapper.Map<User>(account);
-
-            var signedAndEncodedToken = _service.CreateJsonToken(user);
-            SetTokenCookie(signedAndEncodedToken);
-            var refreshToken = new RefreshToken();
-
-            return Ok(user);
-        }
-        private void SetTokenCookie(string token)
-        {
-            var cookieOptions = new CookieOptions
-            {
-                HttpOnly = true,
-                Expires = DateTime.UtcNow.AddDays(1)
-            };
-            Response.Cookies.Append("token", token, cookieOptions);
-        }
     }
     
 }

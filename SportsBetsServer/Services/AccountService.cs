@@ -47,7 +47,18 @@ namespace SportsBetsServer.Services
             {
                 new Claim("Id", user.Id.ToString()),
                 new Claim("Username", user.Username),
-                new Claim("Role", user.Role.ToString())
+                new Claim(ClaimTypes.Role, user.Role)
+            };
+        }
+        public Account CreateNewAccount(UserCredentials userCredentials)
+        {
+            return new Account
+            {
+                Id = Guid.NewGuid(),
+                Username = userCredentials.Username,
+                AvailableBalance = 100,
+                CreatedAt = DateTime.Now,
+                HashedPassword = CreatePasswordHash(userCredentials.Password)
             };
         }
         public string CreateJsonToken(User user)
@@ -69,19 +80,6 @@ namespace SportsBetsServer.Services
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
             return tokenHandler.WriteToken(token);
-        }
-        public IEnumerable<Account> GetAll()
-        {
-            var accounts = _context.Account.ToList();
-            foreach (var account in accounts)
-            {
-                _mapper.Map<User>(account);
-            }
-            return accounts;
-        }
-        public Account GetAccountByUsername(string username)
-        {
-            return _context.Account.Where(x => x.Username.Equals(username)).SingleOrDefault();
         }
     }
 }
