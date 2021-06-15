@@ -19,7 +19,6 @@ namespace SportsBetsServer.Extensions
                     builder => builder.AllowAnyOrigin()
                     .AllowAnyHeader()
                     .AllowAnyMethod());
-                    //.AllowCredentials());
             });
         }
         public static void ConfigureLoggerService(this IServiceCollection services)

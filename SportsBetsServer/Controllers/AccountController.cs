@@ -78,7 +78,7 @@ namespace SportsBetsServer.Controllers
                 Id = Guid.NewGuid(),
                 Username = userCredentials.Username,
                 AvailableBalance = 100,
-                DateCreated = DateTime.Now,
+                CreatedAt = DateTime.Now,
                 Role = Role.Admin,
                 HashedPassword = _service.CreatePasswordHash(userCredentials.Password)
             };

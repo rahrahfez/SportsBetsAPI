@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ using SportsBetsServer.Repository;
 namespace SportsBetsServer.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     public class CounterController : BaseController
     {    
         private readonly RepositoryContext _context;

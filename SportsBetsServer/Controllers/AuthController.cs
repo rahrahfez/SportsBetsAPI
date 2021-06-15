@@ -49,7 +49,6 @@ namespace SportsBetsServer.Controllers
             var signedAndEncodedToken = _service.CreateJsonToken(user);
             SetTokenCookie(signedAndEncodedToken);
             var refreshToken = new RefreshToken();
-            account.RefreshToken.Add(refreshToken);
 
             return Ok(user);
         }
