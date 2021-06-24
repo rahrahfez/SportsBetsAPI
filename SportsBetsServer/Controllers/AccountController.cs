@@ -1,7 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using LoggerService;
 using AutoMapper;
 using SportsBetsServer.Models.Account;
@@ -9,19 +12,18 @@ using SportsBetsServer.Entities;
 using SportsBetsServer.Helpers;
 using SportsBetsServer.Repository;
 using SportsBetsServer.Contracts.Services;
-using Microsoft.AspNetCore.Http;
 
 namespace SportsBetsServer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AccountsController : BaseController
+    public class AccountController : BaseController
     {
         private readonly RepositoryContext _context;
         private readonly IAccountService _service;
         private readonly IMapper _mapper;
         private readonly ILoggerManager _logger;
-        public AccountsController(
+        public AccountController(
             RepositoryContext context,
             IAccountService service,
             IMapper mapper,
@@ -32,18 +34,21 @@ namespace SportsBetsServer.Controllers
             _service = service;
             _mapper = mapper;
         }
-        [HttpGet]
-        [Authorize(Role.Admin)]
+        [HttpGet, Authorize]
         [ProducesResponseType(200)]
         [ProducesResponseType(500)]
         public IActionResult GetAllUsers()
         {
-            var users = _service.GetAll();
+            var accounts = _context.Account.ToList();
+            var users = new List<User>();
+            foreach (var account in accounts)
+            {
+                var user = _mapper.Map<User>(account);
+                users.Add(user);
+            }
             return Ok(users);
         }
-        [HttpGet("{id}", Name = "AccountById")]
-        [Consumes("text/json")]
-        [Authorize]
+        [HttpGet("{id}", Name = "AccountById"), Authorize, Consumes("text/json")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
@@ -73,15 +78,7 @@ namespace SportsBetsServer.Controllers
                 return BadRequest("User object is null");
             }
 
-            Account newAccount = new Account
-            {
-                Id = Guid.NewGuid(),
-                Username = userCredentials.Username,
-                AvailableBalance = 100,
-                DateCreated = DateTime.Now,
-                Role = Role.Admin,
-                HashedPassword = _service.CreatePasswordHash(userCredentials.Password)
-            };
+            Account newAccount = _service.CreateNewAccount(userCredentials);
 
             await _context.Account.AddAsync(newAccount);
             await _context.SaveChangesAsync();
@@ -89,10 +86,30 @@ namespace SportsBetsServer.Controllers
             var user = _mapper.Map<User>(newAccount);
 
             _logger.LogInfo($"Successfully registered { user.Username }.");
-            return CreatedAtRoute(routeName: "UserById", routeValues: new { id = account.Id }, value: user);
+            return CreatedAtRoute(routeName: "UserById", routeValues: new { id = user.Id }, value: user);
 
         }
-        [HttpGet("{id}/balance")]
+        [HttpPost("login")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        public IActionResult Login([FromBody] UserCredentials userCredentials)
+        {
+
+            var account = _context.Account.Where(x => x.Username.Equals(userCredentials.Username)).SingleOrDefault();
+
+            if (account == null || (!_service.VerifyPassword(userCredentials.Password, account.HashedPassword)))
+            {
+                throw new AppException("Incorrect Username and/or Password.");
+            }
+
+            var user = _mapper.Map<User>(account);
+
+            var signedAndEncodedToken = _service.CreateJsonToken(user);
+            SetTokenCookie(signedAndEncodedToken);
+
+            return Ok(user);
+        }
+        [HttpGet("{id}/balance"), Authorize]
         [ProducesResponseType(200)]
         [ProducesResponseType(500)]
         public async Task<IActionResult> GetUserAvailableBalanceById(Guid id)
@@ -103,7 +120,7 @@ namespace SportsBetsServer.Controllers
             return Ok(user.AvailableBalance);
 
         }
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}"), Authorize]
         [ProducesResponseType(404)]
         [ProducesResponseType(204)]
         [ProducesResponseType(500)]
@@ -122,6 +139,15 @@ namespace SportsBetsServer.Controllers
 
             _logger.LogInfo($"User with id: { id } successfully deleted.");
             return NoContent();
+        }
+        private void SetTokenCookie(string token)
+        {
+            var cookieOptions = new CookieOptions
+            {
+                HttpOnly = true,
+                Expires = DateTime.UtcNow.AddDays(1)
+            };
+            Response.Cookies.Append("token", token, cookieOptions);
         }
     }
 }

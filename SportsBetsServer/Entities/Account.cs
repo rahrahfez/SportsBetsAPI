@@ -9,20 +9,24 @@ namespace SportsBetsServer.Entities
     public class Account 
     {
         [Key]
-        [Column("account")]
+        [Column("id")]
         public Guid Id { get; set; }
         [Column("username")]
         public string Username { get; set; }
-        [Column("available_balance")]
-        public int AvailableBalance { get; set; } 
-        [Column("date_created")]
-        public DateTime DateCreated { get; set; }
-        [Column("role")]
-        public Role Role { get; set; } 
         [Column("password_hash")]
         public string HashedPassword { get; set; }
-        [Column("refresh_token")]
-        public ICollection<RefreshToken> RefreshTokens { get; set; }
+        [Column("available_balance")]
+        public int AvailableBalance { get; set; } 
+        [Column("created_at")]
+        public DateTime CreatedAt { get; set; }
+        [Column("updated_at")]
+        public DateTime UpdatedAt { get; set; }
+        [Column("last_login")]
+        public DateTime LastLoginAt { get; set; }
+        //[Column("role")]
+        //public Role Role { get; set; }
+        //[Column("refresh_token")]
+        //public IList<RefreshToken> RefreshToken { get; set; }
     }
 
     public enum Role

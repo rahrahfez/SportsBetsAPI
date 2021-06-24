@@ -16,9 +16,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using SportsBetsServer.Extensions;
 using SportsBetsServer.Middleware;
 using SportsBetsServer.Repository;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace SportsBetsServer
 {
@@ -40,7 +44,6 @@ namespace SportsBetsServer
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API v1");
                 c.RoutePrefix = string.Empty;
             });
-            app.UseCors("CorsPolicy");
             app.UseForwardedHeaders(new ForwardedHeadersOptions
             {
                 ForwardedHeaders = ForwardedHeaders.All
@@ -50,6 +53,7 @@ namespace SportsBetsServer
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseRouting();
+            app.UseCors("CorsPolicy");
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
@@ -61,9 +65,26 @@ namespace SportsBetsServer
         {
             services.ConfigureCors();
             services.ConfigureLoggerService();
-            services.ConfigureMySql(Configuration);
             services.ConfigureAccountService();
-            services.AddDbContext<RepositoryContext>();
+            services.AddDbContext<RepositoryContext>(options =>
+                options.UseNpgsql(Configuration.GetConnectionString("postgresql_connection_string")));
+            services.AddAuthentication(opt =>
+            {
+                opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidIssuer = Configuration.GetSection("Jwt:Issuer").Value,
+                        ValidAudience = Configuration.GetSection("Jwt:Audience").Value,
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration.GetSection("AppSettings:Token").Value))
+                    };
+                });
             services.AddControllers()
                 .AddNewtonsoftJson(
                     options => options.SerializerSettings.ReferenceLoopHandling =
@@ -90,7 +111,6 @@ namespace SportsBetsServer
         public void ConfigureServices(IServiceCollection services)
         {
             services.ConfigureCors();
-            services.ConfigureMySql(Configuration);
             services.ConfigureAccountService();
             services.AddDbContext<RepositoryContext>();
         }

@@ -13,7 +13,9 @@ namespace SportsBetsServer.Entities
     public class RefreshToken
     {
         [Key]
-        public Guid Id { get; set; }
         public Account Account { get; set; }
+        public DateTime IssuedAt { get; set; }
+        public DateTime ExpiresAt { get; set; }
+        public string Token { get; set; }
     }
 }
