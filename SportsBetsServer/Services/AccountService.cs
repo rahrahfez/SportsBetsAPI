@@ -1,6 +1,4 @@
 using System;
-using System.Linq;
-using System.Collections.Generic;
 using System.Text;
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
@@ -18,16 +16,9 @@ namespace SportsBetsServer.Services
     public class AccountService : IAccountService
     {
         private readonly IConfiguration _config;
-        private readonly RepositoryContext _context;
-        private readonly IMapper _mapper;
-        public AccountService(
-            IConfiguration config, 
-            IMapper mapper,
-            RepositoryContext context) 
+        public AccountService(IConfiguration config) 
         {
             _config = config;
-            _mapper = mapper;
-            _context = context;
         }
         public string CreatePasswordHash(string password)
         {
@@ -41,13 +32,12 @@ namespace SportsBetsServer.Services
             bool result = encoder.Compare(password, hashedPassword);
             return result;
         }
-        public Claim[] GenerateNewClaims(User user)
+        public Claim[] GenerateNewUserClaim(User user)
         {
             return new[]
             {
                 new Claim("Id", user.Id.ToString()),
-                new Claim("Username", user.Username),
-                new Claim(ClaimTypes.Role, user.Role)
+                new Claim("Username", user.Username)
             };
         }
         public Account CreateNewAccount(UserCredentials userCredentials)
@@ -57,7 +47,9 @@ namespace SportsBetsServer.Services
                 Id = Guid.NewGuid(),
                 Username = userCredentials.Username,
                 AvailableBalance = 100,
-                CreatedAt = DateTime.Now,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                LastLoginAt = DateTime.UtcNow,
                 HashedPassword = CreatePasswordHash(userCredentials.Password)
             };
         }
@@ -67,7 +59,7 @@ namespace SportsBetsServer.Services
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(GenerateNewClaims(user)),
+                Subject = new ClaimsIdentity(GenerateNewUserClaim(user)),
                 NotBefore = DateTime.UtcNow,
                 Expires = DateTime.UtcNow.AddMinutes(60),
                 SigningCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature),

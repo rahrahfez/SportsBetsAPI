@@ -23,8 +23,8 @@ namespace SportsBetsServer.Entities
         public DateTime UpdatedAt { get; set; }
         [Column("last_login")]
         public DateTime LastLoginAt { get; set; }
-        [Column("role")]
-        public Role Role { get; set; }
+        //[Column("role")]
+        //public Role Role { get; set; }
         //[Column("refresh_token")]
         //public IList<RefreshToken> RefreshToken { get; set; }
     }

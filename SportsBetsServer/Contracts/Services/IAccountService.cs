@@ -9,7 +9,7 @@ namespace SportsBetsServer.Contracts.Services
     {
         string CreatePasswordHash(string password);
         bool VerifyPassword(string password, string hashedPassword);
-        Claim[] GenerateNewClaims(User user);
+        Claim[] GenerateNewUserClaim(User user);
         Account CreateNewAccount(UserCredentials userCredentials);
         string CreateJsonToken(User user);
     }

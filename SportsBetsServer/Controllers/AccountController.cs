@@ -1,7 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using LoggerService;
 using AutoMapper;
 using SportsBetsServer.Models.Account;
@@ -9,20 +12,18 @@ using SportsBetsServer.Entities;
 using SportsBetsServer.Helpers;
 using SportsBetsServer.Repository;
 using SportsBetsServer.Contracts.Services;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Authorization;
 
 namespace SportsBetsServer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AccountsController : BaseController
+    public class AccountController : BaseController
     {
         private readonly RepositoryContext _context;
         private readonly IAccountService _service;
         private readonly IMapper _mapper;
         private readonly ILoggerManager _logger;
-        public AccountsController(
+        public AccountController(
             RepositoryContext context,
             IAccountService service,
             IMapper mapper,
@@ -38,12 +39,14 @@ namespace SportsBetsServer.Controllers
         [ProducesResponseType(500)]
         public IActionResult GetAllUsers()
         {
-            var accountsToUsers = _context.Account.ToList();
-            foreach (var user in accountsToUsers)
+            var accounts = _context.Account.ToList();
+            var users = new List<User>();
+            foreach (var account in accounts)
             {
-                _mapper.Map<User>(user);
-            };
-            return Ok(accountsToUsers);
+                var user = _mapper.Map<User>(account);
+                users.Add(user);
+            }
+            return Ok(users);
         }
         [HttpGet("{id}", Name = "AccountById"), Authorize, Consumes("text/json")]
         [ProducesResponseType(200)]
@@ -83,7 +86,7 @@ namespace SportsBetsServer.Controllers
             var user = _mapper.Map<User>(newAccount);
 
             _logger.LogInfo($"Successfully registered { user.Username }.");
-            return CreatedAtRoute(routeName: "UserById", routeValues: new { id = account.Id }, value: user);
+            return CreatedAtRoute(routeName: "UserById", routeValues: new { id = user.Id }, value: user);
 
         }
         [HttpPost("login")]

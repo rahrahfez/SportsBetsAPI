@@ -16,10 +16,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using SportsBetsServer.Extensions;
 using SportsBetsServer.Middleware;
 using SportsBetsServer.Repository;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace SportsBetsServer
 {
@@ -65,6 +68,23 @@ namespace SportsBetsServer
             services.ConfigureAccountService();
             services.AddDbContext<RepositoryContext>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString("postgresql_connection_string")));
+            services.AddAuthentication(opt =>
+            {
+                opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidIssuer = Configuration.GetSection("Jwt:Issuer").Value,
+                        ValidAudience = Configuration.GetSection("Jwt:Audience").Value,
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration.GetSection("AppSettings:Token").Value))
+                    };
+                });
             services.AddControllers()
                 .AddNewtonsoftJson(
                     options => options.SerializerSettings.ReferenceLoopHandling =

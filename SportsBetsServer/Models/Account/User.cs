@@ -9,8 +9,6 @@ namespace SportsBetsServer.Models.Account
         public Guid Id { get; set; }
         public string Username { get; set; }
         public int AvailableBalance { get; set; }
-        public Role Role { get; set; }
-        public IList<RefreshToken> RefreshToken { get; set; }
     }
 }
 
