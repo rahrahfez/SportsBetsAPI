@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
 using LoggerService;
 using AutoMapper;
@@ -57,7 +56,7 @@ namespace SportsBetsServer.Controllers
             var account = await _context.Account.FindAsync(id);
                 
             if (account.Id.Equals(Guid.Empty) || account == null) throw new NotFoundException("Account not found.");
-            return account;
+            return Ok(account);
         }
         [HttpPost("register")]
         [ProducesResponseType(201)]
@@ -89,36 +88,38 @@ namespace SportsBetsServer.Controllers
             return CreatedAtRoute(routeName: "UserById", routeValues: new { id = user.Id }, value: user);
 
         }
-        [HttpPost("login")]
+        [HttpPost("authenticate")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
-        public IActionResult Login([FromBody] UserCredentials userCredentials)
+        public IActionResult Authenticate([FromBody] UserCredentials userCredentials)
         {
-
-            var account = _context.Account.Where(x => x.Username.Equals(userCredentials.Username)).SingleOrDefault();
-
-            if (account == null || (!_service.VerifyPassword(userCredentials.Password, account.HashedPassword)))
+            try
             {
-                throw new AppException("Incorrect Username and/or Password.");
+                var authenticatedUser = _service.Authenticate(userCredentials);
+                
+                return Ok(authenticatedUser);
             }
-
-            var user = _mapper.Map<User>(account);
-
-            var signedAndEncodedToken = _service.CreateJsonToken(user);
-            SetTokenCookie(signedAndEncodedToken);
-
-            return Ok(user);
+            catch(NotFoundException ex)
+            {
+                _logger.LogError($"Account error msg: { ex }.");
+                return Unauthorized();
+            }
         }
         [HttpGet("{id}/balance"), Authorize]
         [ProducesResponseType(200)]
         [ProducesResponseType(500)]
         public async Task<IActionResult> GetUserAvailableBalanceById(Guid id)
         {
-
             var account = await _context.Account.FindAsync(id);
-            var user = _mapper.Map<User>(account);
-            return Ok(user.AvailableBalance);
-
+            if (account != null)
+            {
+                var user = _mapper.Map<User>(account);
+                return Ok(user.AvailableBalance);
+            }
+            else
+            {
+                return NotFound();
+            }
         }
         [HttpDelete("{id}"), Authorize]
         [ProducesResponseType(404)]
@@ -139,15 +140,6 @@ namespace SportsBetsServer.Controllers
 
             _logger.LogInfo($"User with id: { id } successfully deleted.");
             return NoContent();
-        }
-        private void SetTokenCookie(string token)
-        {
-            var cookieOptions = new CookieOptions
-            {
-                HttpOnly = true,
-                Expires = DateTime.UtcNow.AddDays(1)
-            };
-            Response.Cookies.Append("token", token, cookieOptions);
         }
     }
 }

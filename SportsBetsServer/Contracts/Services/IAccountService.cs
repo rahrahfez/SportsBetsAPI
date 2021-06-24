@@ -1,7 +1,6 @@
 using SportsBetsServer.Models.Account;
 using SportsBetsServer.Entities;
 using System.Security.Claims;
-using System.Collections.Generic;
 
 namespace SportsBetsServer.Contracts.Services 
 {
@@ -11,6 +10,7 @@ namespace SportsBetsServer.Contracts.Services
         bool VerifyPassword(string password, string hashedPassword);
         Claim[] GenerateNewUserClaim(User user);
         Account CreateNewAccount(UserCredentials userCredentials);
+        User Authenticate(UserCredentials userCredentials);
         string CreateJsonToken(User user);
     }
 }

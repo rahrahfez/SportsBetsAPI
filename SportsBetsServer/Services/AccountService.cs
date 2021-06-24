@@ -1,24 +1,37 @@
 using System;
 using System.Text;
+using System.Linq;
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Configuration;
 using System.IdentityModel.Tokens.Jwt;
 using AutoMapper;
+using LoggerService;
 using Scrypt;
 using SportsBetsServer.Repository;
 using SportsBetsServer.Entities;
 using SportsBetsServer.Contracts.Services;
 using SportsBetsServer.Models.Account;
+using SportsBetsServer.Helpers;
 
 namespace SportsBetsServer.Services
 {
     public class AccountService : IAccountService
     {
+        private readonly RepositoryContext _context;
         private readonly IConfiguration _config;
-        public AccountService(IConfiguration config) 
+        private readonly IMapper _mapper;
+        private readonly ILoggerManager _logger;
+        public AccountService(
+            RepositoryContext context,
+            IMapper mapper,
+            ILoggerManager logger,
+            IConfiguration config) 
         {
             _config = config;
+            _mapper = mapper;
+            _logger = logger;
+            _context = context;
         }
         public string CreatePasswordHash(string password)
         {
@@ -39,6 +52,21 @@ namespace SportsBetsServer.Services
                 new Claim("Id", user.Id.ToString()),
                 new Claim("Username", user.Username)
             };
+        }
+        public User Authenticate(UserCredentials userCredentials)
+        {
+            var account = _context.Account.Where(x => x.Username.Equals(userCredentials.Username)).Single();
+
+            if (!VerifyPassword(userCredentials.Password, account.HashedPassword))
+            {
+                throw new AppException("Incorrect Username and/or Password.");
+            }
+
+            var authenticatedUser = _mapper.Map<User>(account);
+            var token = CreateJsonToken(authenticatedUser);
+            authenticatedUser.Token = token;
+
+            return authenticatedUser;
         }
         public Account CreateNewAccount(UserCredentials userCredentials)
         {
