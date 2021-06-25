@@ -55,18 +55,26 @@ namespace SportsBetsServer.Services
         }
         public User Authenticate(UserCredentials userCredentials)
         {
-            var account = _context.Account.Where(x => x.Username.Equals(userCredentials.Username)).Single();
-
-            if (!VerifyPassword(userCredentials.Password, account.HashedPassword))
+            try
             {
-                throw new AppException("Incorrect Username and/or Password.");
+                var account = _context.Account.Where(x => x.Username.Equals(userCredentials.Username)).Single();
+
+                if (!VerifyPassword(userCredentials.Password, account.HashedPassword))
+                {
+                    throw new NotFoundException("Incorrect Username and/or Password.");
+                }
+
+                var authenticatedUser = _mapper.Map<User>(account);
+                var token = CreateJsonToken(authenticatedUser);
+                authenticatedUser.Token = token;
+
+                return authenticatedUser;
+            }
+            catch(Exception)
+            {
+                throw new NotFoundException("Incorrect Username and/or Password.");
             }
 
-            var authenticatedUser = _mapper.Map<User>(account);
-            var token = CreateJsonToken(authenticatedUser);
-            authenticatedUser.Token = token;
-
-            return authenticatedUser;
         }
         public Account CreateNewAccount(UserCredentials userCredentials)
         {

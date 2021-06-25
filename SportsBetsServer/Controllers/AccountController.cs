@@ -93,17 +93,8 @@ namespace SportsBetsServer.Controllers
         [ProducesResponseType(400)]
         public IActionResult Authenticate([FromBody] UserCredentials userCredentials)
         {
-            try
-            {
-                var authenticatedUser = _service.Authenticate(userCredentials);
-                
-                return Ok(authenticatedUser);
-            }
-            catch(NotFoundException ex)
-            {
-                _logger.LogError($"Account error msg: { ex }.");
-                return Unauthorized();
-            }
+            var authenticatedUser = _service.Authenticate(userCredentials);               
+            return Ok(authenticatedUser);
         }
         [HttpGet("{id}/balance"), Authorize]
         [ProducesResponseType(200)]
