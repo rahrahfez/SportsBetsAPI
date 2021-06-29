@@ -2,6 +2,7 @@ using System;
 using System.Text;
 using System.Linq;
 using System.Security.Claims;
+using System.Collections.Generic;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Configuration;
 using System.IdentityModel.Tokens.Jwt;
@@ -13,6 +14,7 @@ using SportsBetsServer.Entities;
 using SportsBetsServer.Contracts.Services;
 using SportsBetsServer.Models.Account;
 using SportsBetsServer.Helpers;
+using System.Threading.Tasks;
 
 namespace SportsBetsServer.Services
 {
@@ -53,32 +55,27 @@ namespace SportsBetsServer.Services
                 new Claim("Username", user.Username)
             };
         }
-        public User Authenticate(UserCredentials userCredentials)
+        public User Authenticate(Account account)
         {
-            try
-            {
-                var account = _context.Account.Where(x => x.Username.Equals(userCredentials.Username)).Single();
+            var authenticatedUser = _mapper.Map<User>(account);
+            var token = CreateJsonToken(authenticatedUser);
+            authenticatedUser.Token = token;
+            return authenticatedUser;
+        }
+        public async Task<User> RegisterNewAccount(UserCredentials userCredentials)
+        {
+            Account newAccount = CreateNewAccount(userCredentials);
 
-                if (!VerifyPassword(userCredentials.Password, account.HashedPassword))
-                {
-                    throw new NotFoundException("Incorrect Username and/or Password.");
-                }
+            await _context.Account.AddAsync(newAccount);
+            await _context.SaveChangesAsync();
 
-                var authenticatedUser = _mapper.Map<User>(account);
-                var token = CreateJsonToken(authenticatedUser);
-                authenticatedUser.Token = token;
+            var user = _mapper.Map<User>(newAccount);
 
-                return authenticatedUser;
-            }
-            catch(Exception)
-            {
-                throw new NotFoundException("Incorrect Username and/or Password.");
-            }
-
+            return user;
         }
         public Account CreateNewAccount(UserCredentials userCredentials)
         {
-            return new Account
+            var newAccount = new Account
             {
                 Id = Guid.NewGuid(),
                 Username = userCredentials.Username,
@@ -88,6 +85,43 @@ namespace SportsBetsServer.Services
                 LastLoginAt = DateTime.UtcNow,
                 HashedPassword = CreatePasswordHash(userCredentials.Password)
             };
+            _logger.LogInfo($"New account { newAccount.Username }, created at { newAccount.CreatedAt }.");
+            return newAccount;
+        }
+        public async Task<Account> GetAccountById(Guid id)
+        {
+            var account = await _context.Account.FindAsync(id);
+
+            if (account.Id.Equals(Guid.Empty) || account == null) throw new NotFoundException("Account not found.");
+
+            return account;
+        }
+        public Account GetAccountByUsername(string username)
+        {
+            var account = _context.Account.Where(x => x.Username.Equals(username)).SingleOrDefault();
+            return account;
+        }
+        public List<User> GetAllUsers()
+        {
+            var accounts = _context.Account.ToList();
+
+            var users = new List<User>();
+            foreach (var account in accounts)
+            {
+                var user = _mapper.Map<User>(account);
+                users.Add(user);
+            }
+            return users;
+        }
+        public async Task DeleteUserById(Guid id)
+        {
+            var userToBeDeleted = await _context.Account.FindAsync(id);
+
+            if (userToBeDeleted != null)
+            {
+                _context.Account.Remove(userToBeDeleted);
+                await _context.SaveChangesAsync();
+            }
         }
         public string CreateJsonToken(User user)
         {
