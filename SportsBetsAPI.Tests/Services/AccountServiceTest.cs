@@ -1,72 +1,92 @@
-//using System;
-//using Moq;
-//using Xunit;
-//using Microsoft.Extensions.Configuration;
-//using SportsBetsServer.Contracts.Services;
-//using SportsBetsServer.Services;
-//using SportsBetsServer.Models.Account;
-//using SportsBetsServer.Entities;
+using System;
+using Moq;
+using Xunit;
+using Microsoft.Extensions.Configuration;
+using SportsBetsServer.Contracts.Services;
+using SportsBetsServer.Services;
+using SportsBetsServer.Models.Account;
+using SportsBetsServer.Entities;
+using SportsBetsServer.Repository;
+using AutoMapper;
+using LoggerService;
+using Microsoft.EntityFrameworkCore;
 
-//namespace SportsBetsAPI.Tests.Services
-//{
-//    public class AccountServiceTest
-//    {
-//        private readonly IAccountService _accountService;
-//        public AccountServiceTest()
-//        {
-//            var config = new Mock<IConfiguration>();
-//            var configSection = new Mock<IConfigurationSection>();
+namespace SportsBetsAPI.Tests.Services
+{
+    public class AccountServiceTest
+    {
+        private readonly IAccountService _accountService;
+        public AccountServiceTest()
+        {
+            var context = new Mock<RepositoryContext>();
+            var mapper = new Mock<IMapper>();
+            var logger = new Mock<ILoggerManager>();
+            var config = new Mock<IConfiguration>();
+            var configSection = new Mock<IConfigurationSection>();
 
-//            configSection.Setup(t => t.Value).Returns("testValue");
-//            config.Setup(t => t.GetSection("AppSettings:Token")).Returns(configSection.Object);
-//            configSection.Setup(t => t.Value).Returns("https://localhost:5000/");
-//            config.Setup(t => t.GetSection("Jwt:Issuer")).Returns(configSection.Object);
-//            config.Setup(t => t.GetSection("Jwt:Audience")).Returns(configSection.Object);
+            configSection.Setup(t => t.Value).Returns("testValue");
+            config.Setup(t => t.GetSection("AppSettings:Token")).Returns(configSection.Object);
+            configSection.Setup(t => t.Value).Returns("https://localhost:5000/");
+            config.Setup(t => t.GetSection("Jwt:Issuer")).Returns(configSection.Object);
+            config.Setup(t => t.GetSection("Jwt:Audience")).Returns(configSection.Object);
 
-//            _accountService = new AccountService(config.Object);
+            _accountService = new AccountService(
+                context.Object, 
+                mapper.Object,
+                logger.Object,
+                config.Object);
 
-//        }
-//        [Fact]
-//        public void AccountService_CreatePasswordHashTest()
-//        {
-//            string password = "password";
-//            string hashedPassword = _accountService.CreatePasswordHash(password);
-            
-//            Assert.NotNull(hashedPassword);
-//        }
-//        [Fact]
-//        public void AccountService_VerifyPasswordTest_ReturnsBoolean()
-//        {
-//            string password = "password";
-//            string hashedPassword = _accountService.CreatePasswordHash(password);
-//            var result = _accountService.VerifyPassword(password, hashedPassword);
+        }
+        [Fact]
+        public void AccountService_CreatePasswordHashTest()
+        {
+            string password = "password";
+            string hashedPassword = _accountService.CreatePasswordHash(password);
 
-//            Assert.True(result);
+            Assert.NotNull(hashedPassword);
+        }
+        [Fact]
+        public void AccountService_VerifyPasswordTest_ReturnsBoolean()
+        {
+            string password = "password";
+            string hashedPassword = _accountService.CreatePasswordHash(password);
+            var result = _accountService.VerifyPassword(password, hashedPassword);
 
-//            password = "wrong";
-//            result = _accountService.VerifyPassword(password, hashedPassword);
+            Assert.True(result);
 
-//            Assert.False(result);
-//        }
-//        [Fact]
-//        public void AccountService_CreateJsonTokenTest()
-//        {
-//            User user = new User
-//            {
-//                Id = Guid.NewGuid(),
-//                Username = "Tester",
-//                AvailableBalance = 100,
-//                Role = Role.User
-//            };
+            password = "wrong";
+            result = _accountService.VerifyPassword(password, hashedPassword);
 
-//            var token = _accountService.CreateJsonToken(user);
+            Assert.False(result);
+        }
+        [Fact]
+        public void AccountService_CreateJsonTokenTest()
+        {
+            User user = new User
+            {
+                Id = Guid.NewGuid(),
+                Username = "Tester",
+                AvailableBalance = 100,
+            };
 
-//            Assert.NotNull(token);
-//        }
-//        [Fact]
-//        public void AccountService_ValidateJsonToken_ReturnsBoolean()
-//        {
+            var token = _accountService.CreateJsonToken(user);
 
-//        }
-//    }
-//}
+            Assert.NotNull(token);
+        }
+        [Fact]
+        public void AccountService_Authenticate()
+        {
+            UserCredentials credentials = new UserCredentials
+            {
+                Username = "test",
+                Password = "test"
+            };
+            var user = _accountService.Authenticate()
+        }
+        [Fact]
+        public void AccountService_GetAccountByUsername()
+        {
+
+        }
+    }
+}

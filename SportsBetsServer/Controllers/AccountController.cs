@@ -29,15 +29,17 @@ namespace SportsBetsServer.Controllers
         [ProducesResponseType(201)]
         [ProducesResponseType(500)]
         [ProducesResponseType(400)]
-        public IActionResult RegisterAccount([FromBody]UserCredentials userCredentials)
+        public async Task<IActionResult> RegisterAccount([FromBody]UserCredentials userCredentials)
         {
             var account = _accountService.GetAccountByUsername(userCredentials.Username);
             if (account != null)
             {
                 return BadRequest("Username already exists.");
             }
-            var user = _accountService.RegisterNewAccount(userCredentials);
-            return CreatedAtRoute(routeName: "UserById", routeValues: new { id = user.Id }, value: user);               
+            var user = await _accountService.RegisterNewAccount(userCredentials);
+            var token = _accountService.CreateJsonToken(user);
+
+            return CreatedAtRoute(routeName: "UserById", routeValues: new { id = user.Id }, value: token);               
 
         }
         [HttpPost("authenticate")]
@@ -45,13 +47,13 @@ namespace SportsBetsServer.Controllers
         [ProducesResponseType(400)]
         public IActionResult Authenticate([FromBody] UserCredentials userCredentials)
         {
-            var account = _accountService.GetAccountByUsername(userCredentials.Username);
-            if (!_accountService.VerifyPassword(userCredentials.Password, account.HashedPassword) || account == null)
+            var authenticatedUser = _accountService.Authenticate(userCredentials);
+            if (authenticatedUser == null)
             {
                 return Unauthorized();
             }
-            var authenticatedUser = _accountService.Authenticate(account);               
-            return Ok(authenticatedUser);
+            var token = _accountService.CreateJsonToken(authenticatedUser);
+            return Ok(token);
         }
         [HttpGet("{id}/balance"), Authorize]
         [ProducesResponseType(200)]
@@ -69,6 +71,7 @@ namespace SportsBetsServer.Controllers
         public IActionResult DeleteUser(Guid id)
         {
             _accountService.DeleteUserById(id);
+
             return NoContent();
         }
     }

@@ -48,7 +48,7 @@ namespace SportsBetsServer.Middleware
                 var jwtToken = (JwtSecurityToken)validatedToken;
                 var accountId = jwtToken.Claims.First(x => x.Type == "Id").Value;
 
-                http.Items["Account"] = await context.Account.FindAsync(new Guid(accountId));
+                http.Items["token"] = await context.Account.FindAsync(new Guid(accountId));
             }
             catch(Exception ex)
             {

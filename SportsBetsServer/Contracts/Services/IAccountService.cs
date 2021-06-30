@@ -13,7 +13,7 @@ namespace SportsBetsServer.Contracts.Services
         bool VerifyPassword(string password, string hashedPassword);
         Claim[] GenerateNewUserClaim(User user);
         Account CreateNewAccount(UserCredentials userCredentials);
-        User Authenticate(Account account);
+        User Authenticate(UserCredentials userCredentials);
         string CreateJsonToken(User user);
         Task<Account> GetAccountById(Guid id);
         Task DeleteUserById(Guid id);

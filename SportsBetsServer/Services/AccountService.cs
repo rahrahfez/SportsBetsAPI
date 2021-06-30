@@ -55,11 +55,18 @@ namespace SportsBetsServer.Services
                 new Claim("Username", user.Username)
             };
         }
-        public User Authenticate(Account account)
+        public User Authenticate(UserCredentials userCredentials)
         {
+            var account = GetAccountByUsername(userCredentials.Username);
+            if (account == null)
+            {
+                return null;
+            } 
+            if (account != null && !VerifyPassword(userCredentials.Password, account.HashedPassword))
+            {
+                return null;
+            }
             var authenticatedUser = _mapper.Map<User>(account);
-            var token = CreateJsonToken(authenticatedUser);
-            authenticatedUser.Token = token;
             return authenticatedUser;
         }
         public async Task<User> RegisterNewAccount(UserCredentials userCredentials)
