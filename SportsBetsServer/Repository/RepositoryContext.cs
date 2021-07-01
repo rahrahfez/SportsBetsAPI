@@ -8,8 +8,8 @@ namespace SportsBetsServer.Repository
         public RepositoryContext(DbContextOptions options) 
             : base(options) 
         {}
-        public virtual DbSet<Account> Account { get; set; }
+        public DbSet<Account> Account { get; set; }
         //public DbSet<Wager> Wager { get; set; }
-        public virtual DbSet<Counter> Counter { get; set; }
+        public DbSet<Counter> Counter { get; set; }
     }
 }

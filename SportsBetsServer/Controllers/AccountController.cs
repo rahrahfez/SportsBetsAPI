@@ -5,6 +5,7 @@ using SportsBetsServer.Models.Account;
 using SportsBetsServer.Entities;
 using SportsBetsServer.Contracts.Services;
 using System.Threading.Tasks;
+using AutoMapper;
 
 namespace SportsBetsServer.Controllers
 {
@@ -13,9 +14,11 @@ namespace SportsBetsServer.Controllers
     public class AccountController : BaseController
     {
         private readonly IAccountService _accountService;
-        public AccountController(IAccountService accountService)
+        private readonly IMapper _mapper;
+        public AccountController(IAccountService accountService, IMapper mapper)
         {
             _accountService = accountService;
+            _mapper = mapper;
         }
         [HttpGet, Authorize]
         [ProducesResponseType(200)]
@@ -31,12 +34,13 @@ namespace SportsBetsServer.Controllers
         [ProducesResponseType(400)]
         public async Task<IActionResult> RegisterAccount([FromBody]UserCredentials userCredentials)
         {
-            var account = _accountService.GetAccountByUsername(userCredentials.Username);
-            if (account != null)
+            var account = await _accountService.RegisterNewAccount(userCredentials);
+            if (account == null)
             {
                 return BadRequest("Username already exists.");
-            }
-            var user = await _accountService.RegisterNewAccount(userCredentials);
+            }    
+
+            var user = _mapper.Map<User>(account);
             var token = _accountService.CreateJsonToken(user);
 
             return CreatedAtRoute(routeName: "UserById", routeValues: new { id = user.Id }, value: token);               
@@ -47,11 +51,12 @@ namespace SportsBetsServer.Controllers
         [ProducesResponseType(400)]
         public IActionResult Authenticate([FromBody] UserCredentials userCredentials)
         {
-            var authenticatedUser = _accountService.Authenticate(userCredentials);
-            if (authenticatedUser == null)
+            var account = _accountService.Authenticate(userCredentials);
+            if (account == null)
             {
                 return Unauthorized();
             }
+            var authenticatedUser = _mapper.Map<User>(account);
             var token = _accountService.CreateJsonToken(authenticatedUser);
             return Ok(token);
         }
@@ -71,7 +76,6 @@ namespace SportsBetsServer.Controllers
         public IActionResult DeleteUser(Guid id)
         {
             _accountService.DeleteUserById(id);
-
             return NoContent();
         }
     }

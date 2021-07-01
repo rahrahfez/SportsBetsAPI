@@ -35,18 +35,19 @@ namespace SportsBetsServer.Services
             _logger = logger;
             _context = context;
         }
-        public string CreatePasswordHash(string password)
-        {
-            ScryptEncoder encoder = new ScryptEncoder();
-            string hashedPassword = encoder.Encode(password);
-            return hashedPassword;
-        }
         public bool VerifyPassword(string password, string hashedPassword)
         {
             ScryptEncoder encoder = new ScryptEncoder();
             bool result = encoder.Compare(password, hashedPassword);
             return result;
         }
+        public string CreatePasswordHash(string password)
+        {
+            ScryptEncoder encoder = new ScryptEncoder();
+            string hashedPassword = encoder.Encode(password);
+            return hashedPassword;
+        }
+
         public Claim[] GenerateNewUserClaim(User user)
         {
             return new[]
@@ -55,30 +56,29 @@ namespace SportsBetsServer.Services
                 new Claim("Username", user.Username)
             };
         }
-        public User Authenticate(UserCredentials userCredentials)
+        public Account Authenticate(UserCredentials userCredentials)
         {
             var account = GetAccountByUsername(userCredentials.Username);
-            if (account == null)
-            {
-                return null;
-            } 
-            if (account != null && !VerifyPassword(userCredentials.Password, account.HashedPassword))
+            if (!VerifyPassword(userCredentials.Password, account.HashedPassword))
             {
                 return null;
             }
-            var authenticatedUser = _mapper.Map<User>(account);
-            return authenticatedUser;
+            return account;
         }
-        public async Task<User> RegisterNewAccount(UserCredentials userCredentials)
+        public async Task<Account> RegisterNewAccount(UserCredentials userCredentials)
         {
-            Account newAccount = CreateNewAccount(userCredentials);
+            var account = GetAccountByUsername(userCredentials.Username);
+            if (account != null)
+            {
+                return null;
+            }
+
+            var newAccount = CreateNewAccount(userCredentials);
 
             await _context.Account.AddAsync(newAccount);
             await _context.SaveChangesAsync();
 
-            var user = _mapper.Map<User>(newAccount);
-
-            return user;
+            return newAccount;
         }
         public Account CreateNewAccount(UserCredentials userCredentials)
         {
