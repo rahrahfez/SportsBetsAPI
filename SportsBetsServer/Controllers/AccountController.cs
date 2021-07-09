@@ -14,11 +14,9 @@ namespace SportsBetsServer.Controllers
     public class AccountController : BaseController
     {
         private readonly IAccountService _accountService;
-        private readonly IMapper _mapper;
-        public AccountController(IAccountService accountService, IMapper mapper)
+        public AccountController(IAccountService accountService)
         {
             _accountService = accountService;
-            _mapper = mapper;
         }
         [HttpGet, Authorize]
         [ProducesResponseType(200)]
@@ -38,9 +36,9 @@ namespace SportsBetsServer.Controllers
             if (account == null)
             {
                 return BadRequest("Username already exists.");
-            }    
+            }
 
-            var user = _mapper.Map<User>(account);
+            var user = _accountService.MapAccountToUser(account);
             var token = _accountService.CreateJsonToken(user);
 
             return CreatedAtRoute(routeName: "UserById", routeValues: new { id = user.Id }, value: token);               
@@ -56,7 +54,7 @@ namespace SportsBetsServer.Controllers
             {
                 return Unauthorized();
             }
-            var authenticatedUser = _mapper.Map<User>(account);
+            var authenticatedUser = _accountService.MapAccountToUser(account);
             var token = _accountService.CreateJsonToken(authenticatedUser);
             return Ok(token);
         }

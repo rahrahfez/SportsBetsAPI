@@ -70,7 +70,7 @@ namespace SportsBetsServer.Services
             var account = GetAccountByUsername(userCredentials.Username);
             if (account != null)
             {
-                return null;
+                throw new AppException("Username already exists.");
             }
 
             var newAccount = CreateNewAccount(userCredentials);
@@ -94,6 +94,10 @@ namespace SportsBetsServer.Services
             };
             _logger.LogInfo($"New account { newAccount.Username }, created at { newAccount.CreatedAt }.");
             return newAccount;
+        }
+        public User MapAccountToUser(Account account)
+        {
+            return _mapper.Map<User>(account);
         }
         public async Task<Account> GetAccountById(Guid id)
         {

@@ -19,6 +19,7 @@ namespace SportsBetsServer.Contracts.Services
         Task DeleteUserById(Guid id);
         Task<Account> RegisterNewAccount(UserCredentials userCredentials);
         Account GetAccountByUsername(string username);
+        User MapAccountToUser(Account account);
         List<User> GetAllUsers();
     }
 }
