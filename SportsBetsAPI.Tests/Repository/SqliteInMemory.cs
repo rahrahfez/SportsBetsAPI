@@ -10,7 +10,7 @@ namespace SportsBetsAPI.Tests.Repository
         private const string ConnectionString = "DataSource=:memory:";
         private readonly SqliteConnection _connection;
 
-        protected readonly RepositoryContext DbContext;
+        protected readonly RepositoryContext SqlDbContext;
         protected SqliteInMemory()
         {
             _connection = new SqliteConnection(ConnectionString);
@@ -18,8 +18,8 @@ namespace SportsBetsAPI.Tests.Repository
             var options = new DbContextOptionsBuilder<RepositoryContext>()
                 .UseSqlite(_connection)
                 .Options;
-            DbContext = new RepositoryContext(options);
-            DbContext.Database.EnsureCreated();
+            SqlDbContext = new RepositoryContext(options);
+            SqlDbContext.Database.EnsureCreated();
         }
         public void Dispose()
         {
