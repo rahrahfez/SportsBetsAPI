@@ -116,6 +116,9 @@ namespace SportsBetsServer.Services
         {
             var accounts = _context.Account.ToList();
 
+            if (accounts == null)
+                throw new AppException("Account list is empty");
+
             var users = new List<User>();
             foreach (var account in accounts)
             {
