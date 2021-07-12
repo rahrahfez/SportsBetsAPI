@@ -1,0 +1,1 @@
+reportgenerator -reports:"C:\Users\David\Documents\Projects\SportsBetsAPI\SportsBetsAPI.Tests\coverage.cobertura.xml" -targetdir:"coveragereport" -reporttypes:Html

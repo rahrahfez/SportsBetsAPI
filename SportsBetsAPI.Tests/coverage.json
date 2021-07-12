@@ -1,0 +1,1472 @@
+{
+  "LoggerService.dll": {
+    "C:\\Users\\David\\Documents\\Projects\\SportsBetsAPI\\LoggerService\\LoggerManager.cs": {
+      "LoggerService.LoggerManager": {
+        "System.Void LoggerService.LoggerManager::LogInfo(System.String)": {
+          "Lines": {
+            "13": 0,
+            "14": 0,
+            "15": 0
+          },
+          "Branches": []
+        },
+        "System.Void LoggerService.LoggerManager::LogError(System.String)": {
+          "Lines": {
+            "17": 0,
+            "18": 0,
+            "19": 0
+          },
+          "Branches": []
+        },
+        "System.Void LoggerService.LoggerManager::LogWarn(System.String)": {
+          "Lines": {
+            "21": 0,
+            "22": 0,
+            "23": 0
+          },
+          "Branches": []
+        },
+        "System.Void LoggerService.LoggerManager::LogDebug(System.String)": {
+          "Lines": {
+            "25": 0,
+            "26": 0,
+            "27": 0
+          },
+          "Branches": []
+        },
+        "System.Void LoggerService.LoggerManager::.ctor()": {
+          "Lines": {
+            "9": 0,
+            "10": 0,
+            "11": 0
+          },
+          "Branches": []
+        },
+        "System.Void LoggerService.LoggerManager::.cctor()": {
+          "Lines": {
+            "8": 0
+          },
+          "Branches": []
+        }
+      }
+    }
+  },
+  "SportsBetsServer.dll": {
+    "C:\\Users\\David\\Documents\\Projects\\SportsBetsAPI\\SportsBetsServer\\Program.cs": {
+      "SportsBetsServer.Program": {
+        "System.Void SportsBetsServer.Program::Main(System.String[])": {
+          "Lines": {
+            "18": 0,
+            "19": 0,
+            "20": 0
+          },
+          "Branches": []
+        },
+        "Microsoft.AspNetCore.Hosting.IWebHostBuilder SportsBetsServer.Program::CreateWebHostBuilder(System.String[])": {
+          "Lines": {
+            "23": 0,
+            "24": 0,
+            "26": 0,
+            "27": 0,
+            "28": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\David\\Documents\\Projects\\SportsBetsAPI\\SportsBetsServer\\Startup.cs": {
+      "SportsBetsServer.StartupDevelopment": {
+        "Microsoft.Extensions.Configuration.IConfiguration SportsBetsServer.StartupDevelopment::get_Configuration()": {
+          "Lines": {
+            "36": 0
+          },
+          "Branches": []
+        },
+        "System.Void SportsBetsServer.StartupDevelopment::Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder)": {
+          "Lines": {
+            "39": 0,
+            "40": 0,
+            "41": 0,
+            "42": 0,
+            "43": 0,
+            "44": 0,
+            "45": 0,
+            "46": 0,
+            "47": 0,
+            "48": 0,
+            "49": 0,
+            "50": 0,
+            "51": 0,
+            "52": 0,
+            "53": 0,
+            "54": 0,
+            "55": 0,
+            "56": 0,
+            "57": 0,
+            "58": 0,
+            "59": 0,
+            "60": 0,
+            "61": 0,
+            "62": 0
+          },
+          "Branches": []
+        },
+        "System.Void SportsBetsServer.StartupDevelopment::ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)": {
+          "Lines": {
+            "65": 0,
+            "66": 0,
+            "67": 0,
+            "68": 0,
+            "69": 0,
+            "70": 0,
+            "71": 0,
+            "72": 0,
+            "73": 0,
+            "74": 0,
+            "75": 0,
+            "76": 0,
+            "77": 0,
+            "78": 0,
+            "79": 0,
+            "80": 0,
+            "81": 0,
+            "82": 0,
+            "83": 0,
+            "84": 0,
+            "85": 0,
+            "86": 0,
+            "87": 0,
+            "88": 0,
+            "89": 0,
+            "90": 0,
+            "91": 0,
+            "92": 0,
+            "93": 0,
+            "94": 0,
+            "95": 0,
+            "96": 0,
+            "97": 0,
+            "98": 0,
+            "99": 0
+          },
+          "Branches": []
+        },
+        "System.Void SportsBetsServer.StartupDevelopment::.ctor(Microsoft.Extensions.Configuration.IConfiguration)": {
+          "Lines": {
+            "31": 0,
+            "32": 0,
+            "33": 0,
+            "34": 0,
+            "35": 0
+          },
+          "Branches": []
+        }
+      },
+      "SportsBetsServer.Startup": {
+        "Microsoft.Extensions.Configuration.IConfiguration SportsBetsServer.Startup::get_Configuration()": {
+          "Lines": {
+            "108": 0
+          },
+          "Branches": []
+        },
+        "System.Void SportsBetsServer.Startup::ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)": {
+          "Lines": {
+            "112": 0,
+            "113": 0,
+            "114": 0,
+            "115": 0,
+            "116": 0
+          },
+          "Branches": []
+        },
+        "System.Void SportsBetsServer.Startup::Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)": {
+          "Lines": {
+            "120": 0,
+            "121": 0,
+            "122": 0,
+            "123": 0,
+            "124": 0,
+            "126": 0,
+            "128": 0,
+            "129": 0,
+            "130": 0,
+            "131": 0,
+            "132": 0,
+            "133": 0,
+            "134": 0,
+            "135": 0,
+            "136": 0,
+            "137": 0,
+            "138": 0
+          },
+          "Branches": [
+            {
+              "Line": 121,
+              "Offset": 9,
+              "EndOffset": 11,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 121,
+              "Offset": 9,
+              "EndOffset": 22,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Void SportsBetsServer.Startup::.ctor(Microsoft.Extensions.Configuration.IConfiguration)": {
+          "Lines": {
+            "103": 0,
+            "104": 0,
+            "105": 0,
+            "106": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\David\\Documents\\Projects\\SportsBetsAPI\\SportsBetsServer\\Services\\AccountService.cs": {
+      "SportsBetsServer.Services.AccountService": {
+        "System.Boolean SportsBetsServer.Services.AccountService::VerifyPassword(System.String,System.String)": {
+          "Lines": {
+            "39": 2,
+            "40": 2,
+            "41": 2,
+            "42": 2,
+            "43": 2
+          },
+          "Branches": []
+        },
+        "System.String SportsBetsServer.Services.AccountService::CreatePasswordHash(System.String)": {
+          "Lines": {
+            "45": 2,
+            "46": 2,
+            "47": 2,
+            "48": 2,
+            "49": 2
+          },
+          "Branches": []
+        },
+        "System.Security.Claims.Claim[] SportsBetsServer.Services.AccountService::GenerateNewUserClaim(SportsBetsServer.Models.Account.User)": {
+          "Lines": {
+            "52": 2,
+            "53": 2,
+            "54": 2,
+            "55": 2,
+            "56": 2,
+            "57": 2,
+            "58": 2
+          },
+          "Branches": []
+        },
+        "SportsBetsServer.Entities.Account SportsBetsServer.Services.AccountService::Authenticate(SportsBetsServer.Models.Account.UserCredentials)": {
+          "Lines": {
+            "60": 0,
+            "61": 0,
+            "62": 0,
+            "63": 0,
+            "64": 0,
+            "66": 0,
+            "67": 0
+          },
+          "Branches": [
+            {
+              "Line": 62,
+              "Offset": 37,
+              "EndOffset": 39,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 62,
+              "Offset": 37,
+              "EndOffset": 44,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        },
+        "SportsBetsServer.Entities.Account SportsBetsServer.Services.AccountService::CreateNewAccount(SportsBetsServer.Models.Account.UserCredentials)": {
+          "Lines": {
+            "84": 0,
+            "85": 0,
+            "86": 0,
+            "87": 0,
+            "88": 0,
+            "89": 0,
+            "90": 0,
+            "91": 0,
+            "92": 0,
+            "93": 0,
+            "94": 0,
+            "95": 0,
+            "96": 0,
+            "97": 0
+          },
+          "Branches": []
+        },
+        "SportsBetsServer.Models.Account.User SportsBetsServer.Services.AccountService::MapAccountToUser(SportsBetsServer.Entities.Account)": {
+          "Lines": {
+            "99": 0,
+            "100": 0,
+            "101": 0
+          },
+          "Branches": []
+        },
+        "SportsBetsServer.Entities.Account SportsBetsServer.Services.AccountService::GetAccountByUsername(System.String)": {
+          "Lines": {
+            "111": 2,
+            "112": 2,
+            "113": 2,
+            "114": 2
+          },
+          "Branches": []
+        },
+        "System.Collections.Generic.List`1<SportsBetsServer.Models.Account.User> SportsBetsServer.Services.AccountService::GetAllUsers()": {
+          "Lines": {
+            "116": 1,
+            "117": 1,
+            "119": 1,
+            "120": 0,
+            "122": 1,
+            "123": 5,
+            "124": 1,
+            "125": 1,
+            "126": 1,
+            "127": 1,
+            "128": 1,
+            "129": 1
+          },
+          "Branches": [
+            {
+              "Line": 119,
+              "Offset": 24,
+              "EndOffset": 26,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 119,
+              "Offset": 24,
+              "EndOffset": 37,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 1
+            },
+            {
+              "Line": 123,
+              "Offset": 95,
+              "EndOffset": 53,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 1
+            },
+            {
+              "Line": 123,
+              "Offset": 95,
+              "EndOffset": 97,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 1
+            }
+          ]
+        },
+        "System.String SportsBetsServer.Services.AccountService::CreateJsonToken(SportsBetsServer.Models.Account.User)": {
+          "Lines": {
+            "141": 1,
+            "142": 1,
+            "144": 1,
+            "145": 1,
+            "146": 1,
+            "147": 1,
+            "148": 1,
+            "149": 1,
+            "150": 1,
+            "151": 1,
+            "152": 1,
+            "154": 1,
+            "156": 1,
+            "158": 1,
+            "159": 1
+          },
+          "Branches": []
+        },
+        "System.Void SportsBetsServer.Services.AccountService::.ctor(SportsBetsServer.Repository.RepositoryContext,AutoMapper.IMapper,LoggerService.ILoggerManager,Microsoft.Extensions.Configuration.IConfiguration)": {
+          "Lines": {
+            "27": 7,
+            "28": 7,
+            "29": 7,
+            "30": 7,
+            "31": 7,
+            "32": 7,
+            "33": 7,
+            "34": 7,
+            "35": 7,
+            "36": 7,
+            "37": 7
+          },
+          "Branches": []
+        }
+      },
+      "SportsBetsServer.Services.AccountService/<RegisterNewAccount>d__9": {
+        "System.Void SportsBetsServer.Services.AccountService/<RegisterNewAccount>d__9::MoveNext()": {
+          "Lines": {
+            "69": 0,
+            "70": 0,
+            "71": 0,
+            "72": 0,
+            "73": 0,
+            "76": 0,
+            "78": 0,
+            "79": 0,
+            "81": 0,
+            "82": 0
+          },
+          "Branches": [
+            {
+              "Line": 71,
+              "Offset": 68,
+              "EndOffset": 70,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 71,
+              "Offset": 68,
+              "EndOffset": 82,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        }
+      },
+      "SportsBetsServer.Services.AccountService/<GetAccountById>d__12": {
+        "System.Void SportsBetsServer.Services.AccountService/<GetAccountById>d__12::MoveNext()": {
+          "Lines": {
+            "103": 1,
+            "104": 1,
+            "106": 1,
+            "108": 1,
+            "109": 1
+          },
+          "Branches": [
+            {
+              "Line": 106,
+              "Offset": 199,
+              "EndOffset": 201,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 1
+            },
+            {
+              "Line": 106,
+              "Offset": 199,
+              "EndOffset": 212,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 106,
+              "Offset": 217,
+              "EndOffset": 219,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 106,
+              "Offset": 217,
+              "EndOffset": 230,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 1
+            }
+          ]
+        }
+      },
+      "SportsBetsServer.Services.AccountService/<DeleteUserById>d__15": {
+        "System.Void SportsBetsServer.Services.AccountService/<DeleteUserById>d__15::MoveNext()": {
+          "Lines": {
+            "131": 0,
+            "132": 0,
+            "134": 0,
+            "135": 0,
+            "136": 0,
+            "137": 0,
+            "138": 0,
+            "139": 0
+          },
+          "Branches": [
+            {
+              "Line": 134,
+              "Offset": 197,
+              "EndOffset": 202,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 134,
+              "Offset": 197,
+              "EndOffset": 348,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        }
+      }
+    },
+    "C:\\Users\\David\\Documents\\Projects\\SportsBetsAPI\\SportsBetsServer\\Services\\WagerService.cs": {
+      "SportsBetsServer.Services.WagerService": {
+        "SportsBetsServer.Entities.Wager SportsBetsServer.Services.WagerService::CreateWager(SportsBetsServer.Entities.Models.Extensions.WagerToCreate)": {
+          "Lines": {
+            "11": 1,
+            "12": 1,
+            "13": 1,
+            "14": 1,
+            "15": 1,
+            "16": 1,
+            "17": 1,
+            "18": 1,
+            "19": 1,
+            "20": 1
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\David\\Documents\\Projects\\SportsBetsAPI\\SportsBetsServer\\Repository\\RepositoryContext.cs": {
+      "SportsBetsServer.Repository.RepositoryContext": {
+        "Microsoft.EntityFrameworkCore.DbSet`1<SportsBetsServer.Entities.Account> SportsBetsServer.Repository.RepositoryContext::get_Account()": {
+          "Lines": {
+            "11": 12
+          },
+          "Branches": []
+        },
+        "Microsoft.EntityFrameworkCore.DbSet`1<SportsBetsServer.Entities.Counter> SportsBetsServer.Repository.RepositoryContext::get_Counter()": {
+          "Lines": {
+            "13": 8
+          },
+          "Branches": []
+        },
+        "System.Void SportsBetsServer.Repository.RepositoryContext::.ctor(Microsoft.EntityFrameworkCore.DbContextOptions)": {
+          "Lines": {
+            "9": 8,
+            "10": 16
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\David\\Documents\\Projects\\SportsBetsAPI\\SportsBetsServer\\Models\\Account\\Role.cs": {
+      "SportsBetsServer.Models.Account.Role": {
+        "System.String SportsBetsServer.Models.Account.Role::get_Title()": {
+          "Lines": {
+            "10": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\David\\Documents\\Projects\\SportsBetsAPI\\SportsBetsServer\\Models\\Account\\User.cs": {
+      "SportsBetsServer.Models.Account.User": {
+        "System.Guid SportsBetsServer.Models.Account.User::get_Id()": {
+          "Lines": {
+            "7": 5
+          },
+          "Branches": []
+        },
+        "System.String SportsBetsServer.Models.Account.User::get_Username()": {
+          "Lines": {
+            "8": 7
+          },
+          "Branches": []
+        },
+        "System.Int32 SportsBetsServer.Models.Account.User::get_AvailableBalance()": {
+          "Lines": {
+            "9": 3
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\David\\Documents\\Projects\\SportsBetsAPI\\SportsBetsServer\\Models\\Account\\UserCredentials.cs": {
+      "SportsBetsServer.Models.Account.UserCredentials": {
+        "System.String SportsBetsServer.Models.Account.UserCredentials::get_Username()": {
+          "Lines": {
+            "8": 0
+          },
+          "Branches": []
+        },
+        "System.String SportsBetsServer.Models.Account.UserCredentials::get_Password()": {
+          "Lines": {
+            "10": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\David\\Documents\\Projects\\SportsBetsAPI\\SportsBetsServer\\Migrations\\20201218185909_InitialCreate.cs": {
+      "SportsBetsServer.Migrations.InitialCreate": {
+        "System.Void SportsBetsServer.Migrations.InitialCreate::Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)": {
+          "Lines": {
+            "9": 0,
+            "10": 0,
+            "11": 0,
+            "12": 0,
+            "13": 0,
+            "14": 0,
+            "15": 0,
+            "16": 0,
+            "17": 0,
+            "18": 0,
+            "19": 0,
+            "20": 0,
+            "21": 0,
+            "22": 0,
+            "23": 0,
+            "24": 0,
+            "25": 0
+          },
+          "Branches": []
+        },
+        "System.Void SportsBetsServer.Migrations.InitialCreate::Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)": {
+          "Lines": {
+            "28": 0,
+            "29": 0,
+            "30": 0,
+            "31": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\David\\Documents\\Projects\\SportsBetsAPI\\SportsBetsServer\\Migrations\\20201218185909_InitialCreate.Designer.cs": {
+      "SportsBetsServer.Migrations.InitialCreate": {
+        "System.Void SportsBetsServer.Migrations.InitialCreate::BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)": {
+          "Lines": {
+            "16": 0,
+            "18": 0,
+            "19": 0,
+            "20": 0,
+            "22": 0,
+            "23": 0,
+            "24": 0,
+            "25": 0,
+            "26": 0,
+            "27": 0,
+            "28": 0,
+            "29": 0,
+            "30": 0,
+            "31": 0,
+            "32": 0,
+            "33": 0,
+            "34": 0,
+            "35": 0,
+            "36": 0,
+            "37": 0,
+            "38": 0,
+            "39": 0,
+            "40": 0,
+            "41": 0,
+            "42": 0,
+            "43": 0,
+            "44": 0,
+            "45": 0,
+            "46": 0,
+            "47": 0,
+            "48": 0,
+            "49": 0,
+            "50": 0,
+            "51": 0,
+            "52": 0,
+            "53": 0,
+            "54": 0,
+            "55": 0,
+            "57": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\David\\Documents\\Projects\\SportsBetsAPI\\SportsBetsServer\\Migrations\\RepositoryContextModelSnapshot.cs": {
+      "SportsBetsServer.Migrations.RepositoryContextModelSnapshot": {
+        "System.Void SportsBetsServer.Migrations.RepositoryContextModelSnapshot::BuildModel(Microsoft.EntityFrameworkCore.ModelBuilder)": {
+          "Lines": {
+            "14": 0,
+            "16": 0,
+            "17": 0,
+            "18": 0,
+            "20": 0,
+            "21": 0,
+            "22": 0,
+            "23": 0,
+            "24": 0,
+            "25": 0,
+            "26": 0,
+            "27": 0,
+            "28": 0,
+            "29": 0,
+            "30": 0,
+            "31": 0,
+            "32": 0,
+            "33": 0,
+            "34": 0,
+            "35": 0,
+            "36": 0,
+            "37": 0,
+            "38": 0,
+            "39": 0,
+            "40": 0,
+            "41": 0,
+            "42": 0,
+            "43": 0,
+            "44": 0,
+            "45": 0,
+            "46": 0,
+            "47": 0,
+            "48": 0,
+            "49": 0,
+            "50": 0,
+            "51": 0,
+            "52": 0,
+            "53": 0,
+            "55": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\David\\Documents\\Projects\\SportsBetsAPI\\SportsBetsServer\\Middleware\\ErrorHandler.cs": {
+      "SportsBetsServer.Middleware.ErrorHandler": {
+        "System.Void SportsBetsServer.Middleware.ErrorHandler::.ctor(Microsoft.AspNetCore.Http.RequestDelegate,LoggerService.ILoggerManager)": {
+          "Lines": {
+            "14": 0,
+            "15": 0,
+            "16": 0,
+            "17": 0,
+            "18": 0
+          },
+          "Branches": []
+        }
+      },
+      "SportsBetsServer.Middleware.ErrorHandler/<Invoke>d__3": {
+        "System.Void SportsBetsServer.Middleware.ErrorHandler/<Invoke>d__3::MoveNext()": {
+          "Lines": {
+            "20": 0,
+            "22": 0,
+            "23": 0,
+            "24": 0,
+            "25": 0,
+            "26": 0,
+            "27": 0,
+            "28": 0,
+            "30": 0,
+            "33": 0,
+            "34": 0,
+            "35": 0,
+            "37": 0,
+            "38": 0,
+            "39": 0,
+            "41": 0,
+            "42": 0,
+            "43": 0,
+            "46": 0,
+            "47": 0,
+            "48": 0,
+            "49": 0
+          },
+          "Branches": [
+            {
+              "Line": 30,
+              "Offset": 271,
+              "EndOffset": 273,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 30,
+              "Offset": 271,
+              "EndOffset": 288,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 33,
+              "Offset": 306,
+              "EndOffset": 308,
+              "Path": 0,
+              "Ordinal": 4,
+              "Hits": 0
+            },
+            {
+              "Line": 33,
+              "Offset": 306,
+              "EndOffset": 312,
+              "Path": 1,
+              "Ordinal": 5,
+              "Hits": 0
+            },
+            {
+              "Line": 33,
+              "Offset": 318,
+              "EndOffset": 320,
+              "Path": 0,
+              "Ordinal": 6,
+              "Hits": 0
+            },
+            {
+              "Line": 33,
+              "Offset": 318,
+              "EndOffset": 326,
+              "Path": 1,
+              "Ordinal": 7,
+              "Hits": 0
+            },
+            {
+              "Line": 30,
+              "Offset": 284,
+              "EndOffset": 351,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            },
+            {
+              "Line": 37,
+              "Offset": 374,
+              "EndOffset": 376,
+              "Path": 0,
+              "Ordinal": 8,
+              "Hits": 0
+            },
+            {
+              "Line": 37,
+              "Offset": 374,
+              "EndOffset": 382,
+              "Path": 1,
+              "Ordinal": 9,
+              "Hits": 0
+            },
+            {
+              "Line": 30,
+              "Offset": 284,
+              "EndOffset": 407,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 41,
+              "Offset": 425,
+              "EndOffset": 427,
+              "Path": 0,
+              "Ordinal": 10,
+              "Hits": 0
+            },
+            {
+              "Line": 41,
+              "Offset": 425,
+              "EndOffset": 431,
+              "Path": 1,
+              "Ordinal": 11,
+              "Hits": 0
+            },
+            {
+              "Line": 41,
+              "Offset": 437,
+              "EndOffset": 439,
+              "Path": 0,
+              "Ordinal": 12,
+              "Hits": 0
+            },
+            {
+              "Line": 41,
+              "Offset": 437,
+              "EndOffset": 445,
+              "Path": 1,
+              "Ordinal": 13,
+              "Hits": 0
+            },
+            {
+              "Line": 46,
+              "Offset": 485,
+              "EndOffset": 487,
+              "Path": 0,
+              "Ordinal": 14,
+              "Hits": 0
+            },
+            {
+              "Line": 46,
+              "Offset": 485,
+              "EndOffset": 491,
+              "Path": 1,
+              "Ordinal": 15,
+              "Hits": 0
+            }
+          ]
+        }
+      }
+    },
+    "C:\\Users\\David\\Documents\\Projects\\SportsBetsAPI\\SportsBetsServer\\Middleware\\JwtMiddleware.cs": {
+      "SportsBetsServer.Middleware.JwtMiddleware": {
+        "System.Void SportsBetsServer.Middleware.JwtMiddleware::.ctor(Microsoft.AspNetCore.Http.RequestDelegate,Microsoft.Extensions.Configuration.IConfiguration)": {
+          "Lines": {
+            "17": 0,
+            "18": 0,
+            "19": 0,
+            "20": 0,
+            "21": 0,
+            "22": 0,
+            "23": 0
+          },
+          "Branches": []
+        }
+      },
+      "SportsBetsServer.Middleware.JwtMiddleware/<Invoke>d__3": {
+        "System.Void SportsBetsServer.Middleware.JwtMiddleware/<Invoke>d__3::MoveNext()": {
+          "Lines": {
+            "25": 0,
+            "26": 0,
+            "28": 0,
+            "29": 0,
+            "31": 0,
+            "32": 0
+          },
+          "Branches": [
+            {
+              "Line": 26,
+              "Offset": 67,
+              "EndOffset": 69,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 26,
+              "Offset": 67,
+              "EndOffset": 73,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 28,
+              "Offset": 105,
+              "EndOffset": 107,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 28,
+              "Offset": 105,
+              "EndOffset": 226,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            }
+          ]
+        }
+      },
+      "SportsBetsServer.Middleware.JwtMiddleware/<>c": {
+        "System.Boolean SportsBetsServer.Middleware.JwtMiddleware/<>c::<AttachTokenToContext>b__4_0(System.Security.Claims.Claim)": {
+          "Lines": {
+            "49": 0
+          },
+          "Branches": []
+        }
+      },
+      "SportsBetsServer.Middleware.JwtMiddleware/<AttachTokenToContext>d__4": {
+        "System.Void SportsBetsServer.Middleware.JwtMiddleware/<AttachTokenToContext>d__4::MoveNext()": {
+          "Lines": {
+            "34": 0,
+            "36": 0,
+            "37": 0,
+            "38": 0,
+            "39": 0,
+            "40": 0,
+            "41": 0,
+            "42": 0,
+            "43": 0,
+            "44": 0,
+            "45": 0,
+            "46": 0,
+            "48": 0,
+            "51": 0,
+            "52": 0,
+            "53": 0,
+            "54": 0,
+            "55": 0,
+            "57": 0
+          },
+          "Branches": [
+            {
+              "Line": 55,
+              "Offset": 511,
+              "EndOffset": 513,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 55,
+              "Offset": 511,
+              "EndOffset": 519,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        }
+      }
+    },
+    "C:\\Users\\David\\Documents\\Projects\\SportsBetsAPI\\SportsBetsServer\\Helpers\\AppException.cs": {
+      "SportsBetsServer.Helpers.AppException": {
+        "System.Void SportsBetsServer.Helpers.AppException::.ctor()": {
+          "Lines": {
+            "8": 0
+          },
+          "Branches": []
+        },
+        "System.Void SportsBetsServer.Helpers.AppException::.ctor(System.String)": {
+          "Lines": {
+            "9": 0
+          },
+          "Branches": []
+        },
+        "System.Void SportsBetsServer.Helpers.AppException::.ctor(System.String,System.Object[])": {
+          "Lines": {
+            "11": 0,
+            "12": 0,
+            "14": 0
+          },
+          "Branches": []
+        }
+      },
+      "SportsBetsServer.Helpers.NotFoundException": {
+        "System.Void SportsBetsServer.Helpers.NotFoundException::.ctor()": {
+          "Lines": {
+            "18": 0
+          },
+          "Branches": []
+        },
+        "System.Void SportsBetsServer.Helpers.NotFoundException::.ctor(System.String)": {
+          "Lines": {
+            "19": 0
+          },
+          "Branches": []
+        },
+        "System.Void SportsBetsServer.Helpers.NotFoundException::.ctor(System.String,System.Object[])": {
+          "Lines": {
+            "21": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\David\\Documents\\Projects\\SportsBetsAPI\\SportsBetsServer\\Helpers\\AutoMapperProfiles.cs": {
+      "SportsBetsServer.Helpers.AutoMapperProfiles": {
+        "System.Void SportsBetsServer.Helpers.AutoMapperProfiles::.ctor()": {
+          "Lines": {
+            "13": 0,
+            "14": 0,
+            "15": 0,
+            "16": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\David\\Documents\\Projects\\SportsBetsAPI\\SportsBetsServer\\Extensions\\ServerExtensions.cs": {
+      "SportsBetsServer.Extensions.ServerExtensions": {
+        "System.Void SportsBetsServer.Extensions.ServerExtensions::ConfigureCors(Microsoft.Extensions.DependencyInjection.IServiceCollection)": {
+          "Lines": {
+            "15": 0,
+            "16": 0,
+            "17": 0,
+            "18": 0,
+            "19": 0,
+            "20": 0,
+            "21": 0,
+            "22": 0,
+            "23": 0
+          },
+          "Branches": []
+        },
+        "System.Void SportsBetsServer.Extensions.ServerExtensions::ConfigureLoggerService(Microsoft.Extensions.DependencyInjection.IServiceCollection)": {
+          "Lines": {
+            "25": 0,
+            "26": 0,
+            "27": 0
+          },
+          "Branches": []
+        },
+        "System.Void SportsBetsServer.Extensions.ServerExtensions::ConfigureAccountService(Microsoft.Extensions.DependencyInjection.IServiceCollection)": {
+          "Lines": {
+            "29": 0,
+            "30": 0,
+            "31": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\David\\Documents\\Projects\\SportsBetsAPI\\SportsBetsServer\\Entities\\Account.cs": {
+      "SportsBetsServer.Entities.Account": {
+        "System.Guid SportsBetsServer.Entities.Account::get_Id()": {
+          "Lines": {
+            "13": 5
+          },
+          "Branches": []
+        },
+        "System.String SportsBetsServer.Entities.Account::get_Username()": {
+          "Lines": {
+            "15": 4
+          },
+          "Branches": []
+        },
+        "System.String SportsBetsServer.Entities.Account::get_HashedPassword()": {
+          "Lines": {
+            "17": 3
+          },
+          "Branches": []
+        },
+        "System.Int32 SportsBetsServer.Entities.Account::get_AvailableBalance()": {
+          "Lines": {
+            "19": 3
+          },
+          "Branches": []
+        },
+        "System.DateTime SportsBetsServer.Entities.Account::get_CreatedAt()": {
+          "Lines": {
+            "21": 3
+          },
+          "Branches": []
+        },
+        "System.DateTime SportsBetsServer.Entities.Account::get_UpdatedAt()": {
+          "Lines": {
+            "23": 3
+          },
+          "Branches": []
+        },
+        "System.DateTime SportsBetsServer.Entities.Account::get_LastLoginAt()": {
+          "Lines": {
+            "25": 3
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\David\\Documents\\Projects\\SportsBetsAPI\\SportsBetsServer\\Entities\\Counter.cs": {
+      "SportsBetsServer.Entities.Counter": {
+        "System.Int32 SportsBetsServer.Entities.Counter::get_Id()": {
+          "Lines": {
+            "15": 0
+          },
+          "Branches": []
+        },
+        "System.Int32 SportsBetsServer.Entities.Counter::get_Count()": {
+          "Lines": {
+            "17": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\David\\Documents\\Projects\\SportsBetsAPI\\SportsBetsServer\\Entities\\RefreshToken.cs": {
+      "SportsBetsServer.Entities.RefreshToken": {
+        "SportsBetsServer.Entities.Account SportsBetsServer.Entities.RefreshToken::get_Account()": {
+          "Lines": {
+            "16": 0
+          },
+          "Branches": []
+        },
+        "System.DateTime SportsBetsServer.Entities.RefreshToken::get_IssuedAt()": {
+          "Lines": {
+            "17": 0
+          },
+          "Branches": []
+        },
+        "System.DateTime SportsBetsServer.Entities.RefreshToken::get_ExpiresAt()": {
+          "Lines": {
+            "18": 0
+          },
+          "Branches": []
+        },
+        "System.String SportsBetsServer.Entities.RefreshToken::get_Token()": {
+          "Lines": {
+            "19": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\David\\Documents\\Projects\\SportsBetsAPI\\SportsBetsServer\\Entities\\Wager.cs": {
+      "SportsBetsServer.Entities.Wager": {
+        "System.Guid SportsBetsServer.Entities.Wager::get_Id()": {
+          "Lines": {
+            "12": 1
+          },
+          "Branches": []
+        },
+        "System.Guid SportsBetsServer.Entities.Wager::get_UserId()": {
+          "Lines": {
+            "15": 1
+          },
+          "Branches": []
+        },
+        "System.DateTime SportsBetsServer.Entities.Wager::get_DateCreated()": {
+          "Lines": {
+            "17": 1
+          },
+          "Branches": []
+        },
+        "SportsBetsServer.Entities.Status SportsBetsServer.Entities.Wager::get_Status()": {
+          "Lines": {
+            "20": 2
+          },
+          "Branches": []
+        },
+        "System.Nullable`1<SportsBetsServer.Entities.Result> SportsBetsServer.Entities.Wager::get_Result()": {
+          "Lines": {
+            "22": 0
+          },
+          "Branches": []
+        },
+        "System.Int32 SportsBetsServer.Entities.Wager::get_Amount()": {
+          "Lines": {
+            "24": 2
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\David\\Documents\\Projects\\SportsBetsAPI\\SportsBetsServer\\Models\\Policy.cs": {
+      "SportsBetsServer.Entities.Models.Policy": {
+        "Microsoft.AspNetCore.Authorization.AuthorizationPolicy SportsBetsServer.Entities.Models.Policy::AdminPolicy()": {
+          "Lines": {
+            "10": 0,
+            "11": 0,
+            "12": 0
+          },
+          "Branches": []
+        },
+        "Microsoft.AspNetCore.Authorization.AuthorizationPolicy SportsBetsServer.Entities.Models.Policy::UserPolicy()": {
+          "Lines": {
+            "14": 0,
+            "15": 0,
+            "16": 0
+          },
+          "Branches": []
+        },
+        "Microsoft.AspNetCore.Authorization.AuthorizationPolicy SportsBetsServer.Entities.Models.Policy::FallBackPolicy()": {
+          "Lines": {
+            "18": 0,
+            "19": 0,
+            "20": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\David\\Documents\\Projects\\SportsBetsAPI\\SportsBetsServer\\Models\\Wager\\WagerToCreate.cs": {
+      "SportsBetsServer.Entities.Models.Extensions.WagerToCreate": {
+        "System.Guid SportsBetsServer.Entities.Models.Extensions.WagerToCreate::get_UserId()": {
+          "Lines": {
+            "7": 2
+          },
+          "Branches": []
+        },
+        "System.Guid SportsBetsServer.Entities.Models.Extensions.WagerToCreate::get_Id()": {
+          "Lines": {
+            "8": 2
+          },
+          "Branches": []
+        },
+        "System.Int32 SportsBetsServer.Entities.Models.Extensions.WagerToCreate::get_Amount()": {
+          "Lines": {
+            "9": 2
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\David\\Documents\\Projects\\SportsBetsAPI\\SportsBetsServer\\Controllers\\AccountController.cs": {
+      "SportsBetsServer.Controllers.AccountController": {
+        "Microsoft.AspNetCore.Mvc.IActionResult SportsBetsServer.Controllers.AccountController::GetAllUsers()": {
+          "Lines": {
+            "25": 0,
+            "26": 0,
+            "27": 0,
+            "28": 0
+          },
+          "Branches": []
+        },
+        "Microsoft.AspNetCore.Mvc.IActionResult SportsBetsServer.Controllers.AccountController::Authenticate(SportsBetsServer.Models.Account.UserCredentials)": {
+          "Lines": {
+            "51": 0,
+            "52": 0,
+            "53": 0,
+            "54": 0,
+            "55": 0,
+            "57": 0,
+            "58": 0,
+            "59": 0,
+            "60": 0
+          },
+          "Branches": [
+            {
+              "Line": 53,
+              "Offset": 20,
+              "EndOffset": 22,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 53,
+              "Offset": 20,
+              "EndOffset": 33,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        },
+        "Microsoft.AspNetCore.Mvc.IActionResult SportsBetsServer.Controllers.AccountController::DeleteUser(System.Guid)": {
+          "Lines": {
+            "75": 0,
+            "76": 0,
+            "77": 0,
+            "78": 0
+          },
+          "Branches": []
+        },
+        "System.Void SportsBetsServer.Controllers.AccountController::.ctor(SportsBetsServer.Contracts.Services.IAccountService)": {
+          "Lines": {
+            "17": 0,
+            "18": 0,
+            "19": 0,
+            "20": 0
+          },
+          "Branches": []
+        }
+      },
+      "SportsBetsServer.Controllers.AccountController/<RegisterAccount>d__3": {
+        "System.Void SportsBetsServer.Controllers.AccountController/<RegisterAccount>d__3::MoveNext()": {
+          "Lines": {
+            "34": 0,
+            "35": 0,
+            "36": 0,
+            "37": 0,
+            "38": 0,
+            "41": 0,
+            "42": 0,
+            "44": 0,
+            "46": 0
+          },
+          "Branches": [
+            {
+              "Line": 36,
+              "Offset": 164,
+              "EndOffset": 166,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 36,
+              "Offset": 164,
+              "EndOffset": 189,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        }
+      },
+      "SportsBetsServer.Controllers.AccountController/<GetUserAvailableBalanceById>d__5": {
+        "System.Void SportsBetsServer.Controllers.AccountController/<GetUserAvailableBalanceById>d__5::MoveNext()": {
+          "Lines": {
+            "65": 0,
+            "66": 0,
+            "67": 0,
+            "68": 0,
+            "69": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\David\\Documents\\Projects\\SportsBetsAPI\\SportsBetsServer\\Controllers\\BaseController.cs": {
+      "SportsBetsServer.Controllers.BaseController": {
+        "SportsBetsServer.Entities.Account SportsBetsServer.Controllers.BaseController::get_Account()": {
+          "Lines": {
+            "10": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\David\\Documents\\Projects\\SportsBetsAPI\\SportsBetsServer\\Controllers\\CounterController.cs": {
+      "SportsBetsServer.Controllers.CounterController": {
+        "Microsoft.AspNetCore.Mvc.IActionResult SportsBetsServer.Controllers.CounterController::GetCount()": {
+          "Lines": {
+            "23": 0,
+            "24": 0,
+            "25": 0,
+            "26": 0
+          },
+          "Branches": []
+        },
+        "Microsoft.AspNetCore.Mvc.IActionResult SportsBetsServer.Controllers.CounterController::Increment()": {
+          "Lines": {
+            "29": 0,
+            "30": 0,
+            "31": 0,
+            "32": 0,
+            "33": 0,
+            "34": 0,
+            "36": 0
+          },
+          "Branches": []
+        },
+        "Microsoft.AspNetCore.Mvc.IActionResult SportsBetsServer.Controllers.CounterController::Decrement()": {
+          "Lines": {
+            "39": 0,
+            "40": 0,
+            "41": 0,
+            "42": 0,
+            "43": 0,
+            "44": 0,
+            "45": 0
+          },
+          "Branches": []
+        },
+        "System.Void SportsBetsServer.Controllers.CounterController::.ctor(SportsBetsServer.Repository.RepositoryContext)": {
+          "Lines": {
+            "16": 0,
+            "17": 0,
+            "18": 0,
+            "19": 0,
+            "20": 0
+          },
+          "Branches": []
+        }
+      }
+    }
+  }
+}
