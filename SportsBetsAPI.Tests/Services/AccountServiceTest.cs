@@ -33,23 +33,20 @@ namespace SportsBetsAPI.Tests.Services
         {
             var mapper = new Mock<IMapper>();
             var logger = new Mock<ILoggerManager>();
-            var config = new Mock<IConfiguration>();
             AccountService sut = new AccountService(
                 SqlDbContext,
                 mapper.Object,
-                logger.Object,
-                config.Object);
+                logger.Object);
 
-            var newAccount = new Account()
-            {
-                Id = Guid.NewGuid(),
-                Username = "test",
-                HashedPassword = "aownecioinmaokm134f1",
-                AvailableBalance = 1,
-                CreatedAt = DateTime.Now,
-                UpdatedAt = DateTime.Now,
-                LastLoginAt = DateTime.Now
-            };
+            var newAccount = new Account(
+                Guid.NewGuid(),
+                "test",
+                "aownecioinmaokm134f1",
+                1,
+                DateTime.Now,
+                DateTime.Now,
+                DateTime.Now)
+            {};
 
             SqlDbContext.Add(newAccount);              
             SqlDbContext.SaveChanges();
@@ -67,26 +64,23 @@ namespace SportsBetsAPI.Tests.Services
         [Fact]
         public void AccountService_GetAllUsers_ReturnsListOfUsers()
         {
-            var newAccount = new Account()
-            {
-                Id = Guid.NewGuid(),
-                Username = "test",
-                HashedPassword = "aownecioinmaokm134f1",
-                AvailableBalance = 1,
-                CreatedAt = DateTime.Now,
-                UpdatedAt = DateTime.Now,
-                LastLoginAt = DateTime.Now
-            };
+            var newAccount = new Account(
+                Guid.NewGuid(),
+                "test",
+                "aownecioinmaokm134f1",
+                1,
+                DateTime.Now,
+                DateTime.Now,
+                DateTime.Now)
+            { };
             var mapper = new Mock<IMapper>();
-            mapper.Setup(x => x.Map<User>(newAccount))
-                .Returns(new User { Id = Guid.NewGuid(), Username = "test", AvailableBalance = 1 });
+            mapper.Setup(x => x.Map<AccountResponseDTO>(newAccount))
+                .Returns(new AccountResponseDTO { Id = Guid.NewGuid(), Username = "test", AvailableBalance = 1 });
             var logger = new Mock<ILoggerManager>();
-            var config = new Mock<IConfiguration>();
             AccountService sut = new AccountService(
                 SqlDbContext,
                 mapper.Object,
-                logger.Object,
-                config.Object);
+                logger.Object);
 
             SqlDbContext.Add(newAccount);
             SqlDbContext.SaveChanges();
@@ -101,24 +95,21 @@ namespace SportsBetsAPI.Tests.Services
         public async Task AccountService_GetAccountById_ReturnsAccountOrException()
         {
             var accountId = Guid.NewGuid();
-            var newAccount = new Account()
-            {
-                Id = accountId,
-                Username = "test",
-                HashedPassword = "aownecioinmaokm134f1",
-                AvailableBalance = 1,
-                CreatedAt = DateTime.Now,
-                UpdatedAt = DateTime.Now,
-                LastLoginAt = DateTime.Now
-            };
+            var newAccount = new Account(
+                accountId,
+                "test",
+                "aownecioinmaokm134f1",
+                1,
+                DateTime.Now,
+                DateTime.Now,
+                DateTime.Now)
+            { };
             var mapper = new Mock<IMapper>();
             var logger = new Mock<ILoggerManager>();
-            var config = new Mock<IConfiguration>();
             AccountService sut = new AccountService(
                 SqlDbContext,
                 mapper.Object,
-                logger.Object,
-                config.Object);
+                logger.Object);
 
             SqlDbContext.Add(newAccount);
             SqlDbContext.SaveChanges();
@@ -131,19 +122,16 @@ namespace SportsBetsAPI.Tests.Services
             //var ex = await Assert.ThrowsAsync<NotFoundException>(() => sut.GetAccountById(Guid.NewGuid()));
 
             //Assert.IsType<NotFoundException>(ex);
-
         }
         [Fact]
         public void AccountService_CreatePasswordHash_ReturnsHashedPassword()
         {
             var mapper = new Mock<IMapper>();
             var logger = new Mock<ILoggerManager>();
-            var config = new Mock<IConfiguration>();
             AccountService sut = new AccountService(
                 SqlDbContext,
                 mapper.Object,
-                logger.Object,
-                config.Object);
+                logger.Object);
 
             string password = "password";
             string hashedPassword = sut.CreatePasswordHash(password);
@@ -155,13 +143,10 @@ namespace SportsBetsAPI.Tests.Services
         {
             var mapper = new Mock<IMapper>();
             var logger = new Mock<ILoggerManager>();
-            var config = new Mock<IConfiguration>();
-
             AccountService sut = new AccountService(
                 SqlDbContext,
                 mapper.Object,
-                logger.Object,
-                config.Object);
+                logger.Object);
 
             string password = "password";
             string hashedPassword = sut.CreatePasswordHash(password);
@@ -172,60 +157,7 @@ namespace SportsBetsAPI.Tests.Services
             password = "wrong";
             result = sut.VerifyPassword(password, hashedPassword);
 
-            Assert.False(result);
-            
-        }
-        [Fact]
-        public void AccountService_CreateJsonTokenTest()
-        {
-            User user = new User
-            {
-                Id = Guid.NewGuid(),
-                Username = "Tester",
-                AvailableBalance = 100,
-            };
-            var mapper = new Mock<IMapper>();
-            var logger = new Mock<ILoggerManager>();
-            var configSection = new Mock<IConfigurationSection>();
-            configSection.Setup(x => x.Value).Returns("xecretKeywqe239901");
-            var config = new Mock<IConfiguration>();
-            config.Setup(x => x.GetSection("AppSettings:Token")).Returns(configSection.Object);
-            config.Setup(x => x.GetSection("Jwt:Issuer")).Returns(configSection.Object);
-            config.Setup(x => x.GetSection("Jwt:Audience")).Returns(configSection.Object);
-
-            AccountService sut = new AccountService(
-                SqlDbContext,
-                mapper.Object,
-                logger.Object,
-                config.Object);
-
-            var token = sut.CreateJsonToken(user);
-
-            Assert.NotNull(token);
-
-        }
-        [Fact]
-        public void AccountService_GenerateNewUserClaim()
-        {
-            User user = new User
-            {
-                Id = Guid.NewGuid(),
-                Username = "Tester",
-                AvailableBalance = 100,
-            };
-            var mapper = new Mock<IMapper>();
-            var logger = new Mock<ILoggerManager>();
-            var config = new Mock<IConfiguration>();
-
-            AccountService sut = new AccountService(
-                SqlDbContext,
-                mapper.Object,
-                logger.Object,
-                config.Object);
-
-            Claim[] claims = sut.GenerateNewUserClaim(user);
-
-            Assert.NotNull(claims);
+            Assert.False(result);           
         }
     }
 }
