@@ -14,7 +14,6 @@ namespace SportsBetsServer.Entities
     {
         [Key]
         public Account Account { get; set; }
-        public DateTime IssuedAt { get; set; }
         public DateTime ExpiresAt { get; set; }
         public string Token { get; set; }
     }

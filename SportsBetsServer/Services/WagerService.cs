@@ -12,7 +12,7 @@ namespace SportsBetsServer.Services
             return new Wager 
             {                
                 Id = wager.Id,
-                UserId = wager.UserId,
+                AccountId = wager.Id,
                 DateCreated = DateTime.Now,
                 Status = Status.open,
                 Amount = wager.Amount,

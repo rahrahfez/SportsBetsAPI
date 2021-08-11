@@ -10,9 +10,9 @@ namespace SportsBetsServer.Entities
         [Key]
         [Column("wager")]
         public Guid Id { get; set; }
-        [ForeignKey("UserId")]
-        [Column("user")]
-        public Guid UserId { get; set; }
+        [ForeignKey("AccountId")]
+        [Column("account")]
+        public Guid AccountId { get; set; }
         [Column("date_created")]
         public DateTime DateCreated { get; set; }
         [Required(ErrorMessage="Status is required.")]

@@ -28,6 +28,10 @@ namespace SportsBetsServer.Extensions
         public static void ConfigureAccountService(this IServiceCollection services)
         {
             services.AddScoped<IAccountService, AccountService>();
-        }         
+        }    
+        public static void ConfigureTokenService(this IServiceCollection services)
+        {
+            services.AddScoped<ITokenService, TokenService>();
+        }
     }
 }

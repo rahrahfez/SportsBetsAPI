@@ -12,7 +12,7 @@ namespace SportsBetsServer.Helpers
     {
         public AutoMapperProfiles()
         {
-            CreateMap<Account, User>();
+            CreateMap<Account, AccountResponseDTO>();
         }           
     }
 }

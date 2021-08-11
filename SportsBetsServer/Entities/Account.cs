@@ -10,29 +10,43 @@ namespace SportsBetsServer.Entities
     {
         [Key]
         [Column("id")]
-        public Guid Id { get; set; }
+        public Guid Id { get; private set; }
         [Column("username")]
-        public string Username { get; set; }
+        public string Username { get; private set; }
         [Column("password_hash")]
-        public string HashedPassword { get; set; }
-        [Column("available_balance")]
-        public int AvailableBalance { get; set; } 
+        public string HashedPassword { get; private set; }
         [Column("created_at")]
-        public DateTime CreatedAt { get; set; }
+        public DateTime CreatedAt { get; private set; }
         [Column("updated_at")]
         public DateTime UpdatedAt { get; set; }
         [Column("last_login")]
         public DateTime LastLoginAt { get; set; }
-        //[Column("role")]
-        //public Role Role { get; set; }
-        //[Column("refresh_token")]
-        //public IList<RefreshToken> RefreshToken { get; set; }
-    }
+        [Column("available_balance")]
+        public int AvailableBalance { get; set; } 
+        [Column("refresh_token")]
+        public string RefreshToken { get; set; }
+        [Column("wagers")]
+        public ICollection<Wager> Wagers { get; private set; }
+        private Account() { }
+        public Account(
+            Guid id,
+            string username,
+            string hashedPassword,
+            int availableBalance,
+            DateTime createdAt,
+            DateTime updatedAt,
+            DateTime lastLogin)
+        {
+            Id = id;
+            Username = username;
+            HashedPassword = hashedPassword;
+            AvailableBalance = availableBalance;
+            CreatedAt = createdAt;
+            UpdatedAt = updatedAt;
+            LastLoginAt = lastLogin;
 
-    public enum Role
-    {
-        Admin,
-        User
+            Wagers = new HashSet<Wager>();
+        }
     }
 }
 

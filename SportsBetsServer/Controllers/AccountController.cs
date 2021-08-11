@@ -14,9 +14,11 @@ namespace SportsBetsServer.Controllers
     public class AccountController : BaseController
     {
         private readonly IAccountService _accountService;
-        public AccountController(IAccountService accountService)
+        private readonly ITokenService _tokenService;
+        public AccountController(IAccountService accountService, ITokenService tokenService)
         {
             _accountService = accountService;
+            _tokenService = tokenService;
         }
         [HttpGet, Authorize]
         [ProducesResponseType(200)]
@@ -30,7 +32,7 @@ namespace SportsBetsServer.Controllers
         [ProducesResponseType(201)]
         [ProducesResponseType(500)]
         [ProducesResponseType(400)]
-        public async Task<IActionResult> RegisterAccount([FromBody]UserCredentials userCredentials)
+        public async Task<IActionResult> RegisterAccount([FromBody]AccountRequestDTO userCredentials)
         {
             var account = await _accountService.RegisterNewAccount(userCredentials);
             if (account == null)
@@ -39,7 +41,7 @@ namespace SportsBetsServer.Controllers
             }
 
             var user = _accountService.MapAccountToUser(account);
-            var token = _accountService.CreateJsonToken(user);
+            var token = _tokenService.CreateAccessToken(user);
 
             return CreatedAtRoute(routeName: "UserById", routeValues: new { id = user.Id }, value: token);               
 
@@ -47,16 +49,23 @@ namespace SportsBetsServer.Controllers
         [HttpPost("authenticate")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
-        public IActionResult Authenticate([FromBody] UserCredentials userCredentials)
+        public IActionResult Authenticate([FromBody]AccountRequestDTO userCredentials)
         {
-            var account = _accountService.Authenticate(userCredentials);
-            if (account == null)
+            //var account = _accountService.Authenticate(userCredentials);
+            //if (account == null)
+            //{
+            //    return Unauthorized();
+            //}
+            //var authenticatedUser = _accountService.MapAccountToUser(account);
+            var account = new AccountResponseDTO(Guid.NewGuid(), "test", 100);
+            var token = _tokenService.CreateAccessToken(account);
+            var refreshToken = _tokenService.CreateRefreshToken();
+            return Ok(new
             {
-                return Unauthorized();
-            }
-            var authenticatedUser = _accountService.MapAccountToUser(account);
-            var token = _accountService.CreateJsonToken(authenticatedUser);
-            return Ok(token);
+                account,
+                refreshToken,
+                token
+            });
         }
         [HttpGet("{id}/balance"), Authorize]
         [ProducesResponseType(200)]

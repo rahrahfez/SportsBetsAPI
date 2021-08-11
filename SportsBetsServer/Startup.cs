@@ -66,6 +66,7 @@ namespace SportsBetsServer
             services.ConfigureCors();
             services.ConfigureLoggerService();
             services.ConfigureAccountService();
+            services.ConfigureTokenService();
             services.AddDbContext<RepositoryContext>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString("postgresql_connection_string")));
             services.AddAuthentication(opt =>
