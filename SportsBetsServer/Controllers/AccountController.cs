@@ -58,6 +58,7 @@ namespace SportsBetsServer.Controllers
             //}
             //var authenticatedUser = _accountService.MapAccountToUser(account);
             var account = new AccountResponseDTO(Guid.NewGuid(), "test", 100);
+
             var token = _tokenService.CreateAccessToken(account);
             var refreshToken = _tokenService.CreateRefreshToken();
             return Ok(new

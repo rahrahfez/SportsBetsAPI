@@ -25,6 +25,8 @@ namespace SportsBetsServer.Entities
         public int AvailableBalance { get; set; } 
         [Column("refresh_token")]
         public string RefreshToken { get; set; }
+        [Column("refresh_token_expiry")]
+        public DateTime RefreshTokenExpiry { get; set; }
         [Column("wagers")]
         public ICollection<Wager> Wagers { get; private set; }
         private Account() { }

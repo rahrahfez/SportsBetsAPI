@@ -13,8 +13,8 @@ namespace SportsBetsServer.Entities
     public class RefreshToken
     {
         [Key]
-        public Account Account { get; set; }
-        public DateTime ExpiresAt { get; set; }
-        public string Token { get; set; }
+        public Account Account { get; private set; }
+        public DateTime ExpiresAt { get; private set; }
+        public string Token { get; private set; }
     }
 }
