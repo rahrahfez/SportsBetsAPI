@@ -10,12 +10,13 @@ namespace SportsBetsServer.Models.Account
         public int AvailableBalance { get; set; }
         public string RefreshToken { get; set; }
         public DateTime RefreshTokenExpiry { get; set; }
+
         private AccountResponseDTO() { }
-        public AccountResponseDTO(Guid id, string username, int available_balance)
+        public AccountResponseDTO(Guid id, string username, int availableBalance)
         {
             Id = id;
             Username = username;
-            AvailableBalance = available_balance;
+            AvailableBalance = availableBalance;
         }
     }
 }

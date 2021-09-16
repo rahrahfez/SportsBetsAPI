@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using AutoMapper;
-using LoggerService;
+//using LoggerService;
 using Scrypt;
 using SportsBetsServer.Repository;
 using SportsBetsServer.Entities;
@@ -18,14 +18,11 @@ namespace SportsBetsServer.Services
         private readonly RepositoryContext _context;
 
         private readonly IMapper _mapper;
-        private readonly ILoggerManager _logger;
         public AccountService(
             RepositoryContext context,
-            IMapper mapper,
-            ILoggerManager logger) 
+            IMapper mapper) 
         {
             _mapper = mapper;
-            _logger = logger;
             _context = context;
         }
         public bool VerifyPassword(string password, string hashedPassword)
@@ -78,7 +75,6 @@ namespace SportsBetsServer.Services
                 DateTime.Now, 
                 DateTime.Now)
             {};
-            _logger.LogInfo($"New account { newAccount.Username }, created at { newAccount.CreatedAt }.");
             return newAccount;
         }
         public AccountResponseDTO MapAccountToUser(Account account)

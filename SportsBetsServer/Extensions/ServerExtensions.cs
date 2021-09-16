@@ -1,7 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
-using LoggerService;
+//using LoggerService;
 using SportsBetsServer.Contracts.Services;
 using SportsBetsServer.Entities;
 using SportsBetsServer.Repository;
@@ -21,10 +21,10 @@ namespace SportsBetsServer.Extensions
                     .AllowAnyMethod());
             });
         }
-        public static void ConfigureLoggerService(this IServiceCollection services)
-        {
-            services.AddSingleton<ILoggerManager, LoggerManager>();
-        }
+        //public static void ConfigureLoggerService(this IServiceCollection services)
+        //{
+        //    services.AddSingleton<ILoggerManager, LoggerManager>();
+        //}
         public static void ConfigureAccountService(this IServiceCollection services)
         {
             services.AddScoped<IAccountService, AccountService>();

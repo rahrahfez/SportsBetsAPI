@@ -26,11 +26,10 @@ using System.Text;
 
 namespace SportsBetsServer
 {
-    public class StartupDevelopment
+    public class Startup
     {
-        public StartupDevelopment(IConfiguration configuration)
+        public Startup(IConfiguration configuration)
         {
-            LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
             Configuration = configuration;
         }
         public IConfiguration Configuration { get; }
@@ -64,7 +63,6 @@ namespace SportsBetsServer
         public void ConfigureServices(IServiceCollection services)
         {
             services.ConfigureCors();
-            services.ConfigureLoggerService();
             services.ConfigureAccountService();
             services.ConfigureTokenService();
             services.AddDbContext<RepositoryContext>(options =>
@@ -99,43 +97,43 @@ namespace SportsBetsServer
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
     }
-    public class Startup
-    {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
+    //public class Startup
+    //{
+    //    public Startup(IConfiguration configuration)
+    //    {
+    //        Configuration = configuration;
+    //    }
 
-        public IConfiguration Configuration { get; }
+    //    public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
-        {
-            services.ConfigureCors();
-            services.ConfigureAccountService();
-            services.AddDbContext<RepositoryContext>();
-        }
+    //    // This method gets called by the runtime. Use this method to add services to the container.
+    //    public void ConfigureServices(IServiceCollection services)
+    //    {
+    //        services.ConfigureCors();
+    //        services.ConfigureAccountService();
+    //        services.AddDbContext<RepositoryContext>();
+    //    }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
-            app.UseCors("CorsPolicy");
-            app.UseForwardedHeaders(new ForwardedHeadersOptions
-            {
-                ForwardedHeaders = ForwardedHeaders.All
-            });
-            app.UseStaticFiles();
-            app.UseAuthentication();
-            app.UseAuthorization();
-        }
-    }
+    //    // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+    //    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    //    {
+    //        if (env.IsDevelopment())
+    //        {
+    //            app.UseDeveloperExceptionPage();
+    //        }
+    //        else
+    //        {
+    //            // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    //            app.UseHsts();
+    //        }
+    //        app.UseCors("CorsPolicy");
+    //        app.UseForwardedHeaders(new ForwardedHeadersOptions
+    //        {
+    //            ForwardedHeaders = ForwardedHeaders.All
+    //        });
+    //        app.UseStaticFiles();
+    //        app.UseAuthentication();
+    //        app.UseAuthorization();
+    //    }
+    //}
 }

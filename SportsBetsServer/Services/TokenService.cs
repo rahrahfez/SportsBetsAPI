@@ -17,21 +17,17 @@ namespace SportsBetsServer.Services
         {
             _config = config;
         }
-        public Claim[] GenerateNewUserClaim(AccountResponseDTO user)
-        {
-            return new[]
-            {
-                new Claim("Id", user.Id.ToString()),
-                new Claim("Username", user.Username)
-            };
-        }
         public string CreateAccessToken(AccountResponseDTO user)
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetSection("AppSettings:Token").Value));
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(GenerateNewUserClaim(user)),
+                Subject = new ClaimsIdentity(new Claim[]
+                {
+                    new Claim("Id", user.Id.ToString()),
+                    new Claim("Username", user.Username)
+                }),
                 NotBefore = DateTime.UtcNow,
                 Expires = DateTime.UtcNow.AddMinutes(5),
                 SigningCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature),
@@ -53,6 +49,10 @@ namespace SportsBetsServer.Services
                 rng.GetBytes(rand);
                 return Convert.ToBase64String(rand);
             }
+        }
+        public ClaimsPrincipal GetClaimPrincipalFromToken(string token)
+        {
+            throw new NotImplementedException();
         }
     }
 }
